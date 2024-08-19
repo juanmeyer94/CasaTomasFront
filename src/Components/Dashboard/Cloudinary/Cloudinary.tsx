@@ -7,7 +7,7 @@ export const uploadFilesToCloudinary = async (files: File[]) => {
   });
 
   try {
-    const response = await axios.post('http://localhost:3001/api/cloudinary', formData, {
+    const response = await axios.post('https://casa-tomas-api.onrender.com/api/cloudinary', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -26,7 +26,7 @@ export const uploadFileToCloudinary = async (file: File) => {
   formData.append('image', file); 
 
   try {
-    const response = await axios.post('http://localhost:3001/api/cloudinary', formData, {
+    const response = await axios.post('https://casa-tomas-api.onrender.com/api/cloudinary', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
