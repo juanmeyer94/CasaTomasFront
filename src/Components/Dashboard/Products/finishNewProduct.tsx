@@ -117,10 +117,7 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
     }
   };
 
-  const showProduct = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    console.log(newProduct);
-  };
+
 
   return (
     <div className="col-span-12 flex h-screen ">
@@ -347,9 +344,6 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
                 Enviar
               </button>
             </form>
-            <button onClick={showProduct} className="px-4 py-2 bg-blue-500 text-white rounded">
-  Test
-</button>
           </div>
         </div>
       </div>

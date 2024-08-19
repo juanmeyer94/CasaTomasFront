@@ -75,7 +75,6 @@ export const AdminContextProvider: React.FC<{ children: ReactNode }> = ({
       dispatch({ type: "GET_ORDERS", payload: response?.data });
     } catch (error) {
       console.error(error);
-      console.log(error)
     }
   }
 

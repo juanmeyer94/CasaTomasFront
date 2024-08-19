@@ -12,7 +12,6 @@ export const uploadFilesToCloudinary = async (files: File[]) => {
         'Content-Type': 'multipart/form-data'
       }
     });
-    console.log(response.data.url, "response data");
     return response.data.url; 
   } catch (error) {
     console.error("Error uploading files:", error);

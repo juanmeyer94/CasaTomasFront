@@ -28,7 +28,6 @@ const ContactPage: React.FC = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     sendContact(contactMessage);
-    console.log(contactMessage)
     Swal.fire({
       title: "Mensaje enviado",
       text: "Gracias por contactarnos. Nos comunicaremos contigo a la brevedad.",

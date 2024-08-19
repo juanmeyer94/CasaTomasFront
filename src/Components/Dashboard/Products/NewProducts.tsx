@@ -363,20 +363,14 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
   };
 
   const handleRemoveImage = (index: number) => {
-    console.log("Índice de la imagen recibido:", index);
 
     setNewProduct((prevState) => {
-      console.log("Estado anterior:", prevState);
 
       const updatedItems = prevState.data.items.map((item) => {
-        console.log("Imágenes antes de eliminar:", item.photo);
 
         const updatedPhotos = item.photo.filter(
           (_, imgIndex) => imgIndex != index
         );
-
-        console.log("Imágenes después de eliminar:", updatedPhotos);
-
         return {
           ...item,
           photo: updatedPhotos,

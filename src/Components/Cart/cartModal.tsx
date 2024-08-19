@@ -13,8 +13,6 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
     useUserContext();
   const navigate = useNavigate();
 
-  console.log(cart)
-
   // Función para combinar cantidades de los mismos productos
   const mergeQuantities = (items: CartItem[]): CartItem[] => {
     const map: Record<string, CartItem> = {};
