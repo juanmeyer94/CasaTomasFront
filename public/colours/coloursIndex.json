@@ -1,0 +1,193 @@
+[
+    {
+      "id": 1,
+      "name": "Coral",
+      "path": "/colours/coral.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Amarillo limon",
+      "path": "/colours/amarillo-limon.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Aqua",
+      "path": "/colours/Aqua.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Azul francia",
+      "path": "/colours/azul-francia.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Azul marino",
+      "path": "/colours/azul-marino.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Beige",
+      "path": "/colours/beige.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Blanco",
+      "path": "/colours/blanco.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Bordo",
+      "path": "/colours/bordo.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Celeste",
+      "path": "/colours/celeste.jpg"
+    },
+    {
+      "id": 10,
+      "name": "Celeste bandera",
+      "path": "/colours/celeste-bandera.jpg"
+    },
+    {
+      "id": 11,
+      "name": "Celeste bebe",
+      "path": "/colours/celeste-bebe.jpg"
+    },
+    {
+      "id": 12,
+      "name": "Dorado",
+      "path": "/colours/dorado.jpg"
+    },
+    {
+      "id": 13,
+      "name": "Fucsia",
+      "path": "/colours/fucsia.jpg"
+    },
+    {
+      "id": 14,
+      "name": "Gris medio",
+      "path": "/colours/gris-medio.jpg"
+    },
+    {
+      "id": 15,
+      "name": "Gris perla",
+      "path": "/colours/gris-perla.jpg"
+    },
+    {
+      "id": 16,
+      "name": "Gris topo",
+      "path": "/colours/gris-topo.jpg"
+    },
+    {
+      "id": 17,
+      "name": "Habano",
+      "path": "/colours/habano.jpg"
+    },
+    {
+      "id": 18,
+      "name": "Lila",
+      "path": "/colours/lila.jpg"
+    },
+    {
+      "id": 19,
+      "name": "Marron oscuro",
+      "path": "/colours/marron-oscuro.jpg"
+    },
+    {
+      "id": 20,
+      "name": "Marron",
+      "path": "/colours/marron.jpg"
+    },
+    {
+      "id": 21,
+      "name": "Mostaza",
+      "path": "/colours/mostaza.jpg"
+    },
+    {
+      "id": 22,
+      "name": "Naranja",
+      "path": "/colours/naranja.jpg"
+    },
+    {
+      "id": 23,
+      "name": "Natural",
+      "path": "/colours/natural.jpg"
+    },
+    {
+      "id": 24,
+      "name": "Negro",
+      "path": "/colours/negro.jpg"
+    },
+    {
+      "id": 25,
+      "name": "Plata",
+      "path": "/colours/plata.jpg"
+    },
+    {
+      "id": 26,
+      "name": "Plateado",
+      "path": "/colours/plateado.jpg"
+    },
+    {
+      "id": 27,
+      "name": "Rosa dior",
+      "path": "/colours/rosa-dior.jpg"
+    },
+    {
+      "id": 28,
+      "name": "Rosa viejo",
+      "path": "/colours/rosa-viejo.jpg"
+    },
+    {
+      "id": 29,
+      "name": "Rosa",
+      "path": "/colours/rosa.jpg"
+    },
+    {
+      "id": 30,
+      "name": "Salmon",
+      "path": "/colours/salmon.jpg"
+    },
+    {
+      "id": 31,
+      "name": "Turquesa",
+      "path": "/colours/turquesa.jpg"
+    },
+    {
+      "id": 32,
+      "name": "Verde",
+      "path": "/colours/verde-bandera.jpg"
+    },
+    {
+      "id": 33,
+      "name": "Verde claro",
+      "path": "/colours/verde-claro.jpg"
+    },
+    {
+      "id": 34,
+      "name": "Verde oscuro",
+      "path": "/colours/verde-oscuro.jpg"
+    },
+    {
+      "id": 35,
+      "name": "Verde musgo",
+      "path": "/colours/verde-musgo.jpg"
+    },
+    {
+      "id": 36,
+      "name": "Verde manzana",
+      "path": "/colours/verde-manzana.jpg"
+    },
+    {
+      "id": 37,
+      "name": "Verde brillante",
+      "path": "/colours/verde-brillante.jpg"
+    },
+    {
+      "id": 38,
+      "name": "Rojo",
+      "path": "/colours/rojo.jpg"
+    }
+  ]
+  
