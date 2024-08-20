@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { ArchiveBoxIcon, PencilSquareIcon } from "@heroicons/react/16/solid";
 import useAdminContext from "../../../../Utils/contextAdminHook";
+import useUserContext from "../../../../Utils/contextUserHook";
 
 const formatPrice = (price: number) => {
   return new Intl.NumberFormat("es-AR", {
@@ -33,6 +34,7 @@ const AdminCard: React.FC<AdminCardProps> = ({
   const formattedPrice = formatPrice(toNumberPrice);
   const navigate = useNavigate();
   const { handleDeleteProduct } = useAdminContext();
+  const {getAllItems} = useUserContext();
 
   const handleDelete = () => {
     Swal.fire({
@@ -48,6 +50,7 @@ const AdminCard: React.FC<AdminCardProps> = ({
       if (result.isConfirmed) {
         // Aquí llamarías a la función para eliminar el producto
         handleDeleteProduct(_id)
+        getAllItems();
         Swal.fire("Eliminado!", "Tu producto ha sido eliminado.", "success");
       }
     });

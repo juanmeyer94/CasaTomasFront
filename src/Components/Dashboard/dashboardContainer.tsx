@@ -113,7 +113,7 @@ const DashContainer = () => {
           </button>
         </nav>
        <div className=''>
-        <img src="/LOGO.png" alt="" className='absolute bottom-4 h-[20%] ml-8' />
+        <img src="/LOGO.png" alt="" className='absolute bottom-4 h-[10%] ml-8' />
        </div>
       </div>
 
