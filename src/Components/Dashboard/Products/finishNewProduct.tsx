@@ -83,6 +83,22 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
     }));
   };
 
+  const handleChangeTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setNewProduct(prev => ({
+      ...prev,
+      data: {
+        ...prev.data,
+        items: [
+          {
+            ...prev.data.items[0],
+            [name]: value,
+          },
+        ],
+      },
+    }));
+  };
+
   const handleOffer = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
     const isOffer = value === "Si";
@@ -166,6 +182,7 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
                 className="bg-sky-200 text-gray-800 font-semibold border-0 rounded-md p-2 mb-4 focus:bg-sky-100 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                 name="description"
                 value={newProduct.data.items[0].description}
+                onChange={handleChangeTextArea}
               ></textarea>
 
               {/* has or not */}

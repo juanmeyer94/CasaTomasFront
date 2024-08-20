@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import GeneralContainer from "./Components/Containers/generalContainer";
-import { LayoutWithNavBarAndFooter, LayoutWithoutNavBarAndFooter } from './Components/Layaouts/Layaouts';
+import { LayoutWithNavBarAndFooter, LayoutWithoutNavBarAndFooter, LayoutWithNavBar } from './Components/Layaouts/Layaouts';
 import AboutUs from './Components/AboutUs/aboutUs';
 import ContactPage from './Components/Contact/Contact';
 import ProductDetail from './Components/Card/moreInfoCard';
@@ -34,9 +34,9 @@ function App() {
           path="/contact"
           element={
             <UserContextProvider>
-              <LayoutWithNavBarAndFooter>
+              <LayoutWithNavBar>
                 <ContactPage />
-              </LayoutWithNavBarAndFooter>
+              </LayoutWithNavBar>
             </UserContextProvider>
           }
         />
@@ -44,9 +44,9 @@ function App() {
           path="/aboutUs"
           element={
             <UserContextProvider>
-              <LayoutWithNavBarAndFooter>
+              <LayoutWithNavBar>
                 <AboutUs />
-              </LayoutWithNavBarAndFooter>
+              </LayoutWithNavBar>
             </UserContextProvider>
           }
         />
@@ -64,9 +64,9 @@ function App() {
           path="/cart"
           element={
             <UserContextProvider>
-              <LayoutWithNavBarAndFooter>
+              <LayoutWithNavBar>
                 <BuyCart />
-              </LayoutWithNavBarAndFooter>
+              </LayoutWithNavBar>
             </UserContextProvider>
           }
         />
@@ -74,9 +74,9 @@ function App() {
           path='/howToBuy'
           element={
             <UserContextProvider>
-              <LayoutWithNavBarAndFooter>
+              <LayoutWithNavBar>
                 <HowToBuy />
-              </LayoutWithNavBarAndFooter>
+              </LayoutWithNavBar>
             </UserContextProvider>
           }
         />
@@ -110,6 +110,10 @@ function App() {
           </UserContextProvider>
           </AdminContextProvider>
         } />
+          <Route
+        path="*"
+        element={<Navigate to="/" replace />}
+      />
       </Routes>
     </Router>
   );
