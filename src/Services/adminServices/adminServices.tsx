@@ -47,7 +47,7 @@ export const newItem = async (data: NewProductState) => {
   }
 };
 
-export const deleteItemById = async (id: number) => {
+export const deleteItemById = async (id: string) => {
   try {
     const response = await axios.delete(`/items/${id}`);
     return response;

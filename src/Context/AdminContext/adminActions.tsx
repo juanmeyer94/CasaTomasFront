@@ -6,7 +6,7 @@ import {
   ReactNode,
   useEffect,
 } from "react";
-import { getAllOrders, createOrderToApi, updateOrderStatus, getOrderById } from "../../Services/adminServices/adminServices";
+import { getAllOrders, createOrderToApi, updateOrderStatus, getOrderById, deleteItemById } from "../../Services/adminServices/adminServices";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../Services/adminServices/adminServices";
@@ -28,6 +28,7 @@ export interface AdmContextInterface {
   errors: string;
   orders: Order[];
   allUsers: any[];
+  handleDeleteProduct: (orderId: string) => void;
 }
 
 
@@ -69,6 +70,8 @@ export const AdminContextProvider: React.FC<{ children: ReactNode }> = ({
     navigate("/");
   };
 
+
+  //orders crud
   const getOrders = async () => {
     try {
       const response = await getAllOrders();
@@ -118,6 +121,19 @@ export const AdminContextProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
   
+  //products admin crud
+
+  const handleDeleteProduct = async (orderId: string) => {
+    try {
+      const response = await deleteItemById(orderId);
+      return {data: response}
+    } catch (error) {
+      console.error(error);
+      setErrors(`Error al eliminar el producto: ${error}`)
+        throw new Error("No se pudo eliminar el producto debido a: " + error);
+      
+    }
+  }
 
   const contextValue = useMemo(
     () => ({
@@ -129,6 +145,7 @@ export const AdminContextProvider: React.FC<{ children: ReactNode }> = ({
       updateOrder,
       deleteOrder,
       getOrderData,
+      handleDeleteProduct,
       errors,
       orders: state.orders,
       allUsers: state.allUsers
