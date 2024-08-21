@@ -162,6 +162,14 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
                 onChange={handleChange}
               />
               <input
+                placeholder="Código"
+                className="bg-sky-200 text-gray-800 font-semibold border-0 rounded-md p-2 mb-4 focus:bg-sky-100 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                type="text"
+                name="code"
+                value={newProduct.data.items[0].code}
+                onChange={handleChange}
+              />
+              <input
                 placeholder="Precio"
                 className="bg-sky-200 text-gray-800 font-semibold border-0 rounded-md p-2 mb-4 focus:bg-sky-100 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                 type="text"
