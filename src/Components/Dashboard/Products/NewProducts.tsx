@@ -172,6 +172,7 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
           specsTecs: "",
           colours: [],
           models: [],
+          code:"",
         },
       ],
     },

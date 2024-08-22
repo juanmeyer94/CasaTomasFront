@@ -8,6 +8,7 @@ export interface ProductItem {
     specsTecs: string;
     colours: string[];
     models: string[];
+    code:string;
   }
 
   export interface NewProductState {
