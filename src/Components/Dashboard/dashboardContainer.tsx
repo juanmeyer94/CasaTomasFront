@@ -169,7 +169,7 @@ const handleUpdatePrices = async () => {
               onClick={() => handleEvent("Dashboard")}
               className="flex items-center space-x-2 p-4 text-lg font-semibold hover:bg-sky-100 focus:outline-none w-[90%] rounded-full"
             >
-              <img src="/public/General.png" alt="" className="h-8 w-8" />
+              <img src="/General.png" alt="" className="h-8 w-8" />
               <span>General</span>
             </a>
 
@@ -178,7 +178,7 @@ const handleUpdatePrices = async () => {
               onClick={() => handleEvent("Orders")}
               className="flex items-center space-x-2 p-4 text-lg font-semibold hover:bg-sky-100 focus:outline-none w-[90%] rounded-full"
             >
-              <img src="/public/Orders.png" alt="" className="h-8 w-8" />
+              <img src="/Orders.png" alt="" className="h-8 w-8" />
               <span>Órdenes</span>
             </a>
 
@@ -188,7 +188,7 @@ const handleUpdatePrices = async () => {
                 className="flex items-center justify-between p-4 text-lg font-semibold hover:bg-sky-100 focus:outline-none w-[90%] rounded-full"
               >
                 <img
-                  src="/public/store-settings.png"
+                  src="/store-settings.png"
                   alt=""
                   className="h-8 w-8 -mr-4"
                 />
@@ -211,7 +211,7 @@ const handleUpdatePrices = async () => {
                     className="flex items-center space-x-2 p-4 text-lg font-semibold hover:bg-sky-100 focus:outline-none w-[90%] rounded-full"
                   >
                     <img
-                      src="/public/warehouse.png"
+                      src="/warehouse.png"
                       alt=""
                       className="h-8 w-8"
                     />
@@ -223,7 +223,7 @@ const handleUpdatePrices = async () => {
                     className="flex items-center space-x-2 p-4 text-lg font-semibold hover:bg-sky-100 focus:outline-none w-[100%] rounded-full"
                   >
                     <img
-                      src="/public/new-product.png"
+                      src="/new-product.png"
                       alt=""
                       className="h-8 w-8"
                     />
@@ -235,7 +235,7 @@ const handleUpdatePrices = async () => {
                     className="flex items-center space-x-2 p-4 text-lg font-semibold hover:bg-sky-100 focus:outline-none rounded-full"
                   >
                     <img
-                      src="/public/change-price.png"
+                      src="/change-price.png"
                       alt=""
                       className="h-8 w-8"
                     />
@@ -250,7 +250,7 @@ const handleUpdatePrices = async () => {
               onClick={logoutAdmin}
               className="flex items-center space-x-2 p-4 text-lg font-semibold text-red-400 hover:bg-red-100 focus:outline-none w-[90%] rounded-full"
             >
-              <img src="/public/high-priority.png" alt="" className="h-8 w-8" />
+              <img src="/high-priority.png" alt="" className="h-8 w-8" />
               <span>Salir</span>
             </a>
           </nav>
