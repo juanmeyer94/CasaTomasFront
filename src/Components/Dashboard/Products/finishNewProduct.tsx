@@ -136,14 +136,13 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
 
 
   return (
-    <div className="col-span-12 flex h-screen ">
-      <div className="flex-1 ">
-        <div className="flex flex-col items-center justify-center h-screen dark p-6">
+    <div className="col-span-12 flex flex-col min-[1400px]:flex-row min-[1400px]:h-screen">
+      <div className="flex-1">
+        <div className="flex flex-col items-center justify-center min-[1400px]:h-screen p-6">
           <div className="w-full max-w-xl bg-sky-300 rounded-lg shadow-md p-6">
             <h2 className="text-xl font-bold text-gray-50 mb-2">
               Información General del Producto
             </h2>
-
             <form onSubmit={onSubmit} className="flex flex-col">
               <input
                 placeholder="Marca"
@@ -192,7 +191,6 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
                 value={newProduct.data.items[0].description}
                 onChange={handleChangeTextArea}
               ></textarea>
-
               {/* has or not */}
               <div className="p-4">
                 {(() => {
@@ -332,7 +330,6 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
                   }
                 })()}
               </div>
-
               <p className="mt-4">Fotos del producto</p>
               <div>
                 <div className="relative flex flex-col items-center p-4">
@@ -354,7 +351,7 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
               <div>
                 <select
                   id="countries"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   onChange={handleOffer}
                 >
                   <option value="">¿Es una oferta?</option>
@@ -372,8 +369,8 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
           </div>
         </div>
       </div>
-
-      <div className="flex-1 bg-gray-100 flex items-center justify-center">
+  
+      <div className="flex-1 bg-gray-100 flex items-center justify-center mt-8 lg:mt-0">
         <AdminCard
           photo={newProduct?.data?.items[0].photo}
           marca={newProduct.data.items[0].marca}
@@ -388,6 +385,7 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
       </div>
     </div>
   );
+  
 };
 
 export default DataItemCards;

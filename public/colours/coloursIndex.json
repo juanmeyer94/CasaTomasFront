@@ -156,8 +156,8 @@
     },
     {
       "id": 32,
-      "name": "Verde",
-      "path": "/colours/verde-bandera.jpg"
+      "name": "Violeta",
+      "path": "/colours/violeta.jpg"
     },
     {
       "id": 33,
@@ -188,6 +188,26 @@
       "id": 38,
       "name": "Rojo",
       "path": "/colours/rojo.jpg"
+    },
+    {
+      "id": 39,
+      "name": "Amarillo Oro",
+      "path": "/colours/amarillo-oro.jpg"
+    },
+    {
+      "id": 40,
+      "name": "Verde Esmeralda",
+      "path": "/colours/verde-bandera.jpg"
+    },
+    {
+      "id": 41,
+      "name": "Azul aero",
+      "path": "/colours/azul-aero.jpg"
+    },
+    {
+      "id": 42,
+      "name": "Petroleo",
+      "path": "/colours/petroleo.jpg"
     }
   ]
   

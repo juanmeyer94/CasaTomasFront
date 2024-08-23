@@ -37,9 +37,9 @@ const Products: React.FC = () => {
         if (window.innerWidth >= 1736) {
             setPostsPerPage(10); // 2xl
         } else if (window.innerWidth >= 1500) {
-            setPostsPerPage(8); // xl
+            setPostsPerPage(10); // xl
         } else if (window.innerWidth >= 1280) {
-            setPostsPerPage(8); // lg
+            setPostsPerPage(10); // lg
         } else if (window.innerWidth >= 1025) {
             setPostsPerPage(6); // default
         } else {
@@ -57,7 +57,7 @@ const Products: React.FC = () => {
     <div className="px-6 pt-6 mx-4">
         <SearchBar/>
       {currentPosts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 min-[1700px]:grid-cols-5 gap-0 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-5 min-[1700px]:grid-cols-5 gap-0 ">
           {currentPosts.map((item: ObjectType) => (
             <AdminCard
               key={item._id}

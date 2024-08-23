@@ -10,7 +10,7 @@ const getRandomFrase = () => {
 
 const Login = () => {
 
-    const { loginAdmin} = useAdminContext()
+    const { loginAdmin, errors} = useAdminContext()
 
     const [currentFrase] = useState(getRandomFrase);
 
@@ -70,6 +70,7 @@ const Login = () => {
                     onChange={handleChange}
                   />
                 </div>
+                <p className="text-red-400 text-base text-semibold font-mono">{errors}</p>
                 <button
                   type="submit"
                   className="w-full text-white bg-sky-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg px-5 py-2.5 text-center"
