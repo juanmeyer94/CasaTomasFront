@@ -370,7 +370,7 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
         </div>
       </div>
   
-      <div className="flex-1 bg-gray-100 flex items-center justify-center mt-8 lg:mt-0">
+      <div className="flex-1 bg-sky-100 flex items-center justify-center mt-8 lg:mt-0">
         <AdminCard
           photo={newProduct?.data?.items[0].photo}
           marca={newProduct.data.items[0].marca}

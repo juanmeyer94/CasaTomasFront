@@ -389,7 +389,7 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
   };
 
   return (
-    <div className="  bg-red-50">
+    <div className="bg-sky-100">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 ">
         {!showCard ? (
           <>

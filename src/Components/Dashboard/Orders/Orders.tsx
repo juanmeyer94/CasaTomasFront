@@ -67,16 +67,15 @@ const Orders = () => {
     );
 
     return (
-    <div className="flex flex-col h-screen overflow-hidden">
-   
+    <div className="h-screen overflow-hidden bg-sky-100 ">
       
 
-      <div className=" w-full flex-1 overflow-auto">
-        <div className="divide-y-4 divide-sky-600 bg-sky-600">
-      <h1 className="text-center text-2xl text-white font-semibold p-2 font-mono h-16 pt-4">Pedidos</h1>
+      <div className="flex-1 overflow-auto">
+        <div className="flex items-center justify-center">
+      <h1 className="text-center text-xl text-white font-semibold p-2 font-mono h-10 my-4 bg-emerald-300 w-36 2xl:w-64 2xl:h-16 rounded-xl 2xl:text-3xl">Pedidos</h1>
 
       </div>
-        <div className="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
+        <div className="bg-white p-4 mx-28 rounded-xl">
           <div className="sm:flex items-center justify-between">
             <div className="flex items-center">
               <button
