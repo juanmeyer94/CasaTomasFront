@@ -208,6 +208,16 @@
       "id": 42,
       "name": "Petroleo",
       "path": "/colours/petroleo.jpg"
+    },
+    {
+      "id": 43,
+      "name": "Amarillo patito",
+      "path": "/colours/amarillo-patito.jpg"
+    },
+    {
+      "id": 44,
+      "name": "Verde Agua",
+      "path": "/colours/verde-agua.jpg"
     }
   ]
   
