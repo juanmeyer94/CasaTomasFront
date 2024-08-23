@@ -408,7 +408,7 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
                   <div
                     className="relative flex justify-center items-center h-64 w-full sm:w-64 bg-cover bg-center rounded-lg shadow-lg transform hover:scale-105 transition duration-500 cursor-pointer "
                     style={{
-                      backgroundImage: "url('./src/assets/maqdash.jpg')",
+                      backgroundImage: "url('/maqdash.jpg')",
                     }}
                     onClick={() => handleCardClick("Maquina")}
                   >
@@ -426,7 +426,7 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
                   <div
                     className="relative flex justify-center items-center h-64 w-full sm:w-64 bg-cover bg-center rounded-lg shadow-lg transform hover:scale-105 transition duration-500 cursor-pointer"
                     style={{
-                      backgroundImage: "url('./src/assets/merceria.jpg')",
+                      backgroundImage: "url('/merceria.jpg')",
                     }}
                     onClick={() => handleCardClick("Merceria")}
                   >
