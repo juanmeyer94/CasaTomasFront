@@ -56,15 +56,43 @@ export const deleteItemById = async (id: string) => {
   }
 };
 
-export const updatedItem = async (id: number, data: any) => {
+export const updatedItem = async (id: string, data: NewProductState) => {
   try {
     const response = await axios.put(`/items/${id}`, data);
-    return response;
+    return response; 
   } catch (error) {
     console.error("Error al actualizar el objeto:", error);
+    throw error; 
   }
 };
 
+//actualizar precios de los productos
+export const updatePrice = async () => {
+  try {
+    // Solicitud para obtener la lista de precios
+    const response = await axios.get("/api/get-prices");
+
+    // Verificar el estado de la respuesta de la primera solicitud
+    if (response.status === 200) {
+      // Solicitud para actualizar los precios
+      const updating = await axios.post("/api/update-prices");
+
+      // Verificar el estado de la respuesta de la segunda solicitud
+      if (updating.status === 200) {
+        return { success: true, status: updating.status }; // Retorna el estado de la actualización
+      } else {
+        console.error("Error al actualizar los precios:", updating.statusText);
+        return { success: false, status: updating.status }; // Retorna el estado de error
+      }
+    } else {
+      console.error("Error al obtener los precios:", response.statusText);
+      return { success: false, status: response.status }; // Retorna el estado de error
+    }
+  } catch (error) {
+    console.error("Error al actualizar los precios:", error);
+    return { success: false, error: error }; // Retorna el error capturado
+  }
+}
 // CRUD de los pedidos
 
 export const createOrderToApi = async (orderData: Order) => {

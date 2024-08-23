@@ -218,14 +218,14 @@ const ProductDetail: React.FC = () => {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => handleDecrease(colour.name)}
-                            className="bg-gray-200 p-1 rounded"
+                            className="bg-gray-200 px-1.5 rounded"
                           >
                             -
                           </button>
                           <span>{quantities[colour.name] || 0}</span>
                           <button
                             onClick={() => handleIncrease(colour.name)}
-                            className="bg-gray-200 p-1 rounded"
+                            className="bg-gray-200 px-1 rounded"
                           >
                             +
                           </button>
@@ -254,14 +254,14 @@ const ProductDetail: React.FC = () => {
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => handleModelDecrease(model)}
-                          className="bg-gray-200 p-1 rounded"
+                          className="bg-gray-200 px-1.5 rounded"
                         >
                           -
                         </button>
                         <span>{quantities[model] || 0}</span>
                         <button
                           onClick={() => handleModelIncrease(model)}
-                          className="bg-gray-200 p-1 rounded"
+                          className="bg-gray-200 px-1 rounded"
                         >
                           +
                         </button>

@@ -6,12 +6,12 @@ import {
   ReactNode,
   useEffect,
 } from "react";
-import { getAllOrders, createOrderToApi, updateOrderStatus, getOrderById, deleteItemById } from "../../Services/adminServices/adminServices";
+import { getAllOrders, createOrderToApi, updateOrderStatus, getOrderById, deleteItemById, updatedItem } from "../../Services/adminServices/adminServices";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../Services/adminServices/adminServices";
 import { AdminState, admReducer, admInitialSate } from "./AdminReducer";
-import { Order } from "../../Interfaces/interfacesIndex";
+import { NewProductState, Order } from "../../Interfaces/interfacesIndex";
 
 interface UserLoginType {
   email: string;
@@ -29,6 +29,7 @@ export interface AdmContextInterface {
   orders: Order[];
   allUsers: any[];
   handleDeleteProduct: (orderId: string) => void;
+  updateItem: (itemId: string, itemData: NewProductState) => Promise<any>;
 }
 
 
@@ -60,7 +61,7 @@ export const AdminContextProvider: React.FC<{ children: ReactNode }> = ({
       }
     } catch (error) {
       console.error(error);
-      setErrors(`No se ha podido ingresar debido a: ${error}`);
+      setErrors(`Nombre de usuario o contraseña incorrectos`);
     }
   };
 
@@ -135,6 +136,18 @@ export const AdminContextProvider: React.FC<{ children: ReactNode }> = ({
     }
   }
 
+  const updateItem = async (itemId: string, itemData: NewProductState) => {
+    try {
+      const response = await updatedItem(itemId, itemData);
+      return response;
+    } catch (error) {
+      console.error(error);
+      setErrors(`Error al actualizar el producto: ${error}`);
+      throw new Error("No se pudo actualizar el producto debido a: " + error);
+    }
+  }
+  
+  
   const contextValue = useMemo(
     () => ({
       ...state,
@@ -146,6 +159,7 @@ export const AdminContextProvider: React.FC<{ children: ReactNode }> = ({
       deleteOrder,
       getOrderData,
       handleDeleteProduct,
+      updateItem,
       errors,
       orders: state.orders,
       allUsers: state.allUsers

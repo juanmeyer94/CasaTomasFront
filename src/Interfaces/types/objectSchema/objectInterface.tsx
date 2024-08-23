@@ -11,6 +11,7 @@ export interface Item {
   models?: string[];
   isAuth?: boolean;
   handleRemoveImage?:any;
+  code?: string;
 }
 
 interface Data {
