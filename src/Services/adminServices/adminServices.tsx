@@ -66,33 +66,28 @@ export const updatedItem = async (id: string, data: NewProductState) => {
   }
 };
 
-//actualizar precios de los productos
-export const updatePrice = async () => {
+// actualizar precios de los productos
+export const updatedPrice = async () => {
   try {
-    // Solicitud para obtener la lista de precios
-    const response = await axios.get("/api/get-prices");
-
-    // Verificar el estado de la respuesta de la primera solicitud
+    const response = await axios.get("/get-prices");
     if (response.status === 200) {
-      // Solicitud para actualizar los precios
-      const updating = await axios.post("/api/update-prices");
-
-      // Verificar el estado de la respuesta de la segunda solicitud
+      const updating = await axios.post("/update-prices");
       if (updating.status === 200) {
-        return { success: true, status: updating.status }; // Retorna el estado de la actualización
+        return { success: true, status: updating.status };
       } else {
         console.error("Error al actualizar los precios:", updating.statusText);
-        return { success: false, status: updating.status }; // Retorna el estado de error
+        return { success: false, status: updating.status };
       }
     } else {
       console.error("Error al obtener los precios:", response.statusText);
-      return { success: false, status: response.status }; // Retorna el estado de error
+      return { success: false, status: response.status };
     }
   } catch (error) {
     console.error("Error al actualizar los precios:", error);
-    return { success: false, error: error }; // Retorna el error capturado
+    return { success: false, error: error };
   }
-}
+};
+
 // CRUD de los pedidos
 
 export const createOrderToApi = async (orderData: Order) => {

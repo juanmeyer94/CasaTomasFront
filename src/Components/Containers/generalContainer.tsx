@@ -12,7 +12,7 @@ const GeneralContainer: React.FC = () => {
   if (loading) {
     return <div className='flex rounded-xl items-center justify-center flex-col p-8 font-bold text-2xl'>
       <h1>Cargando...</h1>
-      <img src="/giphy.webp" alt="" className='rounded-full' />
+      <img src="/giphy.webp" alt="" className='rounded-full max-h-[220px] 2xl:max-h-[320px]' />
       <p>Casa Tomas - 100 años cociendo juntos.</p>
       </div>;
 }

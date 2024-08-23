@@ -6,7 +6,7 @@ import {
   ReactNode,
   useEffect,
 } from "react";
-import { getAllOrders, createOrderToApi, updateOrderStatus, getOrderById, deleteItemById, updatedItem } from "../../Services/adminServices/adminServices";
+import { getAllOrders, createOrderToApi, updateOrderStatus, getOrderById, deleteItemById, updatedItem, updatedPrice } from "../../Services/adminServices/adminServices";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../Services/adminServices/adminServices";
@@ -30,6 +30,7 @@ export interface AdmContextInterface {
   allUsers: any[];
   handleDeleteProduct: (orderId: string) => void;
   updateItem: (itemId: string, itemData: NewProductState) => Promise<any>;
+  updatePrices: () => Promise<{ success: boolean; status?: number; error?: any }>;
 }
 
 
@@ -146,6 +147,16 @@ export const AdminContextProvider: React.FC<{ children: ReactNode }> = ({
       throw new Error("No se pudo actualizar el producto debido a: " + error);
     }
   }
+  const updatePrices = async (): Promise<{ success: boolean; status?: number; error?: any }> => {
+    try {
+      const result = await updatedPrice();
+      return result;
+    } catch (error) {
+      console.error('Error inesperado al actualizar los precios:', error);
+      return { success: false, error };
+    }
+  };
+  
   
   
   const contextValue = useMemo(
@@ -160,6 +171,7 @@ export const AdminContextProvider: React.FC<{ children: ReactNode }> = ({
       getOrderData,
       handleDeleteProduct,
       updateItem,
+      updatePrices,
       errors,
       orders: state.orders,
       allUsers: state.allUsers

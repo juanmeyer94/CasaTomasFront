@@ -22,9 +22,9 @@ const Products: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex rounded-xl items-center justify-center flex-col p-8 font-bold text-2xl">
+      <div className="flex rounded-xl items-center justify-center flex-col p-8 font-bold text-2xl bg-sky-100 h-screen">
         <h1>Cargando...</h1>
-        <img src="/giphy.webp" alt="" className="rounded-full" />
+        <img src="/giphy.webp" alt="" className="rounded-full max-h-[220px] 2xl:max-h-[320px]" />
         <p>Casa Tomas - 100 años cociendo juntos.</p>
       </div>
     );
@@ -54,7 +54,7 @@ const Products: React.FC = () => {
 }, []);
 
   return (
-    <div className="px-6 pt-6 mx-4">
+    <div className="px-6 pt-6 ml-5 bg-sky-100 h-auto">
         <SearchBar/>
       {currentPosts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-5 min-[1700px]:grid-cols-5 gap-0 ">
@@ -78,7 +78,7 @@ const Products: React.FC = () => {
           <h1>No se encontró lo que buscas, disculpen las molestias.</h1>
         </div>
       )}
-       <div className="flex justify-center mt-2 mb-2 space-x-2">
+       <div className="flex justify-center space-x-2 pb-4">
           <button
             onClick={prevPage}
             disabled={currentPage === 1}

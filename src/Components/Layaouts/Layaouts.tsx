@@ -20,7 +20,7 @@ export const LayoutWithNavBarAndFooter:React.FC <({ children:React.ReactNode})> 
 export const LayoutWithoutNavBarAndFooter:React.FC <({ children:React.ReactNode})> = ({children}) => (
   <div className="">
     <div className="">
-      <div className="flex-grow flex">
+      <div className="">
         {children}
       </div>
     </div>
