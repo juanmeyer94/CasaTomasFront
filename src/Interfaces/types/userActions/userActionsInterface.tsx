@@ -1,4 +1,6 @@
 import {ObjectType, CartItem, NewOrder} from "../../interfacesIndex"
+import { AxiosResponse } from "axios";
+
 
 export interface Filters {
     subsection: string;
@@ -26,7 +28,7 @@ export interface UserContextType {
     prevPage: () => void;
     setSearchQuery: (query: string) => void;
     removeFilters: () => void;
-    sendOrder: (orderData: NewOrder) => void;
+    sendOrder: (orderData: NewOrder) => Promise<AxiosResponse>;
     addToCart: (item: AddToCart) => void;
     upgradeCart: (items: CartItem[]) => void;
     removeCart: (itemId: string) => void;

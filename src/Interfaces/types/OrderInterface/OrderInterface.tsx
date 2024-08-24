@@ -7,6 +7,7 @@ export interface OrderItemData {
   description?: string;
   specsTecs?: string;
   _id: string;
+  code:string;
 }
 
 export interface OrderItem {
@@ -28,6 +29,7 @@ export interface Order {
   totalAmount: number;
   status?: string;
   deleted?: boolean;
+  orderNumber?: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -41,5 +43,6 @@ export interface NewOrder {
   totalAmount: number;
   status?: string;
   deleted?: boolean;
+  
 
 }

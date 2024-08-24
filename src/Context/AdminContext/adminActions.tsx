@@ -31,6 +31,7 @@ export interface AdmContextInterface {
   handleDeleteProduct: (orderId: string) => void;
   updateItem: (itemId: string, itemData: NewProductState) => Promise<any>;
   updatePrices: () => Promise<{ success: boolean; status?: number; error?: any }>;
+  countPendingOrders: () => number;
 }
 
 
@@ -123,6 +124,9 @@ export const AdminContextProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
   
+  const countPendingOrders = (): number => {
+    return state.orders.filter(order => order.status === 'pendiente').length;
+  };
   //products admin crud
 
   const handleDeleteProduct = async (orderId: string) => {
@@ -172,6 +176,7 @@ export const AdminContextProvider: React.FC<{ children: ReactNode }> = ({
       handleDeleteProduct,
       updateItem,
       updatePrices,
+      countPendingOrders,
       errors,
       orders: state.orders,
       allUsers: state.allUsers

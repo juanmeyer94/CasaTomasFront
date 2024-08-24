@@ -47,30 +47,34 @@ const BuyCart = () => {
       0
     ),
   };
-  
 
-  const finishOrder = () => {
-    Swal.fire({
-      title: "¿Estás seguro?",
-      text: "¡No podrás deshacer esta acción!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, confirmar compra",
-      cancelButtonText: "Cancelar",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        sendOrder(orderData);
-        Swal.fire(
-          "¡Compra confirmada!",
-          "Tu pedido ha sido realizado con éxito.",
-          "success"
-        );
+const finishOrder = async () => {
+  const result = await Swal.fire({
+    title: "¿Estás seguro?",
+    text: "¡No podrás deshacer esta acción!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sí, confirmar compra",
+    cancelButtonText: "Cancelar",
+  });
+
+  if (result.isConfirmed) {
+    try {
+      const response = await sendOrder(orderData);
+      if (response.status === 200) {
+        Swal.fire("¡Compra confirmada!", "Tu pedido ha sido realizado con éxito.", "success");
         navigate("/");
+      } else {
+        Swal.fire("Error", "Hubo un problema al realizar tu pedido.", "error");
       }
-    });
-  };
+    } catch (error) {
+      Swal.fire("Error", "No se pudo completar la compra. Intenta nuevamente.", "error");
+    }
+  }
+};
+
 
   const [isBuyButtonEnabled, setIsBuyButtonEnabled] = useState(false);
   const subtotal = buyCart.reduce(
@@ -145,10 +149,6 @@ const BuyCart = () => {
 
   return (
     <>
-      {/* <div
-        className="w-full min-h-36 bg-cover bg-center z-20"
-        style={{ backgroundImage: "url('/carousel0.jpg')" }}
-      ></div> */}
       <div className="container mx-auto p-4">
         <div className="flex flex-col lg:flex-row">
           <div className="overflow-x-auto bg-white shadow-md rounded-lg lg:w-3/4">
