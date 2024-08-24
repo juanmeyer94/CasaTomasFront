@@ -147,10 +147,17 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
     dispatch({ type: "RESET_FILTERS" });
   };
 
-  const sendOrder = (orderData: NewOrder) => {
-    sendOrderToApi(orderData);
-    dispatch({ type: "RESET_CART" });
-  };
+  const sendOrder = async (orderData: NewOrder) => {
+    try {
+        const response = await sendOrderToApi(orderData);
+        dispatch({ type: "RESET_CART" });
+        return response;  
+    } catch (error) {
+        console.error(error);
+        throw error;  
+    }
+};
+
 
   //contact
   const sendContact = (data: Contact) => {
