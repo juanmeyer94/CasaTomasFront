@@ -55,9 +55,9 @@ function App() {
           path="/moreInfo/:id"
           element={
             <UserContextProvider>
-              <LayoutWithNavBarAndFooter>
+              <LayoutWithNavBar>
                 <ProductDetail />
-              </LayoutWithNavBarAndFooter>
+              </LayoutWithNavBar>
             </UserContextProvider>
           }
         />
