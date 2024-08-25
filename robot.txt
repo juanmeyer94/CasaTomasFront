@@ -1,0 +1,31 @@
+# Permitir acceso completo a todos los motores de búsqueda
+User-agent: *
+Disallow:
+
+# Bloquear carpetas de administración y recursos que no deben ser indexados
+Disallow: /admin/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /user-profile/
+Disallow: /api/
+Disallow: /private/
+Disallow: /scripts/
+Disallow: /styles/
+
+# Bloquear URL duplicadas y parámetros innecesarios
+Disallow: /*?session_id=
+Disallow: /*?sort=
+Disallow: /*?filter=
+Disallow: /*?page=
+
+# Permitir el acceso a los recursos estáticos necesarios para la renderización
+Allow: /images/
+Allow: /css/
+Allow: /js/
+
+# Incluir el sitemap para mejorar la indexación
+Sitemap: https://www.casa-tomas.com/sitemap.xml
+
+# Opcional: Directrices para el crawling de imágenes
+User-agent: Googlebot-Image
+Allow: /images/
