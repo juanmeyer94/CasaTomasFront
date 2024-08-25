@@ -3,26 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/LOGO.png" />
+    
+    <!-- Preconnect to improve performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- DNS Prefetch for Google Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Casa Tomas 100 años junto a vos, Rafaela, Santa Fe</title>
     <meta name="description" content="Casa Tomas, con 100 años de experiencia en Rafaela, Santa Fe, Argentina, ofrece una amplia gama de productos de merceria y maquinas de coser. Descubre nuestras Maquinas Industriales y Familiares, así como repuestos y reparaciones. También contamos con productos de Mercería, como Agujas, Hilos, Cierres y Elásticos. Calidad y tradición en cada producto.">
 
+    <!-- Meta tag for SEO -->
+    <meta name="robots" content="index, follow" />
+
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://upload-widget.cloudinary.com; style-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: https://fonts.gstatic.com https://upload-widget.cloudinary.com; font-src 'self' https://fonts.gstatic.com;" />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
-        <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0SDF9GRJR5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0SDF9GRJR5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'G-0SDF9GRJR5');
-</script>
+      gtag('config', 'G-0SDF9GRJR5');
+    </script>
   </body>
 </html>
