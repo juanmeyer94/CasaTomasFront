@@ -23,7 +23,13 @@
     <meta name="robots" content="index, follow" />
 
     <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com https://upload-widget.cloudinary.com; style-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: https://fonts.gstatic.com https://upload-widget.cloudinary.com; font-src 'self' https://fonts.gstatic.com;" />
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self'; 
+      script-src 'self' https://www.googletagmanager.com https://upload-widget.cloudinary.com; 
+      style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; 
+      img-src 'self' data: https://fonts.gstatic.com https://upload-widget.cloudinary.com; 
+      font-src 'self' https://fonts.gstatic.com;
+    " />
   </head>
   <body>
     <div id="root"></div>
