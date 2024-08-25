@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { BuyCarInterface, OrderItemData } from "../../Interfaces/interfacesIndex";
 import { NewOrder } from "../../Interfaces/types/OrderInterface/OrderInterface";
+import CartModal from "./cartModal";
 
 // Definir la interfaz para el estado del formulario
 interface FormData {
@@ -146,6 +147,14 @@ const finishOrder = async () => {
   const keepBuying = () => {
     navigate("/")
   }
+
+  //actualizar cantidades
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const handleCartModal = () => {
+      setIsCartOpen(!isCartOpen);
+  };
+
 
   return (
     <>
@@ -334,7 +343,9 @@ const finishOrder = async () => {
               momento del presupuesto. Estos precios no incluyen IVA.
             </p>
             <div className="mt-4 flex flex-col space-y-2 lg:space-y-0 lg:flex-row lg:space-x-2">
-              <button className="bg-sky-500 text-white w-full rounded p-1 text-xs lg:text-base">
+              <button className="bg-sky-500 text-white w-full rounded p-1 text-xs lg:text-base"
+              onClick={() =>handleCartModal()}>
+              
                 ACTUALIZAR CANTIDADES
               </button>
               <button className="bg-sky-500 text-white w-full rounded p-1 text-xs lg:text-base" onClick={keepBuying}>
@@ -343,6 +354,7 @@ const finishOrder = async () => {
             </div>
           </div>
         </div>
+        {isCartOpen && <CartModal handleCartModal={handleCartModal} />}
       </div>
     </>
   );

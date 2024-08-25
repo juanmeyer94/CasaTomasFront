@@ -86,8 +86,8 @@ const UserCard: React.FC<Item> = ({
           <img
             className={`${
               isLargeScreen
-                ? "rounded-xl h-[150px] w-full object-cover"
-                : "rounded-lg h-[120px] w-full object-cover"
+                ? "rounded-xl h-[150px] w-full object-fit"
+                : "rounded-lg h-[120px] w-full object-fit"
             }`}
             src={imageUrl}
             alt="Product"

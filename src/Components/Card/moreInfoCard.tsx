@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ObjectType } from "../../Interfaces/interfacesIndex";
 import useUserContext from "../../Utils/contextUserHook";
@@ -17,11 +17,16 @@ const ProductDetail: React.FC = () => {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [modelQuantities] = useState<Record<string, number>>({});
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const producto = FilteredObjects.find((item) => item._id === id);
     setProduct(producto || null);
   }, [id, FilteredObjects]);
+
+  const handleGoBack = () => {
+    navigate(-1); // Navega hacia atrás
+  };
 
   // loading
   if (!product) {
@@ -308,6 +313,12 @@ const ProductDetail: React.FC = () => {
             className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
           >
             Agregar al carrito
+          </button>
+          <button
+            onClick={handleGoBack}
+            className="bg-gray-500 hover:bg-gray-600 text-white font-semibold px-4 py-2 rounded ml-4"
+          >
+            Volver atrás
           </button>
         </div>
       </div>
