@@ -17,7 +17,7 @@ const HowToBuy: React.FC = () => {
             </li>
             <li>
               Te enviaremos el pedido por el transporte que hayas elegido o lo
-              podrás pasar a retirar por nuestro depósito.
+              podrás pasar a retirar por nuestro local.
             </li>
           </ul>
         </div>
@@ -126,7 +126,7 @@ const HowToBuy: React.FC = () => {
                 </div>
               </div>
               <h2 className="text-center text-lg font-semibold text-sky-700">
-                UNO DE NUESTROS VENDEDORES TE LLAMARÁ
+                NOS PONDREMOS EN CONTACTO CON VOS
               </h2>
               <p className="text-gray-500 mt-2">
                 para coordinar la entrega y el pago
@@ -169,7 +169,7 @@ const HowToBuy: React.FC = () => {
                 RECIBES O RETIRAS TU PEDIDO
               </h2>
               <p className="text-gray-500 mt-6 text-center">
-                en la puerta de tu negocio o en nuestro depósito.
+                en la puerta de tu casa o en nuestro local.
               </p>
               <button className="mt-4 px-4 py-2 bg-sky-300 text-white rounded-lg hover:bg-sky-400">
                 <img
@@ -185,10 +185,9 @@ const HowToBuy: React.FC = () => {
         <div className="text-center mb-8">
           <h3 className="text-xl font-bold">ZONA DE COBERTURA</h3>
           <p>
-            Llegamos a todo el país vía nuestra página Web. Con entregas a
-            través de una
+            Llegamos a cada rincón del país. 
           </p>
-          <p>importante red de empresas de transportes.</p>
+          <p>Trabajamos con todas las empresas de tranporte.</p>
           <img
             src="/argentinamapa.jpg"
             alt="Mapa de cobertura"
@@ -199,15 +198,9 @@ const HowToBuy: React.FC = () => {
         <div className="text-center">
           <h3 className="text-xl font-bold">FORMA DE PAGO</h3>
           <p>
-            Solo se recibe pago en efectivo en nuestro depósito, a través de
-            alguno de nuestros representantes o vía banco.
+            La modalidad de pago puede ser contado efectivo, transferencia bancaria, débito o tarjeta de crédito bancaria.
           </p>
-          <p>
-            Monto mínimo de compra: El monto mínimo de compra es de{" "}
-            <span className="font-bold">$20.000</span> y deberá estar inscripto
-            como consumidor final o revendedor.
-          </p>
-          <p>Otras formas de pago: Se reciben tarjetas de crédito y débito.</p>
+          <p>Consultar por la financiacion en cuotas. </p>
         </div>
       </div>
     </div>
