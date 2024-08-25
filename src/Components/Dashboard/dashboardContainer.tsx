@@ -288,7 +288,7 @@ const DashContainer = () => {
       </div>
 
       {/* Render the selected component */}
-      <div className="ml-0 lg:ml-72">{componentToRender}</div>
+      <div className="ml-0 lg:ml-72 bg-sky-100 h-screen">{componentToRender}</div>
     </div>
   );
 };
