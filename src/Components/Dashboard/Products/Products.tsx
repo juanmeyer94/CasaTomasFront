@@ -86,7 +86,7 @@ const Products: React.FC = () => {
   }, []);
 
   return (
-    <div className="px-6 pt-6 ml-5 bg-sky-100 h-auto">
+    <div className="px-6 pt-6 ml-5 bg-sky-100 h-screen">
       <SearchBar />
       {currentPosts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-5 min-[1700px]:grid-cols-5 gap-0 ">
