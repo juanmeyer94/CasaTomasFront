@@ -56,6 +56,9 @@ const UserCard: React.FC<Item> = ({
     }
   };
 
+  // Apply both 'f_auto' and 'q_auto' parameters for Cloudinary
+  const imageUrl = photo ? `${photo[currentImageIndex]}?f_auto&q_auto` : "";
+
   return (
     <div
       className={`${
@@ -86,7 +89,7 @@ const UserCard: React.FC<Item> = ({
                 ? "rounded-xl h-[150px] w-full object-cover"
                 : "rounded-lg h-[120px] w-full object-cover"
             }`}
-            src={photo ? photo[currentImageIndex] : ""}
+            src={imageUrl}
             alt="Product"
           />
           {photo && photo.length > 1 && (

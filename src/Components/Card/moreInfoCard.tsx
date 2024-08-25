@@ -15,9 +15,7 @@ const ProductDetail: React.FC = () => {
   const [product, setProduct] = useState<ObjectType | null>(null);
   const { FilteredObjects, addToCart } = useUserContext();
   const [quantities, setQuantities] = useState<Record<string, number>>({});
-  const [modelQuantities] = useState<
-    Record<string, number>
-  >({});
+  const [modelQuantities] = useState<Record<string, number>>({});
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -30,7 +28,39 @@ const ProductDetail: React.FC = () => {
     return (
       <div className="flex rounded-xl items-center justify-center flex-col p-8 font-bold text-2xl">
         <h1>Cargando...</h1>
-        <img src="/giphy.webp" alt="" className="rounded-full" />
+        <svg
+          width="50"
+          height="50"
+          viewBox="0 0 50 50"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            cx="25"
+            cy="25"
+            r="20"
+            stroke="gray"
+            stroke-width="5"
+            fill="none"
+          />
+          <circle
+            cx="25"
+            cy="25"
+            r="20"
+            stroke="blue"
+            stroke-width="5"
+            stroke-dasharray="126"
+            stroke-dashoffset="0"
+            fill="none"
+          >
+            <animate
+              attributeName="stroke-dashoffset"
+              values="0;126"
+              dur="1.5s"
+              repeatCount="indefinite"
+            />
+          </circle>
+        </svg>
+
         <p>Casa Tomas - 100 años cociendo juntos.</p>
       </div>
     );
@@ -145,7 +175,7 @@ const ProductDetail: React.FC = () => {
             <img
               src={photos[currentImageIndex]}
               alt="Product"
-              className="w-full h-auto mb-4"
+              className="w-full h-[350px] 2xl:h-[500px] mb-4"
             />
             {photos.length > 1 && (
               <>
@@ -170,7 +200,7 @@ const ProductDetail: React.FC = () => {
                 key={index}
                 src={photo}
                 alt={`Thumbnail ${index}`}
-                className="w-full h-auto cursor-pointer border-2 border-gray-200"
+                className="w-full cursor-pointer border-2 border-gray-200 h-[120px] xl:h-[140px] 2xl:h-[170px]"
                 onClick={() => setCurrentImageIndex(index)}
               />
             ))}
