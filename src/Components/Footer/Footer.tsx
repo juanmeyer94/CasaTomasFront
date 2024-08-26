@@ -95,9 +95,23 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="py-6 text-sm text-center dark:text-gray-600">
-       Desde 1923 Casa Tomas®. All rights reserved.
+      <div className="flex justify-between items-center py-6 text-sm text-gray-500 dark:text-gray-400">
+        <div className="text-center dark:text-gray-600">
+          Desde 1923 Casa Tomas®. All rights reserved.
+        </div>
+        <div className="text-right text-xs">
+          <p>Desarrollado por Juan Meyer</p>
+          <a
+            href="https://www.linkedin.com/in/juan-meyer-9b34a5269"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:underline"
+          >
+            LinkedIn
+          </a>
+        </div>
       </div>
+      
     </footer>
   );
 };

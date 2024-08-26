@@ -77,7 +77,7 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
         "Agujas de Mano",
         "Agujas de Lana",
         "Agujas de tejer y crochet",
-        "Agujas varias y accesorios",
+        "Alfileres y accesorios",
       ],
       title: "Seleccionemos la subcategoría de Agujas",
     },

@@ -560,11 +560,11 @@ const SideBar: React.FC = () => {
                     className="hover:underline hover:text-sky-400 hover:decoration-wavy 2xl:text-xl text-sm"
                     onClick={() =>
                       handleTypeChange({
-                        target: { value: "Agujas varias y accesorios" },
+                        target: { value: "Alfileres y accesorios" },
                       } as React.ChangeEvent<HTMLSelectElement>)
                     }
                   >
-                    Agujas varias y accesorios
+                    Alfileres y accesorios
                   </button>
                 </li>
               </ul>
