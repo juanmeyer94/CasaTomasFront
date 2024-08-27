@@ -49,32 +49,55 @@ const BuyCart = () => {
     ),
   };
 
-const finishOrder = async () => {
-  const result = await Swal.fire({
-    title: "¿Estás seguro?",
-    text: "¡No podrás deshacer esta acción!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Sí, confirmar compra",
-    cancelButtonText: "Cancelar",
-  });
-
-  if (result.isConfirmed) {
+  const finishOrder = async () => {
     try {
-      const response = await sendOrder(orderData);
-      if (response.status === 200) {
-        Swal.fire("¡Compra confirmada!", "Tu pedido ha sido realizado con éxito.", "success");
-        navigate("/");
+      const { isConfirmed } = await Swal.fire({
+        title: "¿Estás seguro?",
+        text: "¡No podrás deshacer esta acción!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, confirmar compra",
+        cancelButtonText: "Cancelar",
+      });
+  
+      if (isConfirmed) {
+        Swal.fire({
+          title: "Confirmando tu compra...",
+          text: "Esto puede tardar un momento.",
+          icon: "info",
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+  
+        const response = await sendOrder(orderData);
+        Swal.close();
+  
+        if (response.status === 200) {
+          Swal.fire("¡Compra confirmada!", "Tu pedido ha sido realizado con éxito.", "success");
+          navigate("/");
+        } else {
+          Swal.fire("Error", "Hubo un problema al realizar tu pedido.", "error");
+        }
       } else {
-        Swal.fire("Error", "Hubo un problema al realizar tu pedido.", "error");
+        Swal.fire({
+          icon: "info",
+          title: "Operación cancelada",
+          text: "La confirmación de compra ha sido cancelada.",
+        });
       }
     } catch (error) {
+      Swal.close();
+  
       Swal.fire("Error", "No se pudo completar la compra. Intenta nuevamente.", "error");
     }
-  }
-};
+  };
+  
+  
+  
 
 
   const [isBuyButtonEnabled, setIsBuyButtonEnabled] = useState(false);

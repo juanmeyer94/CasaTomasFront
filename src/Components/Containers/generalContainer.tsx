@@ -18,7 +18,7 @@ const GeneralContainer: React.FC = () => {
     <animate attributeName="stroke-dashoffset" values="0;126" dur="1.5s" repeatCount="indefinite" />
   </circle>
 </svg>
-      <p>Casa Tomas - 100 años cociendo juntos.</p>
+      <p>Casa Tomas - 100 años cosiendo juntos.</p>
       </div>;
 }
 

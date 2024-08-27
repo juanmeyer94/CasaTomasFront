@@ -187,7 +187,7 @@ const HowToBuy: React.FC = () => {
           <p>
             Llegamos a cada rincón del país. 
           </p>
-          <p>Trabajamos con todas las empresas de tranporte.</p>
+          <p>Trabajamos con todas las empresas de transporte.</p>
           <img
             src="/argentinamapa.jpg"
             alt="Mapa de cobertura"

@@ -4,9 +4,10 @@ import { NewOrder, Contact } from "../../Interfaces/interfacesIndex";
 export const getAllObjects = async () => {
   try {
     const response = await axios.get("/itemswithprices");
-    return response.data;
+    const shuffledData = response.data.sort(() => Math.random() - 0.5);
+    return shuffledData;
   } catch (error) {
-    throw new Error("Error fetching items" + error);
+    throw new Error("Error fetching items: " + error);
   }
 };
 export const sendOrderToApi = async (orderData: NewOrder) => {
