@@ -66,7 +66,7 @@ const ProductDetail: React.FC = () => {
           </circle>
         </svg>
 
-        <p>Casa Tomas - 100 años cociendo juntos.</p>
+        <p>Casa Tomas - 100 años cosiendo juntos.</p>
       </div>
     );
   }
