@@ -755,7 +755,7 @@ const SideBar: React.FC = () => {
                     className="hover:underline hover:text-sky-400 hover:decoration-wavy 2xl:text-xl text-sm"
                     onClick={() =>
                       handleTypeChange({
-                        target: { value: "Elásticos de Redondos" },
+                        target: { value: "Elásticos Redondos" },
                       } as React.ChangeEvent<HTMLSelectElement>)
                     }
                   >
