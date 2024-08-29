@@ -58,7 +58,7 @@ const BuyCart = () => {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Sí, confirmar compra",
+        confirmButtonText: "Sí, pedir presupuesto.",
         cancelButtonText: "Cancelar",
       });
   
@@ -77,22 +77,22 @@ const BuyCart = () => {
         Swal.close();
   
         if (response.status === 200) {
-          Swal.fire("¡Compra confirmada!", "Tu pedido ha sido realizado con éxito.", "success");
+          Swal.fire("¡Pedido confirmado!", "Tu pedido ha sido realizado con éxito. ¡Pronto nos comunicaremos para finalizar la compra!", "success");
           navigate("/");
         } else {
-          Swal.fire("Error", "Hubo un problema al realizar tu pedido.", "error");
+          Swal.fire("Error", "Hubo un problema al realizar tu pedido, por favor vuelve a intentar luego.", "error");
         }
       } else {
         Swal.fire({
           icon: "info",
           title: "Operación cancelada",
-          text: "La confirmación de compra ha sido cancelada.",
+          text: "La confirmación de pedido ha sido cancelada.",
         });
       }
     } catch (error) {
       Swal.close();
   
-      Swal.fire("Error", "No se pudo completar la compra. Intenta nuevamente.", "error");
+      Swal.fire("Error", "No se pudo completar el pedido. Intenta nuevamente.", "error");
     }
   };
   
@@ -358,7 +358,7 @@ const BuyCart = () => {
               disabled={!isBuyButtonEnabled}
               onClick={finishOrder}
             >
-              COMPRAR
+              PEDIR PRESUPUESTO
             </button>
             <p className="mt-4 text-gray-500">
               Debido a los constantes aumentos de precios por parte de los

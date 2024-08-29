@@ -66,7 +66,7 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
         "Puntillas de Nylon",
         "Puntillas de Algodon",
         "Puntillas de Lycra",
-        "Puntillas de Borderie",
+        "Puntillas de Broderie",
       ],
       title: "Seleccionemos la subcategoría de Puntillas",
     },

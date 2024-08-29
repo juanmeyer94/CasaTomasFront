@@ -118,7 +118,7 @@ export const updateOrderStatus = async (orderId: string, newStatus: string) => {
   }
 };
 
-export const deleteOrder = async (orderIdToDelete: string) => {
+export const deleteOrderApi = async (orderIdToDelete: string) => {
   try {
     await axios.delete(`/orders/${orderIdToDelete}`);
   } catch (error) {
