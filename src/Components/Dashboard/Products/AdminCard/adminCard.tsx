@@ -17,7 +17,7 @@ const formatPrice = (price: number) => {
 };
 
 interface AdminCardProps extends Item {
-  handleRemoveImage?: (indice: number) => void; 
+  handleRemoveImage?: (indice: number) => void;
 }
 
 const AdminCard: React.FC<AdminCardProps> = ({
@@ -37,12 +37,11 @@ const AdminCard: React.FC<AdminCardProps> = ({
   const { handleDeleteProduct } = useAdminContext();
   const { getAllItems } = useUserContext();
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1400);
-  const [switchModal, setSwitchModal] = useState<boolean>(false)
+  const [switchModal, setSwitchModal] = useState<boolean>(false);
 
   const handleModal: () => void = () => {
-    setSwitchModal(prevState => !prevState);
+    setSwitchModal((prevState) => !prevState);
   };
-
 
   useEffect(() => {
     const handleResize = () => {
@@ -76,9 +75,6 @@ const AdminCard: React.FC<AdminCardProps> = ({
       }
     });
   };
-  
-
-
 
   const handleNextImage = () => {
     if (photo && photo.length > 1) {
@@ -102,7 +98,9 @@ const AdminCard: React.FC<AdminCardProps> = ({
           return 0;
         }
         if (photo && index === prevIndex) {
-          return (prevIndex + (prevIndex < photo.length - 1 ? 0 : -1)) % photo.length;
+          return (
+            (prevIndex + (prevIndex < photo.length - 1 ? 0 : -1)) % photo.length
+          );
         }
         return prevIndex;
       });
@@ -111,102 +109,116 @@ const AdminCard: React.FC<AdminCardProps> = ({
 
   return (
     <>
-    <div
-      className={`${
-        isLargeScreen
-          ? "max-w-[280px] min-h-[300px] border-sky-200 border-4 px-4 pt-2 pb-1 rounded-xl shadow-lg transform hover:scale-105 transition duration-500 my-4 border-dashed relative flex flex-col justify-between bg-white"
-          : "max-w-[180px] min-h-[250px] border-sky-200 border-4 px-2 pt-1 pb-1 rounded-lg shadow-md transform hover:scale-105 transition duration-500 my-2 border-dashed relative flex flex-col bg-white"
-      }`}
-    >
-      {isAuth && (
-        <div className="top-2 right-2 flex space-x-2">
-          <button
-            className="text-red-500 hover:text-red-700 focus:outline-none"
-            onClick={handleDelete}
-            aria-label="Eliminar"
-          >
-            <ArchiveBoxIcon className={isLargeScreen ? "w-6 h-6" : "w-4 h-4"} />
-          </button>
-          <button
-            className="text-blue-500 hover:text-blue-700 focus:outline-none"
-            onClick={handleModal}
-            aria-label="Editar"
-          >
-            <PencilSquareIcon className={isLargeScreen ? "w-6 h-6" : "w-4 h-4"}/>
-          </button>
-        </div>
-      )}
-      <div>
-        <div className={isLargeScreen ? "min-h-[3rem] mb-2" : "min-h-[2rem] mb-2"}>
-          <h1 className={isLargeScreen ? "mt-4 text-gray-800 text-xl font-bold cursor-pointer": "mt-1 text-gray-800 text-xs font-bold cursor-pointer"}>
-            {marca && name ? `${marca} ${name}` : <div>{marca}</div>}
-          </h1>
-        </div>
-        <div className="relative">
-          {photo && photo.length > 1 && (
+      <div
+        className={`${
+          isLargeScreen
+            ? "max-w-[280px] min-h-[300px] border-sky-200 border-4 px-4 pt-2 pb-1 rounded-xl shadow-lg transform hover:scale-105 transition duration-500 my-4 border-dashed relative flex flex-col justify-between bg-white"
+            : "max-w-[180px] min-h-[250px] border-sky-200 border-4 px-2 pt-1 pb-1 rounded-lg shadow-md transform hover:scale-105 transition duration-500 my-2 border-dashed relative flex flex-col bg-white"
+        }`}
+      >
+        {isAuth && (
+          <div className="top-2 right-2 flex space-x-2">
             <button
-              onClick={handlePrevImage}
-              className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-700 text-white rounded-full p-2"
-              aria-label="Previous Image"
+              className="text-red-500 hover:text-red-700 focus:outline-none"
+              onClick={handleDelete}
+              aria-label="Eliminar"
             >
-              &lt;
+              <ArchiveBoxIcon
+                className={isLargeScreen ? "w-6 h-6" : "w-4 h-4"}
+              />
+            </button>
+            <button
+              className="text-blue-500 hover:text-blue-700 focus:outline-none"
+              onClick={handleModal}
+              aria-label="Editar"
+            >
+              <PencilSquareIcon
+                className={isLargeScreen ? "w-6 h-6" : "w-4 h-4"}
+              />
+            </button>
+          </div>
+        )}
+        <div>
+          <div
+            className={
+              isLargeScreen ? "min-h-[3rem] mb-2" : "min-h-[2rem] mb-2"
+            }
+          >
+            <h1
+              className={`text-gray-800 font-bold cursor-pointer ${
+                isLargeScreen ? "mt-4 text-xl" : "mt-1 text-xs"
+              }`}
+            >
+              {marca || name
+                ? `${marca || ""}${marca && name ? " " : ""}${name || ""}`
+                : null}
+            </h1>
+          </div>
+          <div className="relative">
+            {photo && photo.length > 1 && (
+              <button
+                onClick={handlePrevImage}
+                className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-700 text-white rounded-full p-2"
+                aria-label="Previous Image"
+              >
+                &lt;
+              </button>
+            )}
+            <img
+              className={`${
+                isLargeScreen
+                  ? "rounded-xl h-[150px] w-full object-cover"
+                  : "rounded-lg h-[120px] w-full object-cover"
+              }`}
+              src={photo ? photo[currentImageIndex] : ""}
+              alt="Product"
+            />
+            {photo && photo.length > 1 && (
+              <button
+                onClick={handleNextImage}
+                className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-700 text-white rounded-full p-2"
+                aria-label="Next Image"
+              >
+                &gt;
+              </button>
+            )}
+            <p className="absolute top-0 left-0 bg-yellow-300 text-gray-800 font-bold py-1 px-3 rounded-br-lg rounded-tl-lg text-xs">
+              {price ? formattedPrice : "Consultar"}
+            </p>
+          </div>
+
+          {photo && (
+            <button
+              onClick={() => handleImageDelete(currentImageIndex)}
+              className="text-red-500 hover:text-red-700 text-xs"
+              aria-label="Eliminar Imagen"
+            >
+              Eliminar Imagen Actual
             </button>
           )}
-          <img
+
+          <div className="my-1 text-gray-800 font-semibold text-center">
+            <p className={isLargeScreen ? "text-sm" : "text-xs"}>{summary}</p>
+          </div>
+        </div>
+        <Link
+          to={`/moreInfo/${_id}`}
+          target={isAuth ? "_blank" : ""}
+          className="w-full flex justify-center"
+          rel="noopener noreferrer"
+        >
+          <button
             className={`${
               isLargeScreen
-                ? "rounded-xl h-[150px] w-full object-cover"
-                : "rounded-lg h-[120px] w-full object-cover"
+                ? "text-sm w-[80%] text-white bg-sky-600 py-2 my-4 rounded-xl shadow-lg"
+                : "text-xs w-[70%] text-white bg-sky-600 py-1 my-2 rounded-lg shadow-md"
             }`}
-            src={photo ? photo[currentImageIndex] : ""}
-            alt="Product"
-          />
-          {photo && photo.length > 1 && (
-            <button
-              onClick={handleNextImage}
-              className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-700 text-white rounded-full p-2"
-              aria-label="Next Image"
-            >
-              &gt;
-            </button>
-          )}
-          <p className="absolute top-0 left-0 bg-yellow-300 text-gray-800 font-bold py-1 px-3 rounded-br-lg rounded-tl-lg text-xs">
-            {price ? formattedPrice : "Consultar"}
-          </p>
-        </div>
-
-        {photo && (
-          <button
-            onClick={() => handleImageDelete(currentImageIndex)}
-            className="text-red-500 hover:text-red-700 text-xs"
-            aria-label="Eliminar Imagen"
           >
-            Eliminar Imagen Actual
+            Más información
           </button>
-        )}
-
-        <div className="my-1 text-gray-800 font-semibold text-center">
-          <p className={isLargeScreen ? "text-sm": "text-xs"}>{summary}</p>
-        </div>
+        </Link>
       </div>
-      <Link
-        to={`/moreInfo/${_id}`}
-        target={isAuth ? "_blank" : ""}
-        className="w-full flex justify-center"
-        rel="noopener noreferrer"
-      >
-        <button
-          className={`${
-            isLargeScreen
-              ? "text-sm w-[80%] text-white bg-sky-600 py-2 my-4 rounded-xl shadow-lg"
-              : "text-xs w-[70%] text-white bg-sky-600 py-1 my-2 rounded-lg shadow-md"
-          }`}
-        >
-          Más información
-        </button>
-      </Link>
-    </div>
-    {switchModal ? <EditProduct handleModal={handleModal} _id={_id} />: null}
+      {switchModal ? <EditProduct handleModal={handleModal} _id={_id} /> : null}
     </>
   );
 };

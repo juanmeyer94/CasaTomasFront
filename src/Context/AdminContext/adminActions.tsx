@@ -6,7 +6,7 @@ import {
   ReactNode,
   useEffect,
 } from "react";
-import { getAllOrders, createOrderToApi, updateOrderStatus, getOrderById, deleteItemById, updatedItem, updatedPrice } from "../../Services/adminServices/adminServices";
+import { getAllOrders, createOrderToApi, updateOrderStatus, getOrderById, deleteItemById, updatedItem, updatedPrice, deleteOrderApi } from "../../Services/adminServices/adminServices";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../Services/adminServices/adminServices";
@@ -106,7 +106,7 @@ export const AdminContextProvider: React.FC<{ children: ReactNode }> = ({
 
   const deleteOrder = async (orderId: string) => {
     try {
-      await deleteOrder(orderId);
+      await deleteOrderApi(orderId);
       await getOrders();
     } catch (error) {
       console.error(error);
@@ -125,7 +125,7 @@ export const AdminContextProvider: React.FC<{ children: ReactNode }> = ({
   };
   
   const countPendingOrders = (): number => {
-    return state.orders.filter(order => order.status === 'pendiente').length;
+    return state.orders.filter(order => order.status === 'pendiente' && !order.deleted).length;
   };
   //products admin crud
 
