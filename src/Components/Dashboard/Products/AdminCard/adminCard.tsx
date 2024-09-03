@@ -7,14 +7,6 @@ import useAdminContext from "../../../../Utils/contextAdminHook";
 import useUserContext from "../../../../Utils/contextUserHook";
 import EditProduct from "../editProduct";
 
-const formatPrice = (price: number) => {
-  return new Intl.NumberFormat("es-AR", {
-    style: "currency",
-    currency: "ARS",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(price);
-};
 
 interface AdminCardProps extends Item {
   handleRemoveImage?: (indice: number) => void;
@@ -31,9 +23,6 @@ const AdminCard: React.FC<AdminCardProps> = ({
   handleRemoveImage,
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const toNumberPrice = Number(price);
-  const formattedPrice = formatPrice(toNumberPrice);
   const { handleDeleteProduct } = useAdminContext();
   const { getAllItems } = useUserContext();
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1400);
