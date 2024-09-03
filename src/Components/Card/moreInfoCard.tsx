@@ -221,7 +221,7 @@ const ProductDetail: React.FC = () => {
           <div className="mb-4">
             <h3 className="text-xl font-semibold">Precio:</h3>
             <p className="text-base">
-              ${Number(product.data.items[0].price).toLocaleString()}
+              ${product.data.items[0].price}
             </p>
           </div>
           <p className="mb-4">
