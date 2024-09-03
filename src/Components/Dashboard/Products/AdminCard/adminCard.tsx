@@ -183,7 +183,7 @@ const AdminCard: React.FC<AdminCardProps> = ({
               </button>
             )}
             <p className="absolute top-0 left-0 bg-yellow-300 text-gray-800 font-bold py-1 px-3 rounded-br-lg rounded-tl-lg text-xs">
-              {price ? formattedPrice : "Consultar"}
+              {price ? "$ " +price : "Consultar"}
             </p>
           </div>
 
