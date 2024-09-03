@@ -2,14 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Item } from "../../Interfaces/interfacesIndex";
 import { useNavigate } from "react-router-dom";
 
-const formatPrice = (price: number) => {
-  return new Intl.NumberFormat("es-AR", {
-    style: "currency",
-    currency: "ARS",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(price);
-};
 
 const UserCard: React.FC<Item> = ({
   photo,
@@ -22,8 +14,6 @@ const UserCard: React.FC<Item> = ({
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1400);
 
-  const priceToNumber = Number(price);
-  const formattedPrice = formatPrice(priceToNumber);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -102,7 +92,7 @@ const UserCard: React.FC<Item> = ({
             </button>
           )}
           <p className="absolute top-0 left-0 bg-yellow-300 text-gray-800 font-bold py-1 px-3 rounded-br-lg rounded-tl-lg text-xs">
-            {price ? formattedPrice : "Consultar"}
+            {price ? "$ " + price : "Consultar"}
           </p>
         </div>
         <div className="my-1 text-gray-800 font-semibold text-center">

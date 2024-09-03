@@ -10,7 +10,7 @@ const NavBar: React.FC = () => {
     };
 
     return (
-        <div className="relative flex items-center justify-between bg-sky-100 p-4">
+        <div className="relative flex items-center justify-between bg-sky-100 p-4 ">
             <div className="flex items-center ml-4 md:ml-14">
                 <a href="/">
                     <img
@@ -26,6 +26,7 @@ const NavBar: React.FC = () => {
                 <a href="/aboutUs" className="hover:text-blue-800 transition-colors">Acerca de nosotros</a>
                 <a href="/contact" className="hover:text-blue-800 transition-colors">Contacto</a>
                 <a href="/howToBuy" className="hover:text-blue-800 transition-colors">Como comprar</a>
+                <a href="/login" className="hover:text-blue-800 transition-colors">Login</a>
             </nav>
 
             <div className="flex items-center space-x-4 md:space-x-6 lg:space-x-8">

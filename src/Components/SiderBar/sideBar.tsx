@@ -16,9 +16,37 @@ const SideBar: React.FC = () => {
   const handleSubsectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilters({ ...Filters, subsection: e.target.value, type: "all" });
   };
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="w-44 2xl:w-56 xl:w-52 lg:w-52 md:w-44 xs:w-44 bg-gray-50 text-sky-600 p-6">
+    <div className="relative flex flex-col h-screen">
+  {/* Botón para abrir el menú en dispositivos móviles */}
+  <button
+    className="absolute top-4 left-4 z-50 block min-[320px]:block sm:hidden"
+    onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+  >
+    <svg
+      className="w-6 h-6 text-sky-600"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M4 6h16M4 12h16M4 18h16"
+      />
+    </svg>
+  </button>
+
+  {/* Sidebar que se oculta en pantallas pequeñas */}
+  <div
+    className={`w-44 2xl:w-56 xl:w-52 lg:w-52 md:w-44 xs:w-44 bg-gray-50 text-sky-600 p-6 transition-transform duration-300 ease-in-out ${
+      isSidebarOpen ? "translate-x-0 absolute z-30 w-screen" : "-translate-x-full hidden"
+    } sm:translate-x-0 sm:block`}
+  >
       <div className="">
         <h2 className="text-xl text-center font-bold mb-2 md:text-2xl md:mb-1 xs:text-2xl border-t border-b border-solid border-sky-500">
           Máquinas de coser
@@ -1010,7 +1038,7 @@ const SideBar: React.FC = () => {
                     className="hover:underline hover:text-sky-400 hover:decoration-wavy 2xl:text-xl text-sm"
                     onClick={() =>
                       handleTypeChange({
-                        target: { value: "Cinta Gross" },
+                        target: { value: "Cinta de Gross" },
                       } as React.ChangeEvent<HTMLSelectElement>)
                     }
                   >
@@ -1327,6 +1355,7 @@ const SideBar: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

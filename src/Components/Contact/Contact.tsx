@@ -161,7 +161,7 @@ const ContactPage: React.FC = () => {
           <h2 className="text-2xl font-semibold mb-4 border-l-4 border-sky-600 p-10">
             Ubicación
           </h2>
-          <div className="w-full h-64 relative">
+          <div className="w-full h-auto relative">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d213.17740741803863!2d-61.48549166639526!3d-31.252893309368893!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95caae5027daa73d%3A0xa2d2614d7776f0d0!2sCasa%20Tomas%20-%20Maquinas%20Para%20Coser%2C%20reparaciones%20y%20Mercer%C3%ADa!5e0!3m2!1ses!2sar!4v1721911671189!5m2!1ses!2sar"
               width="100%"
@@ -170,7 +170,7 @@ const ContactPage: React.FC = () => {
               loading="lazy"
               style={{ border: "0" }}
             ></iframe>
-            <div className="flex justify-center gap-4 mt-4">
+            <div className="flex justify-center gap-4 m-4">
               <a
                 href="https://www.facebook.com/casa.tomas.rafaela/"
                 target="_blank"

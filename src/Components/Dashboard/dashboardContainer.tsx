@@ -125,11 +125,11 @@ const DashContainer = () => {
       {/* Button to toggle sidebar */}
       <button
         onClick={toggleSidebar}
-        className="fixed top-4 left-4 z-20 lg:hidden p-2 bg-sky-500 text-white rounded-full"
+        className="fixed top-4 left-4 z-50 lg:hidden p-2 bg-sky-500 text-white rounded-full"
       >
         {isSidebarOpen ? (
           <svg
-            className="w-6 h-6"
+            className="w-5 h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -144,7 +144,7 @@ const DashContainer = () => {
           </svg>
         ) : (
           <svg
-            className="w-6 h-6"
+            className="w-5 h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -169,10 +169,10 @@ const DashContainer = () => {
           x-transition:leave-start="translate-x-0"
           x-transition:leave-end="-translate-x-full"
           x-show="isSidebarOpen"
-          className="fixed inset-y-0 z-20 w-80 bg-sky-100 lg:flex hidden"
+          className={`fixed inset-y-0 z-10 w-80 bg-sky-100 lg:flex ${isSidebarOpen ? 'translate-x-0 bg-opacity-0' : 'hidden'} transition-transform duration-300`}
         >
           <svg
-            className="absolute inset-0 w-full h-full text-white "
+            className="absolute inset-0 w-full h-full text-white"
             preserveAspectRatio="none"
             viewBox="0 0 309 800"
             fill="currentColor"
@@ -182,7 +182,7 @@ const DashContainer = () => {
           </svg>
 
           <div className="z-10 flex flex-col flex-1 ">
-            <nav className="flex flex-col flex-1 w-64 p-4 mt-4 ">
+            <nav className="flex flex-col flex-1 w-64 p-4 mt-6 z-50">
               <a
                 href="#"
                 onClick={() => handleEvent("Dashboard")}
