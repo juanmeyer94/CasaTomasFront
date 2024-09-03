@@ -1078,7 +1078,7 @@ const SideBar: React.FC = () => {
                       } as React.ChangeEvent<HTMLSelectElement>)
                     }
                   >
-                    Cinta Fantasía
+                    Cinta Fantasía y Galones
                   </button>
                 </li>
                 <li className="mb-1">
