@@ -39,4 +39,5 @@ export interface UserContextType {
     postPerPage: number;
     currentPosts: ObjectType[];
     setPostsPerPage: any;
+    state: any;
   }

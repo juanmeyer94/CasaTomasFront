@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Item } from "../../Interfaces/interfacesIndex";
 import { useNavigate } from "react-router-dom";
 
-
 const UserCard: React.FC<Item> = ({
   photo,
   price,
@@ -47,7 +46,9 @@ const UserCard: React.FC<Item> = ({
   };
 
   // Apply both 'f_auto' and 'q_auto' parameters for Cloudinary
-  const imageUrl = photo ? `${photo[currentImageIndex]}?f_auto&q_auto` : "";
+  const imageUrl = photo
+    ? `${photo[currentImageIndex]}?f_auto,q_auto,w_150,h_150`
+    : "";
 
   return (
     <div
@@ -76,12 +77,16 @@ const UserCard: React.FC<Item> = ({
           <img
             className={`${
               isLargeScreen
-                ? "rounded-xl h-[150px] w-full object-fit"
-                : "rounded-lg h-[120px] w-full object-fit"
+                ? "rounded-xl h-[150px] w-full object-cover"
+                : "rounded-lg h-[120px] w-full object-cover"
             }`}
             src={imageUrl}
             alt="Product"
+            width={isLargeScreen ? "150" : "120"}
+            height={isLargeScreen ? "150" : "120"}
+            loading="lazy"
           />
+
           {photo && photo.length > 1 && (
             <button
               onClick={handleNextImage}
