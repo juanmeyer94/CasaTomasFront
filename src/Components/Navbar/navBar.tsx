@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import CartModal from '../Cart/cartModal';
+import useUserContext from '../../Utils/contextUserHook';
 
 const NavBar: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isCartOpen, setIsCartOpen] = useState(false);
+    const {state} = useUserContext();
+
+   console.log(state.cart.length)
+    
 
     const handleCartModal = () => {
         setIsCartOpen(!isCartOpen);
@@ -40,7 +45,11 @@ const NavBar: React.FC = () => {
                         alt="Carrito"
                         className="h-10 w-10"
                     />
+                    
                 </button>
+                {state.cart.length > 0 ?  <div className="absolute top-[25%] flex items-center justify-center h-4 w-4 bg-red-600 text-white text-xs font-bold rounded-full">
+                <span>{state.cart.length}</span>
+                </div> : null}
                 {isCartOpen && <CartModal handleCartModal={handleCartModal} />}
                 <a
                     href="https://wa.me/+5493492279892"

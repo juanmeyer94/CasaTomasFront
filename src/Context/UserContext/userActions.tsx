@@ -183,6 +183,7 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
       currentPage,
       postPerPage,
       currentPosts,
+      state
     }),
     [state, currentPage, postPerPage, currentPosts]
   );
