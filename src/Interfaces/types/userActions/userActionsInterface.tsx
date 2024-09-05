@@ -6,7 +6,7 @@ export interface Filters {
     subsection: string;
     price: number;
     type: string;
-};
+}
 
 export interface Contact {
     userName: string;
