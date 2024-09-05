@@ -20,5 +20,6 @@ jobs:
       - name: Install Babel (if not installed)
         run: npm install --save-dev @babel/core @babel/preset-env
 
-      - name: Run Jest tests
-        run: npm test
+      - name: Run Jest tests with coverage
+        run: |
+          npm test -- --coverage
