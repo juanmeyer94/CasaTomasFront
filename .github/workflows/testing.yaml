@@ -1,4 +1,4 @@
-name: Unit Tests - ${{ github.event.pull_request.title }}
+name: Unit Tests
 on: [pull_request]
 
 jobs:
