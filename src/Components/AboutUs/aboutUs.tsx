@@ -25,7 +25,7 @@ const AboutUs: React.FC = () => {
             <div className="mb-4 text-blue-500">
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" className="bi bi-1-circle-fill" viewBox="0 0 16 16">
   <circle cx="8" cy="8" r="8" fill="currentColor"/> 
-  <text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="white" font-size="12" className="font-semibold">1</text> 
+  <text x="50%" y="50%" textAnchor="middle" dy=".3em" fill="white" fontSize="12" className="font-semibold">1</text> 
 </svg>
 
             </div>
