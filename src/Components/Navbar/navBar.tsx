@@ -5,10 +5,8 @@ import useUserContext from '../../Utils/contextUserHook';
 const NavBar: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isCartOpen, setIsCartOpen] = useState(false);
-    const {state} = useUserContext();
+    const { state } = useUserContext();
 
-   console.log(state.cart.length)
-    
 
     const handleCartModal = () => {
         setIsCartOpen(!isCartOpen);
@@ -31,7 +29,7 @@ const NavBar: React.FC = () => {
                 <a href="/aboutUs" className="hover:text-blue-800 transition-colors">Acerca de nosotros</a>
                 <a href="/contact" className="hover:text-blue-800 transition-colors">Contacto</a>
                 <a href="/howToBuy" className="hover:text-blue-800 transition-colors">Como comprar</a>
-                
+
             </nav>
 
             <div className="flex items-center space-x-4 md:space-x-6 lg:space-x-8">
@@ -45,10 +43,10 @@ const NavBar: React.FC = () => {
                         alt="Carrito"
                         className="h-10 w-10"
                     />
-                    
+
                 </button>
-                {state.cart.length > 0 ?  <div className="absolute top-[25%] flex items-center justify-center h-4 w-4 bg-red-600 text-white text-xs font-bold rounded-full">
-                <span>{state.cart.length}</span>
+                {state.cart.length > 0 ? <div className="absolute top-[25%] flex items-center justify-center h-4 w-4 bg-red-600 text-white text-xs font-bold rounded-full">
+                    <span>{state.cart.length}</span>
                 </div> : null}
                 {isCartOpen && <CartModal handleCartModal={handleCartModal} />}
                 <a

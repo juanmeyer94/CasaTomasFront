@@ -6,4 +6,7 @@ module.exports = {
     '@babel/preset-react',  // Soporta JSX y características de React
     '@babel/preset-typescript', // Soporta TypeScript
   ],
+  parserOpts: {
+    throwIfNamespace: false, // Agrega esta opción para evitar el error
+  },
 };

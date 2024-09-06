@@ -162,12 +162,12 @@ const DashContainer = () => {
       {/* side bar */}
       <div>
         <div
-          x-transition:enter="transform transition-transform duration-300"
-          x-transition:enter-start="-translate-x-full"
-          x-transition:enter-end="translate-x-0"
-          x-transition:leave="transform transition-transform duration-300"
-          x-transition:leave-start="translate-x-0"
-          x-transition:leave-end="-translate-x-full"
+          x-transitionenter="transform transition-transform duration-300"
+          x-transitionenter-start="-translate-x-full"
+          x-transitionenter-end="translate-x-0"
+          x-transitionleave="transform transition-transform duration-300"
+          x-transitionleave-start="translate-x-0"
+          x-transitionleave-end="-translate-x-full"
           x-show="isSidebarOpen"
           className={`fixed inset-y-0 z-10 w-80 bg-sky-100 lg:flex ${isSidebarOpen ? 'translate-x-0 bg-opacity-0' : 'hidden'} transition-transform duration-300`}
         >
