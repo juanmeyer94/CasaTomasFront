@@ -1,3 +1,4 @@
+import React from "react"
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ObjectType } from "../../Interfaces/interfacesIndex";
@@ -44,7 +45,7 @@ const ProductDetail: React.FC = () => {
             cy="25"
             r="20"
             stroke="gray"
-            stroke-width="5"
+            strokeWidth="5"
             fill="none"
           />
           <circle
@@ -52,13 +53,13 @@ const ProductDetail: React.FC = () => {
             cy="25"
             r="20"
             stroke="blue"
-            stroke-width="5"
-            stroke-dasharray="126"
-            stroke-dashoffset="0"
+            strokeWidth="5"
+            strokeDasharray="126"
+            strokeDashoffset="0"
             fill="none"
           >
             <animate
-              attributeName="stroke-dashoffset"
+              attributeName="strokeDashoffset"
               values="0;126"
               dur="1.5s"
               repeatCount="indefinite"

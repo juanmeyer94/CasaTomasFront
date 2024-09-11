@@ -9,12 +9,14 @@ interface CartModalProps {
 }
 
 const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
-  const { cart, AllObjects, upgradeCart, removeCart, changeQuantity } =
+  const { cart, AllObjects, upgradeCart, removeCart, changeQuantity, state } =
     useUserContext();
   const navigate = useNavigate();
 
+  console.log(state)
+
   // Función para combinar cantidades de los mismos productos
-  const mergeQuantities = (items: CartItem[]): CartItem[] => {
+  const mergeQuantities = (items: CartItem[]) => {
     const map: Record<string, CartItem> = {};
 
     items.forEach((item) => {
@@ -128,6 +130,7 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
           <button
             onClick={handleCartModal}
             className="text-gray-500 hover:text-gray-900"
+            aria-label="close"
           >
             <svg
               className="h-6 w-6"
@@ -177,6 +180,7 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
                             deleteItem(cartItem.id);
                           }}
                           className="text-gray-500 hover:text-gray-900"
+                          aria-label="borrar"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -397,8 +401,7 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
               type="button"
               className="bg-sky-600 text-white py-2 px-4 rounded-full font-bold hover:bg-sky-700"
               onClick={sendBuyCart}
-            >
-              Finalizar compra
+            >Finalizar pedido
             </button>
           </div>
         </div>
