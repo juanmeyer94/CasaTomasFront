@@ -74,4 +74,42 @@ describe("CartModal Component", () => {
   });
 
 
+  test("debe renderizar el título correctamente", () => {
+    render(
+        <BrowserRouter>
+          <CartModal handleCartModal={handleCartModalMock} />
+        </BrowserRouter>
+    );
+
+    expect(screen.getByText("Tu carrito")).toBeInTheDocument();
+  });
+
+  it("debe cerrar el modal cuando se hace clic en el botón de cierre", () => {
+    render(
+        <BrowserRouter>
+          <CartModal handleCartModal={handleCartModalMock} />
+        </BrowserRouter>
+    );
+
+    const closeButton = screen.getByRole("button", { name: /close/i });
+    closeButton.click();
+    expect(handleCartModalMock).toHaveBeenCalledTimes(1);
+  });
+
+  test("debe mostrar 'Tu carrito está vacío' cuando no hay elementos en el carrito", () => {
+    useUserContext.mockReturnValueOnce({
+      AllObjects: [],
+      cart: [], 
+      sendOrder: jest.fn(),
+      removeCart: jest.fn(),
+    });
+    render(
+
+        <BrowserRouter>
+          <CartModal handleCartModal={handleCartModalMock} />
+        </BrowserRouter> 
+    );
+
+    expect(screen.getByText("Tu carrito está vacío")).toBeInTheDocument();
+  });
 });
