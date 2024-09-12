@@ -178,6 +178,7 @@ const BuyCart = () => {
       setIsCartOpen(!isCartOpen);
   };
 
+  console.log(buyCart)
 
   return (
     <>
@@ -238,6 +239,7 @@ const BuyCart = () => {
                       <button
                         className="text-red-500 hover:text-red-700 absolute top-2 right-2"
                         onClick={() => handleDelete(item.id)}
+                        aria-label="eliminar"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -357,8 +359,7 @@ const BuyCart = () => {
               }`}
               disabled={!isBuyButtonEnabled}
               onClick={finishOrder}
-            >
-              PEDIR PRESUPUESTO
+            >PEDIR PRESUPUESTO
             </button>
             <p className="mt-4 text-gray-500">
               Debido a los constantes aumentos de precios por parte de los
