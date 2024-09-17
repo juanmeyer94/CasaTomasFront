@@ -616,6 +616,7 @@ const SideBar: React.FC = () => {
                 }}
               >
                 <span>Apliques y Abrojos</span>
+
                 <svg
                   data-accordion-icon
                   className={`w-3 h-3 ${
@@ -1254,6 +1255,7 @@ const SideBar: React.FC = () => {
                       onClick={() =>
                         handleTypeChange({
                           target: { value: "Cierre por metro y Deslizadores" },
+
                         } as React.ChangeEvent<HTMLSelectElement>)
                       }
                     >
