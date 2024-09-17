@@ -72,6 +72,26 @@ export const generalReducer = (state: State, action: Action): State => {
         SearchBar: searchQuery,
         FilteredObjects: filteredBySearch,
       };
+      case "SEARCH_BY_CODE":
+        const searchCode = action.payload
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+  
+        const filteredByCode = state.AllObjects.filter((item) => {
+          const itemCode = item.data.items[0].code ? item.data.items[0].code : "no code"
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+  
+          return itemCode.includes(searchCode);
+        });
+  
+        return {
+          ...state,
+          SearchBar: searchCode,
+          FilteredObjects: filteredByCode,
+        };
       case "RESET_FILTERS": 
       return {...state, Filters: {type: "", subsection: "", price: 0}, SearchBar: "", FilteredObjects: state.AllObjects };
       case "ADD_CART":

@@ -40,4 +40,5 @@ export interface UserContextType {
     currentPosts: ObjectType[];
     setPostsPerPage: any;
     state: any;
+    searchByCode: any;
   }

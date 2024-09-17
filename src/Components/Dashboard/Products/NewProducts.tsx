@@ -82,8 +82,8 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
       title: "Seleccionemos la subcategoría de Agujas",
     },
     {
-      name: "Apliques",
-      subtypes: ["Apliques"],
+      name: "Apliques y Abrojos",
+      subtypes: ["Apliques", "Abrojos"],
       title: "Seleccionemos la subcategoría de Apliques",
     },
     {
