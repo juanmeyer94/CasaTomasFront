@@ -42,23 +42,21 @@ export const generalReducer = (state: State, action: Action): State => {
   const searchQuery = action.payload
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, ""); // Remover acentos
-
-  const searchTerms = searchQuery.split(" ").filter(Boolean); // Dividir la búsqueda en términos
+    .replace(/[\u0300-\u036f]/g, ""); 
+  const searchTerms = searchQuery.split(" ").filter(Boolean); 
 
   const filteredBySearch = state.AllObjects.filter((item) => {
     const normalizeString = (str:any) =>
       str
         .toLowerCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, ""); // Normalización básica
+        .replace(/[\u0300-\u036f]/g, ""); 
 
     const itemType = normalizeString(item.data.type);
     const itemSubsection = normalizeString(item.subsection);
     const itemMarca = normalizeString(item.data.items[0].marca);
     const itemName = normalizeString(item.data.items[0].name);
 
-    // Verificar si todas las palabras de búsqueda están en al menos uno de los campos
     return searchTerms.every(term =>
       itemType.includes(term) ||
       itemSubsection.includes(term) ||
