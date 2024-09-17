@@ -71,7 +71,7 @@ export const generalReducer = (state: State, action: Action): State => {
     FilteredObjects: filteredBySearch,
   };
 
-      case "SEARCH_BY_CODE":
+         case "SEARCH_BY_CODE":
         const searchCode = action.payload
           .toLowerCase()
           .normalize("NFD")
@@ -90,13 +90,6 @@ export const generalReducer = (state: State, action: Action): State => {
       
         return {
           ...state,
-          FilteredObjects: filteredByCode,
-        };
-      
-  
-        return {
-          ...state,
-          SearchBar: searchCode,
           FilteredObjects: filteredByCode,
         };
       case "RESET_FILTERS": 

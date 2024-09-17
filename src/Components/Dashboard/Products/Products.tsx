@@ -21,6 +21,8 @@ const Products: React.FC = () => {
 
   const { isAuth } = useAdminContext();
 
+  console.log(currentPosts)
+
   if (loading) {
     return (
       <div className="flex rounded-xl items-center justify-center flex-col p-8 font-bold text-2xl bg-sky-100 h-screen">
