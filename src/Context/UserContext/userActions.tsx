@@ -56,6 +56,12 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
     dispatch({ type: "SET_SEARCH_QUERY", payload: query });
     setCurrentPage(1);
   }, []);
+
+  const searchByCode = useCallback((query:string) => {
+    dispatch({ type: "SEARCH_BY_CODE", payload: query });
+    setCurrentPage(1);
+  },[])
+
   useEffect(() => {
     if (!isMounted.current) {
       getAllItems();
@@ -180,6 +186,7 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
       sendContact,
       setPostsPerPage,
       getAllItems,
+      searchByCode,
       currentPage,
       postPerPage,
       currentPosts,
