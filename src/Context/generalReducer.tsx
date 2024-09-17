@@ -38,58 +38,58 @@ export const generalReducer = (state: State, action: Action): State => {
         );
       });
       return { ...state, Filters: action.payload, FilteredObjects: filtered };
-    case "SET_SEARCH_QUERY":
-      const searchQuery = action.payload
+      case "SET_SEARCH_QUERY":
+  const searchQuery = action.payload
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, ""); 
+  const searchTerms = searchQuery.split(" ").filter(Boolean); 
+
+  const filteredBySearch = state.AllObjects.filter((item) => {
+    const normalizeString = (str:any) =>
+      str
         .toLowerCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
-      const filteredBySearch = state.AllObjects.filter((item) => {
-        const itemType = item.data.type
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "");
-        const itemSubsection = item.subsection
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "");
-        const itemMarca = item.data.items[0].marca
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "");
-        const itemName = item.data.items[0].name
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "");
-        return (
-          itemType.includes(searchQuery) ||
-          itemSubsection.includes(searchQuery) ||
-          itemMarca.includes(searchQuery) ||
-          itemName.includes(searchQuery)
-        );
-      });
-      return {
-        ...state,
-        SearchBar: searchQuery,
-        FilteredObjects: filteredBySearch,
-      };
-      case "SEARCH_BY_CODE":
+        .replace(/[\u0300-\u036f]/g, ""); 
+
+    const itemType = normalizeString(item.data.type);
+    const itemSubsection = normalizeString(item.subsection);
+    const itemMarca = normalizeString(item.data.items[0].marca);
+    const itemName = normalizeString(item.data.items[0].name);
+
+    return searchTerms.every(term =>
+      itemType.includes(term) ||
+      itemSubsection.includes(term) ||
+      itemMarca.includes(term) ||
+      itemName.includes(term)
+    );
+  });
+
+  return {
+    ...state,
+    SearchBar: searchQuery,
+    FilteredObjects: filteredBySearch,
+  };
+
+         case "SEARCH_BY_CODE":
         const searchCode = action.payload
           .toLowerCase()
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "");
-  
+      
         const filteredByCode = state.AllObjects.filter((item) => {
-          const itemCode = item.data.items[0].code ? item.data.items[0].code : "no code"
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "");
-  
-          return itemCode.includes(searchCode);
+          const itemCode = item.data.items[0].code
+            ? item.data.items[0].code
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+            : "no code";
+      
+          return itemCode === searchCode;
         });
-  
+      
         return {
           ...state,
-          SearchBar: searchCode,
           FilteredObjects: filteredByCode,
         };
       case "RESET_FILTERS": 

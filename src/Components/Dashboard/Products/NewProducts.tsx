@@ -12,7 +12,7 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
     {
       name: "Maquina",
       subtypes: ["Maquinas Industriales", "Maquinas Familiares"],
-      title: "Seleccionemos la subcategoría de la Maquina",
+      title: "Seleccionemos la categoría de la Maquina",
     },
     {
       name: "Merceria",
@@ -20,7 +20,7 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
         "Hilos",
         "Puntillas",
         "Agujas",
-        "Apliques y Abrojos",
+        "Apliques y abrojos",
         "Reparadores",
         "Elásticos",
         "Tijeras",
@@ -29,7 +29,7 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
         "Cierres",
         "Cordones",
       ],
-      title: "Seleccionemos la subcategoría de la Mercería",
+      title: "Seleccionemos la categoría de la Mercería",
     },
   ];
 
@@ -44,12 +44,12 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
         "Doble arrastre",
         "Triple arrastre",
       ],
-      title: "Seleccionemos la subcategoría de Máquinas Industriales",
+      title: "Seleccionemos la categoría de Máquinas Industriales",
     },
     {
       name: "Máquinas Familiares",
       subtypes: ["Máquina de coser", "Collareta", "Overlock"],
-      title: "Seleccionemos la subcategoría de Máquinas Familiares",
+      title: "Seleccionemos la categoría de Máquinas Familiares",
     },
     {
       name: "Hilos",
@@ -58,7 +58,7 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
         "Hilos de costura",
         "Hilos para manualidades",
       ],
-      title: "Seleccionemos la subcategoría de Hilos",
+      title: "Seleccionemos la categoría de Hilos",
     },
     {
       name: "Puntillas",
@@ -68,7 +68,7 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
         "Puntillas de Lycra",
         "Puntillas de Broderie",
       ],
-      title: "Seleccionemos la subcategoría de Puntillas",
+      title: "Seleccionemos la categoría de Puntillas",
     },
     {
       name: "Agujas",
@@ -79,17 +79,17 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
         "Agujas de tejer y crochet",
         "Alfileres y accesorios",
       ],
-      title: "Seleccionemos la subcategoría de Agujas",
+      title: "Seleccionemos la categoría de Agujas",
     },
     {
-      name: "Apliques y Abrojos",
+      name: "Apliques y abrojos",
       subtypes: ["Apliques", "Abrojos"],
-      title: "Seleccionemos la subcategoría de Apliques",
+      title: "Seleccionemos la categoría de Apliques y abrojos",
     },
     {
       name: "Reparadores",
       subtypes: ["Parches y reparadores"],
-      title: "Seleccionemos la subcategoría de Reparadores",
+      title: "Seleccionemos la categoría de Reparadores",
     },
     {
       name: "Elásticos",
@@ -102,17 +102,17 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
         "Elásticos Quebrados",
         "Elásticos de Lencería",
       ],
-      title: "Seleccionemos la subcategoría de Elásticos",
+      title: "Seleccionemos la categoría de Elásticos",
     },
     {
       name: "Tijeras",
       subtypes: ["Tijeras", "Herramientas"],
-      title: "Seleccionemos la subcategoría de Tijeras",
+      title: "Seleccionemos la categoría de Tijeras",
     },
     {
       name: "Lubricantes y pegamentos",
       subtypes: ["Lubricantes", "Pegamentos"],
-      title: "Seleccionemos la subcategoría de Lubricantes y pegamentos",
+      title: "Seleccionemos la categoría de Lubricantes y pegamentos",
     },
     {
       name: "Cintas",
@@ -124,7 +124,7 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
         "Cinta Fantasía",
         "Cinta Hilera",
       ],
-      title: "Seleccionemos la subcategoría de Cintas",
+      title: "Seleccionemos la categoría de Cintas",
     },
     {
       name: "Cierres",
@@ -139,7 +139,7 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
         "Cierre Fijo Bronce",
         "Cierre por metro y Deslizadores",
       ],
-      title: "Seleccionemos la subcategoría de Cierres",
+      title: "Seleccionemos la categoría de Cierres",
     },
     {
       name: "Cordones",
@@ -150,7 +150,7 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
         "Cordón de Polipropireno",
         "Cordón de Raso",
       ],
-      title: "Seleccionemos la subcategoría de Cordones",
+      title: "Seleccionemos la categoría de Cordones",
     },
   ];
 
@@ -177,6 +177,7 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
       ],
     },
   });
+
   const [showCard, setShowCard] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
 
@@ -261,8 +262,8 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
         typesOptions = <DropDown {...Agujas} func={handleTypeChange} />;
       }
       break;
-    case "Apliques":
-      const Apliques = subcategorias.find((item) => item.name === "Apliques");
+    case "Apliques y abrojos":
+      const Apliques = subcategorias.find((item) => item.name === "Apliques y abrojos");
       if (Apliques) {
         typesOptions = <DropDown {...Apliques} func={handleTypeChange} />;
       }
@@ -458,7 +459,7 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
 
                 <button
                   className={`relative flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-sky-500 group-hover:from-purple-500 group-hover:to-sky-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 ${
-                    isDropdownVisible ? "flex" : "hidden"
+                    newProduct.data.type ? "flex" : "hidden"
                   }`}
                   onClick={handleShowCards}
                 >

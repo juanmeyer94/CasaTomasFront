@@ -611,12 +611,11 @@ const SideBar: React.FC = () => {
                 onClick={() => {
                   handleAccordionToggle("accordion-7");
                   handleSubsectionChange({
-                    target: { value: "Apliques" },
+                    target: { value: "Apliques y Abrojos" },
                   } as React.ChangeEvent<HTMLSelectElement>);
                 }}
               >
-                <span>Apliques y Abrojos</span>
-
+                <span>Apliques y abrojos</span>
                 <svg
                   data-accordion-icon
                   className={`w-3 h-3 ${
@@ -1255,7 +1254,6 @@ const SideBar: React.FC = () => {
                       onClick={() =>
                         handleTypeChange({
                           target: { value: "Cierre por metro y Deslizadores" },
-
                         } as React.ChangeEvent<HTMLSelectElement>)
                       }
                     >
