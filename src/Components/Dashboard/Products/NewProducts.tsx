@@ -20,7 +20,7 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
         "Hilos",
         "Puntillas",
         "Agujas",
-        "Apliques",
+        "Apliques y Abrojos",
         "Reparadores",
         "Elásticos",
         "Tijeras",

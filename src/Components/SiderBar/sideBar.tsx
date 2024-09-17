@@ -615,7 +615,7 @@ const SideBar: React.FC = () => {
                   } as React.ChangeEvent<HTMLSelectElement>);
                 }}
               >
-                <span>Apliques</span>
+                <span>Apliques y Abrojos</span>
                 <svg
                   data-accordion-icon
                   className={`w-3 h-3 ${
@@ -1253,7 +1253,7 @@ const SideBar: React.FC = () => {
                       className="hover:underline hover:text-sky-400 hover:decoration-wavy 2xl:text-xl text-sm"
                       onClick={() =>
                         handleTypeChange({
-                          target: { value: "Cierre por Metro y Deslizadores" },
+                          target: { value: "Cierre por metro y Deslizadores" },
                         } as React.ChangeEvent<HTMLSelectElement>)
                       }
                     >
