@@ -9,11 +9,9 @@ interface CartModalProps {
 }
 
 const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
-  const { cart, AllObjects, upgradeCart, removeCart, changeQuantity, state } =
+  const { cart, AllObjects, upgradeCart, removeCart, changeQuantity } =
     useUserContext();
   const navigate = useNavigate();
-
-  console.log(state)
 
   // Función para combinar cantidades de los mismos productos
   const mergeQuantities = (items: CartItem[]) => {

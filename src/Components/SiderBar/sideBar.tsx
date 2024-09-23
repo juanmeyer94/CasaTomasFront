@@ -19,7 +19,7 @@ const SideBar: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="relative flex flex-col h-screen">
+    <div className="relative flex flex-col ">
   {/* Botón para abrir el menú en dispositivos móviles */}
   <button
     className="absolute top-4 left-4 z-50 block min-[320px]:block sm:hidden"

@@ -178,7 +178,6 @@ const BuyCart = () => {
       setIsCartOpen(!isCartOpen);
   };
 
-  console.log(buyCart)
 
   return (
     <>
