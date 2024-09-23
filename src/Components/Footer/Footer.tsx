@@ -2,9 +2,9 @@ import React from "react"
 
 const Footer: React.FC = () => {
   return (
-    <footer className="px-4 divide-y dark:bg-sky-100 dark:text-gray-800 ">
-      <div className="container flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
-        <div className="lg:w-1/3 mt-6">
+    <footer className="px-4 divide-y dark:bg-sky-100 dark:text-gray-800 items-center justify-center">
+      <div className="container flex flex-col py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0 ">
+        <div className="lg:w-1/3">
           <a
             rel="noopener noreferrer"
             href="/"
@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
             </span>
           </a>
         </div>
-        <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4 items-center font-semibold">
+        <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 w-full sm:grid-cols-4 font-semibold text-center items-center justify-center">
           <div className="space-y-3">
             <a href="/aboutUs">
             <h3 className="tracking-wide uppercase dark:text-gray-900">
@@ -44,9 +44,8 @@ const Footer: React.FC = () => {
             </h3>
             </a>
           </div>
-          <div className="space-y-3 mt-10">
-            <div className="uppercase dark:text-gray-900">Social media</div>
-            <div className="flex justify-start space-x-3">
+          <div className="space-y-3">
+            <div className="flex ">
               <a
                 rel="noopener noreferrer"
                 href="https://www.facebook.com/casa.tomas.rafaela/"
