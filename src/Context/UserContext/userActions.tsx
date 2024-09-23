@@ -57,7 +57,6 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
     setCurrentPage(1);
   }, []);
 
-
   const searchingItemsInCart = () => {
     const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
     if (storedCart && storedCart.length > 0 && !state.loading) {
@@ -72,6 +71,12 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     }
   };
+
+  const searchByCode = useCallback((query:string) => {
+    dispatch({ type: "SEARCH_BY_CODE", payload: query });
+    setCurrentPage(1);
+  },[])
+
 
   useEffect(() => {
     if (!isMounted.current) {
@@ -202,6 +207,7 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
       sendContact,
       setPostsPerPage,
       getAllItems,
+      searchByCode,
       currentPage,
       postPerPage,
       currentPosts,

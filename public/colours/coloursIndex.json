@@ -218,6 +218,26 @@
       "id": 44,
       "name": "Verde Agua",
       "path": "/colours/verde-agua.jpg"
+    },
+    {
+      "id": 45,
+      "name": "Fucsia Fluo",
+      "path": "/colours/fucsia-fluor.jpg"
+    },
+    {
+      "id": 46,
+      "name": "Naranja Fluo",
+      "path": "/colours/naranja-fluo.jpg"
+    },
+    {
+      "id": 47,
+      "name": "Verde Fluo",
+      "path": "/colours/verde-fluo.jpg"
+    },
+    {
+      "id": 48,
+      "name": "Amarillo Fluo",
+      "path": "/colours/amarillo-fluor.jpg"
     }
   ]
   

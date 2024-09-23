@@ -4,6 +4,7 @@ import { ObjectType } from "../../../Interfaces/interfacesIndex";
 import SearchBar from "../../SearchBar/searchBar";
 import useAdminContext from "../../../Utils/contextAdminHook";
 import AdminCard from "./AdminCard/adminCard";
+import AdmSearchBar from "../../AdmSearchBar/AdmSearchBar";
 
 const Products: React.FC = () => {
   const {
@@ -19,6 +20,8 @@ const Products: React.FC = () => {
   } = useUserContext();
 
   const { isAuth } = useAdminContext();
+
+  console.log(currentPosts)
 
   if (loading) {
     return (
@@ -87,7 +90,10 @@ const Products: React.FC = () => {
 
   return (
     <div className="px-6 pt-6 ml-5 bg-sky-100 h-auto">
-      <SearchBar />
+      <div className="flex flex-col-1">
+        <AdmSearchBar />
+        <SearchBar />
+      </div>
       {currentPosts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-5 min-[1700px]:grid-cols-5 gap-0 ">
           {currentPosts.map((item: ObjectType) => (

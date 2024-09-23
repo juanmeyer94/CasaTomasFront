@@ -38,4 +38,5 @@ export type Action =
   | { type: "UPGRADE_CART"; payload: CartItem[] }
   | { type: "RESET_FILTERS" }
   | { type: "RESET_CART" }
+  | {type: "SEARCH_BY_CODE"; payload: string}
   | {type: "GET_ORDERS"; payload: NewOrder};
