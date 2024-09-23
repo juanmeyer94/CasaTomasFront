@@ -3,9 +3,9 @@ import React, {
   useCallback,
   useReducer,
   useEffect,
-  useRef,
   useMemo,
   useState,
+  useRef
 } from "react";
 import { initialState, generalReducer } from "../generalReducer";
 import {
@@ -30,10 +30,10 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [state, dispatch] = useReducer(generalReducer, initialState);
-  const isMounted = useRef(false);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostsPerPage] = useState(0);
+  const isMounted = useRef(false);
 
   const getAllItems = useCallback(async () => {
     dispatch({ type: "SET_LOADING", payload: true });
@@ -57,19 +57,41 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
     setCurrentPage(1);
   }, []);
 
+  const searchingItemsInCart = () => {
+    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    if (storedCart && storedCart.length > 0 && !state.loading) {
+      const matchingItems = storedCart.filter((cartItem: any) =>
+        state.AllObjects.find((item) => item.data._id == cartItem.id)
+      );
+      if (matchingItems.length !== storedCart.length) {
+        localStorage.setItem("cart", JSON.stringify(matchingItems));
+      }
+      if (matchingItems.length > 0) {
+        dispatch({ type: "LOAD_CART_FROM_STORAGE", payload: matchingItems });
+      }
+    }
+  };
+
   const searchByCode = useCallback((query:string) => {
     dispatch({ type: "SEARCH_BY_CODE", payload: query });
     setCurrentPage(1);
   },[])
 
+
   useEffect(() => {
     if (!isMounted.current) {
       getAllItems();
-      const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
-      dispatch({ type: "LOAD_CART_FROM_STORAGE", payload: storedCart });
       isMounted.current = true;
     }
   }, [getAllItems]);
+  
+  useEffect(() => {
+    if (!state.loading && state.AllObjects.length > 0) {
+      searchingItemsInCart();
+    }
+  }, [state.loading, state.AllObjects]);
+  
+  
 
   useEffect(() => {
     const updateItemsPerPage = () => {
@@ -155,15 +177,14 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const sendOrder = async (orderData: NewOrder) => {
     try {
-        const response = await sendOrderToApi(orderData);
-        dispatch({ type: "RESET_CART" });
-        return response;  
+      const response = await sendOrderToApi(orderData);
+      dispatch({ type: "RESET_CART" });
+      return response;
     } catch (error) {
-        console.error(error);
-        throw error;  
+      console.error(error);
+      throw error;
     }
-};
-
+  };
 
   //contact
   const sendContact = (data: Contact) => {
@@ -190,7 +211,7 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
       currentPage,
       postPerPage,
       currentPosts,
-      state
+      state,
     }),
     [state, currentPage, postPerPage, currentPosts]
   );

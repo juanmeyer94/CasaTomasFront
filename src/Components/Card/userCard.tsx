@@ -59,8 +59,8 @@ const UserCard: React.FC<Item> = ({
       }`}
     >
       <div>
-        <div className="min-h-[3rem] mb-2">
-          <h1 className="mt-4 text-gray-800 text-xl font-bold cursor-pointer">
+        <div className="min-h-[4rem] mb-2 xl:min-h-[5rem]">
+          <h1 className="mt-4 text-gray-800 font-bold cursor-pointer lg:text-sm xl:text-lg 2xl:text-lg">
             {marca && name ? `${marca} ${name}` : <div>{marca}</div>}
           </h1>
         </div>
