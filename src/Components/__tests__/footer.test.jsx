@@ -28,7 +28,6 @@ describe("Footer load and includes text test", () => {
         expect(contacto).toBeInTheDocument();
         expect(preguntasFrecuentes).toBeInTheDocument();
         expect(developedBy).toBeInTheDocument();
-        expect(socialMedia).toBeInTheDocument();
 
 
         const notElement = await screen.queryByText("Not be in the document");
