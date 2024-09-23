@@ -29,9 +29,30 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
   const { getAllItems } = useUserContext();
   const [hasOrNot, setHasOrNot] = useState<string>("NOT_SELECTED");
 
-  const addModel = (modelName: string) => {
+  const updateModel = (index: number, modelName: string) => {
     setNewProduct(prev => {
-      const updatedModels = [...prev.data.items[0].models, modelName];
+      const updatedModels = [...prev.data.items[0].models];
+      updatedModels[index] = modelName;
+      return {
+        ...prev,
+        data: {
+          ...prev.data,
+          items: [
+            {
+              ...prev.data.items[0],
+              models: updatedModels,
+            },
+          ],
+        },
+      };
+    });
+  };
+  
+  // Modificación de addModel para manejar el nuevo modelo
+  const addModel = (modelName: string) => {
+    const newModelName = modelName.trim() || `Modelo ${newProduct.data.items[0].models.length + 1}`;
+    setNewProduct(prev => {
+      const updatedModels = [...prev.data.items[0].models, newModelName];
       return {
         ...prev,
         data: {
@@ -198,55 +219,50 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
                     case "MODELS":
                       return (
                         <div className="flex flex-col">
-                          <div className="px-2 py-0  text-white font-bold">
-                            <h2>Seleccionar cantidad de modelos</h2>
-                            <div className="py-2 px-2 rounded-lg">
-                              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-0">
-                                {newProduct.data.items[0].models.map(
-                                  (model, index) => (
-                                    <div
-                                      key={index}
-                                      className="flex items-center"
-                                    >
-                                      <span className="text-gray-700 font-semibold">{model}</span>
-                                      <button
-                                        type="button"
-                                        className="text-red-500 hover:text-red-700 focus:outline-none"
-                                        onClick={() => removeModel(model)}
-                                        aria-label="Eliminar modelo"
-                                      >
-                                        <ArrowLeftCircleIcon className="w-6 h-6" />
-                                      </button>
-                                    </div>
-                                  )
-                                )}
-                              </div>
-                              <button
-                                type="button"
-                                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition ease-in-out duration-150"
-                                onClick={() =>
-                                  addModel(
-                                    `Modelo ${
-                                      newProduct.data.items[0].models.length + 1
-                                    }`
-                                  )
-                                }
-                              >
-                                Agregar modelos
-                              </button>
+                        <div className="px-4 py-2 text-white font-bold">
+                          <h2 className="text-lg mb-2">Seleccionar cantidad de modelos</h2>
+                          <div className="py-2 px-2 rounded-lg ">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+                              {newProduct.data.items[0].models.map((model, index) => (
+                                <div key={index} className="flex items-center space-x-2 text-gray-700">
+                                  <input
+                                    type="text"
+                                    placeholder={`....`}
+                                    value={model}
+                                    onChange={(e) => updateModel(index, e.target.value)}
+                                    className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                  />
+                                  <button
+                                    type="button"
+                                    className="text-red-500 hover:text-red-700 focus:outline-none"
+                                    onClick={() => removeModel(model)}
+                                    aria-label="Eliminar modelo"
+                                  >
+                                    <ArrowLeftCircleIcon className="w-6 h-6" />
+                                  </button>
+                                </div>
+                              ))}
                             </div>
+                            <button
+                              type="button"
+                              className="mt-4 w-full px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition ease-in-out duration-150"
+                              onClick={() => addModel("")}
+                            >
+                              Agregar modelo
+                            </button>
                           </div>
-                          <button
-                            className="text-red-500 hover:text-red-700 focus:outline-none"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              setHasOrNot("NOT_SELECTED");
-                            }}
-                            aria-label="Eliminar"
-                          >
-                            <ArrowLeftCircleIcon className="w-6 h-6" />
-                          </button>
                         </div>
+                        <button
+                          className="text-red-500 hover:text-red-700 focus:outline-none mt-4"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setHasOrNot("NOT_SELECTED");
+                          }}
+                          aria-label="Eliminar"
+                        >
+                          <ArrowLeftCircleIcon className="w-6 h-6" />
+                        </button>
+                      </div>
                       );
                     case "COLOURS":
                       return (

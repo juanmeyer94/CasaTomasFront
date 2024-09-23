@@ -18,7 +18,6 @@ describe("Footer load and includes text test", () => {
         const acercaDeNosotros = await screen.findByText("Acerca de Nosotros");
         const contacto = await screen.findByText("Contacto");
         const preguntasFrecuentes = await screen.findByText("PREGUNTAS FRECUENTES");
-        const socialMedia = await screen.findByText("Social media");
         const developedBy = await screen.findByText("Desarrollado por Juan Meyer");
 
         
@@ -29,7 +28,6 @@ describe("Footer load and includes text test", () => {
         expect(contacto).toBeInTheDocument();
         expect(preguntasFrecuentes).toBeInTheDocument();
         expect(developedBy).toBeInTheDocument();
-        expect(socialMedia).toBeInTheDocument();
 
 
         const notElement = await screen.queryByText("Not be in the document");

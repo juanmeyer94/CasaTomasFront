@@ -23,10 +23,12 @@ const SearchBar: React.FC = () => {
   }, [SearchBar]);
 
 
+  
   return (
-    <div className="w-full flex flex-col min-[768px]:flex-row mr-2">
-      <div className="relative min-w-[18.5%] 2xl:w-[18.5%] lg:w-[22%] md:w-[40%] xs:w-[30%] sm:w-[70%] mb-4 sm:ml-6 md:ml-0">
-        <span className="absolute inset-y-0 right-0 flex items-center pr-2 ">
+    <div className="w-full flex flex-col sm:flex-row sm:items-center sm:space-x-4 mr-2">
+      {/* Input de búsqueda */}
+      <div className="relative w-full sm:w-auto sm:flex-grow mb-4 sm:mb-0">
+        <span className="absolute inset-y-0 right-0 flex items-center pr-2">
           <img src="/lupa.png" alt="Ready Check" width="24" height="24" />
         </span>
         <input
@@ -37,10 +39,11 @@ const SearchBar: React.FC = () => {
           onChange={handleSearchChange}
         />
       </div>
-  
-      <div className="rounded-xl bg-red-400 text-xs flex items-center ml-6 lg:text-base 2xl:ml-7 xl:ml-8 lg:ml-20 md:ml-14 mb-4 sm:w-40 sm:justify-center">
+
+      {/* Botón de limpiar filtros */}
+      <div className="flex justify-center">
         <button
-          className="text-white font-semibold px-3 py-1"
+          className="w-full sm:w-auto bg-red-400 text-white font-semibold px-3 py-2 rounded-xl text-xs sm:text-base"
           onClick={resetFilters}
         >
           Limpiar filtros
