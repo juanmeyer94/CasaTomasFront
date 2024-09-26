@@ -158,9 +158,17 @@ const ContactPage: React.FC = () => {
           </form>
         </div>
         <div className="md:w-1/2 w-full p-4">
-          <h2 className="text-2xl font-semibold mb-4 border-l-4 border-sky-600 p-10">
+          <h1 className="text-2xl font-semibold mb-4 border-l-4 border-sky-600 p-10">
             Ubicación
+          </h1>
+          <h2 className="text-xl font-semibold text-gray-700">
+            Rafaela, Santa Fe
           </h2>
+          <h2 className="text-xl font-semibold">San Martin 556</h2>
+          <h3 className="text-lg font-semibold">
+            Telefono: 03492-422683 (fijo) 3492-279892 (celular)
+          </h3>
+          <br />
           <div className="w-full h-auto relative">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d213.17740741803863!2d-61.48549166639526!3d-31.252893309368893!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95caae5027daa73d%3A0xa2d2614d7776f0d0!2sCasa%20Tomas%20-%20Maquinas%20Para%20Coser%2C%20reparaciones%20y%20Mercer%C3%ADa!5e0!3m2!1ses!2sar!4v1721911671189!5m2!1ses!2sar"

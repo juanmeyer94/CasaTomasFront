@@ -29,10 +29,10 @@ export const LayoutWithoutNavBarAndFooter:React.FC <({ children:React.ReactNode}
 
 
 export const LayoutWithNavBar:React.FC <({ children:React.ReactNode})> = ({children}) => (
-  <div className="flex flex-col h-screen">
+  <div className="">
     <NavBar />
-    <div className="flex flex-grow">
-      <div className="flex-grow flex justify-center">
+    <div className="">
+      <div className="">
         {children}
       </div>
     </div>

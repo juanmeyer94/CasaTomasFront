@@ -45,7 +45,7 @@ const Footer: React.FC = () => {
             </a>
           </div>
           <div className="space-y-3">
-            <div className="flex ">
+            <div className="flex min-[420px]:ml-12 min-[375px]:ml-10 min-[320px]:ml-6 sm:ml-0">
               <a
                 rel="noopener noreferrer"
                 href="https://www.facebook.com/casa.tomas.rafaela/"
@@ -100,7 +100,7 @@ const Footer: React.FC = () => {
         <div className="text-center dark:text-gray-600">
           Desde 1923 Casa Tomas®. All rights reserved.
         </div>
-        <div className="text-right text-xs">
+        <div className="text-right text-xs min-[320px]:hidden sm:block">
           <p>Desarrollado por Juan Meyer</p>
           <a
             href="https://www.linkedin.com/in/juan-meyer-9b34a5269"
