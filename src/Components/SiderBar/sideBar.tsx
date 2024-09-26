@@ -11,20 +11,45 @@ const SideBar: React.FC = () => {
 
   const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilters({ ...Filters, type: e.target.value });
+    handleTypeChangeAndCloseSidebar()
   };
 
   const handleSubsectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilters({ ...Filters, subsection: e.target.value, type: "all" });
+ 
   };
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const handleTypeChangeAndCloseSidebar = () => {
+  
+    if (window.innerWidth < 450) { 
+      setIsSidebarOpen(false);
+    }
+  };
 
   return (
     <div className="relative flex flex-col ">
   {/* Botón para abrir el menú en dispositivos móviles */}
   <button
-    className="absolute top-4 left-4 z-50 block min-[320px]:block sm:hidden"
-    onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-  >
+  className="absolute top-4 left-4 z-50 block min-[320px]:block sm:hidden"
+  onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+>
+  {isSidebarOpen ? (
+    <svg
+      className="w-7 h-7 text-red-600 -mt-4"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M6 18L18 6M6 6l12 12"
+      />
+    </svg>
+  ) : (
     <svg
       className="w-6 h-6 text-sky-600"
       fill="none"
@@ -39,7 +64,8 @@ const SideBar: React.FC = () => {
         d="M4 6h16M4 12h16M4 18h16"
       />
     </svg>
-  </button>
+  )}
+</button>
 
       {/* Sidebar que se oculta en pantallas pequeñas */}
       <div
@@ -101,6 +127,7 @@ const SideBar: React.FC = () => {
                         handleTypeChange({
                           target: { value: "Rectas" },
                         } as React.ChangeEvent<HTMLSelectElement>)
+                        
                       }
                     >
                       Rectas
