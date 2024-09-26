@@ -84,7 +84,7 @@ const UserCard: React.FC<Item> = ({
             alt="Product"
             width={isLargeScreen ? "150" : "120"}
             height={isLargeScreen ? "150" : "120"}
-            loading="lazy"
+            loading="eager"
           />
 
           {photo && photo.length > 1 && (
