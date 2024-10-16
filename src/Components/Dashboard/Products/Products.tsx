@@ -103,6 +103,9 @@ const Products: React.FC = () => {
               photo={item.data.items[0].photo}
               price={item.data.items[0].price}
               summary={item.data.items[0].summary}
+              wholesalePrice={item.data.items[0].wholesalePrice}
+              offer={item.offer}
+              quantity={item.data.items[0].quantity}
               description={item.data.items[0].description}
               specsTecs={item.data.items[0].specsTecs}
               isAuth={isAuth}

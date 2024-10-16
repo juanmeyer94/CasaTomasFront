@@ -21,8 +21,8 @@ const AdmSearchBar: React.FC = () => {
 
   return (
     <div className="w-auto flex flex-col mr-2">
-      <div className="relative w-full mb-4 sm:ml-6 md:ml-0">
-        <span className="absolute inset-y-0 right-0 flex items-center pr-2 ">
+      <div className="relative w-full sm:ml-6 md:ml-0">
+        <span className="absolute inset-y-0 right-0 flex items-center pr-2">
           <img src="/lupa.png" alt="Ready Check" width="24" height="24" />
         </span>
         <input

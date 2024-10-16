@@ -24,7 +24,7 @@ describe("BuyCart", () => {
             photo: ["url"],
           },
           quantities: 2,
-          totalPrice: 20.0,
+          totalPrice: 20.00,
         },
       ],
       sendOrder: jest.fn(),
@@ -39,6 +39,6 @@ describe("BuyCart", () => {
     );
 
     console.log(screen);
-    expect(screen.getByText("Subtotal: $20.00")).toBeInTheDocument();
+    expect(screen.getByText("Subtotal: $20")).toBeInTheDocument();
   });
 });

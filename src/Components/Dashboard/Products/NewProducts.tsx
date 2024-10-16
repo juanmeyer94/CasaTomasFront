@@ -173,6 +173,8 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
           colours: [],
           models: [],
           code:"",
+          quantity: "",
+          wholesalePrice: "",
         },
       ],
     },

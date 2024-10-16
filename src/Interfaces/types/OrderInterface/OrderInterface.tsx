@@ -7,7 +7,7 @@ export interface OrderItemData {
   description?: string;
   specsTecs?: string;
   _id: string;
-  code:string;
+  code?:string;
 }
 
 export interface OrderItem {

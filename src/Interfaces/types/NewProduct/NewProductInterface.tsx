@@ -9,6 +9,8 @@ export interface ProductItem {
     colours: string[];
     models: string[];
     code:string;
+    quantity: string;
+    wholesalePrice: string;
   }
 
   export interface NewProductState {

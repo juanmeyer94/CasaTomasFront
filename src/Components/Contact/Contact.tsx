@@ -14,6 +14,53 @@ const ContactPage: React.FC = () => {
     userMessage: "",
     userLocation: "",
   });
+  
+  // Estado para manejar errores
+  const [errors, setErrors] = useState({
+    userName: "",
+    userEmail: "",
+    userPhone: "",
+    userMessage: "",
+    userLocation: "",
+  });
+
+  // Expresión regular para validar email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Validar los campos
+  const validateFields = (name: string, value: string) => {
+    switch (name) {
+      case "userName":
+        if (!value.trim()) {
+          return "El nombre es obligatorio";
+        }
+        return "";
+      case "userEmail":
+        if (!value.trim()) {
+          return "El email es obligatorio";
+        } else if (!emailRegex.test(value)) {
+          return "El email no es válido";
+        }
+        return "";
+      case "userPhone":
+        if (!value.trim()) {
+          return "El teléfono es obligatorio";
+        }
+        return "";
+      case "userLocation":
+        if (!value.trim()) {
+          return "La dirección es obligatoria";
+        }
+        return "";
+      case "userMessage":
+        if (!value.trim()) {
+          return "El mensaje es obligatorio";
+        }
+        return "";
+      default:
+        return "";
+    }
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -23,33 +70,54 @@ const ContactPage: React.FC = () => {
       ...prevMessage,
       [name]: value,
     }));
+    
+    // Validar y actualizar los errores en tiempo real
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: validateFields(name, value),
+    }));
+  };
+
+  // Verificar si todos los campos están llenos y sin errores
+  const isFormValid = () => {
+    return (
+      contactMessage.userName.trim() &&
+      contactMessage.userEmail.trim() &&
+      emailRegex.test(contactMessage.userEmail) &&
+      contactMessage.userPhone.trim() &&
+      contactMessage.userLocation.trim() &&
+      contactMessage.userMessage.trim() &&
+      Object.values(errors).every((error) => error === "")
+    );
   };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    sendContact(contactMessage);
-    Swal.fire({
-      title: "Mensaje enviado",
-      text: "Gracias por contactarnos. Nos comunicaremos contigo a la brevedad.",
-      icon: "success",
-      showCancelButton: true,
-      confirmButtonText: "Ir al inicio",
-      cancelButtonText: "Cerrar",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate("/");
-      }
-    });
 
-    setContactMessage({
-      userName: "",
-      userEmail: "",
-      userMessage: "",
-      userLocation: "",
-      userPhone: "",
-    });
+    if (isFormValid()) {
+      sendContact(contactMessage);
+      Swal.fire({
+        title: "Mensaje enviado",
+        text: "Gracias por contactarnos. Nos comunicaremos contigo a la brevedad.",
+        icon: "success",
+        showCancelButton: true,
+        confirmButtonText: "Ir al inicio",
+        cancelButtonText: "Cerrar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/");
+        }
+      });
+
+      setContactMessage({
+        userName: "",
+        userEmail: "",
+        userMessage: "",
+        userLocation: "",
+        userPhone: "",
+      });
+    }
   };
-
   return (
     <div className="flex flex-col items-center w-full">
       <div className="w-full flex-shrink-0 overflow-hidden">
@@ -74,10 +142,7 @@ const ContactPage: React.FC = () => {
           </p>
           <form className="space-y-4" onSubmit={onSubmit}>
             <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                 Apellido y Nombres
               </label>
               <input
@@ -88,12 +153,10 @@ const ContactPage: React.FC = () => {
                 onChange={handleChange}
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
               />
+              {errors.userName && <p className="text-red-500 text-xs mt-1">{errors.userName}</p>}
             </div>
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 Email
               </label>
               <input
@@ -104,12 +167,10 @@ const ContactPage: React.FC = () => {
                 onChange={handleChange}
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
               />
+              {errors.userEmail && <p className="text-red-500 text-xs mt-1">{errors.userEmail}</p>}
             </div>
             <div>
-              <label
-                htmlFor="phone"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
                 Teléfono
               </label>
               <input
@@ -120,12 +181,10 @@ const ContactPage: React.FC = () => {
                 onChange={handleChange}
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
               />
+              {errors.userPhone && <p className="text-red-500 text-xs mt-1">{errors.userPhone}</p>}
             </div>
             <div>
-              <label
-                htmlFor="address"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="address" className="block text-sm font-medium text-gray-700">
                 Dirección / Ciudad
               </label>
               <input
@@ -136,6 +195,7 @@ const ContactPage: React.FC = () => {
                 onChange={handleChange}
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
               />
+              {errors.userLocation && <p className="text-red-500 text-xs mt-1">{errors.userLocation}</p>}
             </div>
             <div>
               <textarea
@@ -147,11 +207,14 @@ const ContactPage: React.FC = () => {
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                 placeholder="Mensaje"
               ></textarea>
+              {errors.userMessage && <p className="text-red-500 text-xs mt-1">{errors.userMessage}</p>}
             </div>
-
             <button
               type="submit"
-              className="w-full bg-sky-600 text-white rounded-md py-2"
+              disabled={!isFormValid()}
+              className={`w-full bg-sky-600 text-white rounded-md py-2 ${
+                !isFormValid() ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
               ENVIAR
             </button>

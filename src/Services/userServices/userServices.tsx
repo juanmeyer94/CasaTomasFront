@@ -3,7 +3,7 @@ import { NewOrder, Contact } from "../../Interfaces/interfacesIndex";
 
 export const getAllObjects = async () => {
   try {
-    const response = await axios.get("/itemswithprices");
+    const response = await axios.get("/items");
     const shuffledData = response.data.sort(() => Math.random() - 0.5);
     return shuffledData;
   } catch (error) {

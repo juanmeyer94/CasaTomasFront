@@ -93,7 +93,7 @@ export const generalReducer = (state: State, action: Action): State => {
           FilteredObjects: filteredByCode,
         };
       case "RESET_FILTERS": 
-      return {...state, Filters: {type: "", subsection: "", price: 0}, SearchBar: "", FilteredObjects: state.AllObjects };
+      return {...state, Filters: {type: "all", subsection: "all", price: 0}, SearchBar: "", FilteredObjects: state.AllObjects };
       case "ADD_CART":
         const newCart = [...state.cart, action.payload];
         localStorage.setItem('cart', JSON.stringify(newCart));
