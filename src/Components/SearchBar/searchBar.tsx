@@ -48,8 +48,6 @@ const SearchBarr: React.FC = () => {
       </div>
     </div>
   );
-  
-  
 };
 
 
