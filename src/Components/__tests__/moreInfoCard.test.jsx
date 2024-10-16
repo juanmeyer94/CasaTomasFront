@@ -33,6 +33,7 @@ describe('ProductDetail', () => {
     // Mockear useUserContext
     useUserContext.mockReturnValue({
       FilteredObjects: [],
+      AllObjects: [],
       addToCart: jest.fn(),
     });
 
@@ -64,10 +65,13 @@ describe('ProductDetail', () => {
             colours: ['Red', 'Blue'],
             models: ['Model1', 'Model2'],
             photo: ['/photo1.jpg', '/photo2.jpg'],
+            wholesalePrice: "4500",
+            quantity: "10 UNIDADES"
           }],
         },
       }],
       addToCart: jest.fn(),
+      AllObjects: [],
     });
 
     render(
@@ -77,10 +81,11 @@ describe('ProductDetail', () => {
         </Router>
       </UserContextProvider>
     );
+    console.log(screen)
 
       expect(screen.getByText('MarcaTest NombreTest')).toBeInTheDocument();
-      expect(screen.getByText('$100')).toBeInTheDocument();
-      expect(screen.getByText('Descripción General: Descripción de prueba')).toBeInTheDocument(); 
+      expect(screen.getByText('-$ 3.500,00')).toBeInTheDocument();
+      expect(screen.getByText('Descripción de prueba')).toBeInTheDocument(); 
       expect(screen.getByText('Variedad de colores')).toBeInTheDocument();
       expect(screen.getByText('Modelos Disponibles')).toBeInTheDocument();
   });

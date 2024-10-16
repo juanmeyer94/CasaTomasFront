@@ -1,72 +1,89 @@
-import React from "react"
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { ObjectType } from "../../Interfaces/interfacesIndex";
 import useUserContext from "../../Utils/contextUserHook";
 import coloursIndex from "../../../public/colours/coloursIndex.json";
 import Swal from "sweetalert2";
+import {
+  ShoppingCart,
+  Truck,
+  Shield,
+  CreditCard,
+  ChevronLeft,
+  ChevronRight,
+  Heart,
+} from "lucide-react";
+import MoreOfferCarousel from "../carrousel/MoreOfferCarrousel";
 
 const coloursMap = coloursIndex.reduce((acc, colour) => {
   acc[colour.name] = colour;
   return acc;
 }, {} as Record<string, { path: string }>);
 
-const ProductDetail: React.FC = () => {
+export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<ObjectType | null>(null);
   const { FilteredObjects, addToCart } = useUserContext();
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [modelQuantities] = useState<Record<string, number>>({});
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const producto = FilteredObjects.find((item) => item._id === id);
     setProduct(producto || null);
   }, [id, FilteredObjects]);
 
-  const handleGoBack = () => {
-    navigate(-1); // Navega hacia atrás
-  };
+  const totalQuantity = useMemo(() => {
+    const colorTotal = Object.values(quantities).reduce(
+      (sum, current) => sum + current,
+      0
+    );
+    const modelTotal = Object.values(modelQuantities).reduce(
+      (sum, current) => sum + current,
+      0
+    );
+    return colorTotal + modelTotal;
+  }, [quantities, modelQuantities]);
 
-  // loading
+  const isWholesaleApplicable = useMemo(() => {
+    if (
+      !product ||
+      product.data.items[0].quantity === "0" ||
+      product.data.items[0].wholesalePrice === "0"
+    )
+      return false;
+    const minQuantity = parseInt(product.data.items[0].quantity.split(" ")[0]);
+    return totalQuantity >= minQuantity;
+  }, [product, totalQuantity]);
+
+  const discountAmount = useMemo(() => {
+    if (!product || !isWholesaleApplicable) return 0;
+    const regularPrice = parseFloat(product.data.items[0].price);
+    const wholesalePrice =
+      parseFloat(product.data.items[0].wholesalePrice) /
+      parseInt(product.data.items[0].quantity.split(" ")[0]);
+    return (regularPrice - wholesalePrice) * totalQuantity;
+  }, [product, isWholesaleApplicable, totalQuantity]);
+
+  useEffect(() => {
+    if (isWholesaleApplicable) {
+      Swal.fire({
+        icon: "info",
+        title: "¡Descuento por mayor aplicado!",
+        text: `Has alcanzado la cantidad mínima para el descuento por mayor. Ahorrarás ${formatPrice(
+          discountAmount
+        )}.`,
+        timer: 5000,
+        timerProgressBar: true,
+      });
+    }
+  }, [isWholesaleApplicable, discountAmount]);
+
   if (!product) {
     return (
       <div className="flex rounded-xl items-center justify-center flex-col p-8 font-bold text-2xl">
         <h1>Cargando...</h1>
-        <svg
-          width="50"
-          height="50"
-          viewBox="0 0 50 50"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle
-            cx="25"
-            cy="25"
-            r="20"
-            stroke="gray"
-            strokeWidth="5"
-            fill="none"
-          />
-          <circle
-            cx="25"
-            cy="25"
-            r="20"
-            stroke="blue"
-            strokeWidth="5"
-            strokeDasharray="126"
-            strokeDashoffset="0"
-            fill="none"
-          >
-            <animate
-              attributeName="strokeDashoffset"
-              values="0;126"
-              dur="1.5s"
-              repeatCount="indefinite"
-            />
-          </circle>
-        </svg>
-
         <p>Casa Tomas - 100 años cosiendo juntos.</p>
       </div>
     );
@@ -114,24 +131,17 @@ const ProductDetail: React.FC = () => {
   };
 
   const handleAddToCart = () => {
-    const selectedItems = Object.entries(quantities).filter(
-      ([_, qty]) => qty > 0
-    );
-    const selectedModels = Object.entries(modelQuantities).filter(
-      ([_, qty]) => qty > 0
-    );
-
-    if (selectedItems.length > 0 || selectedModels.length > 0) {
+    if (totalQuantity > 0) {
       const productToAdd = {
         ...product.data,
         quantities,
-        models: modelQuantities, // Add the model quantities here
+        modelQuantities,
       };
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
       const cartToPush = {
         id: productToAdd._id,
         quantities: productToAdd.quantities,
-        models: productToAdd.models,
+        models: productToAdd.modelQuantities,
       };
       addToCart(cartToPush);
       cart.push(cartToPush);
@@ -149,24 +159,61 @@ const ProductDetail: React.FC = () => {
     }
   };
 
-  const handleNextImage = () => {
-    if (photos.length > 1) {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % photos.length);
-    }
-  };
-
-  const handlePrevImage = () => {
+  const handleImageChange = (direction: number) => {
     if (photos.length > 1) {
       setCurrentImageIndex(
-        (prevIndex) => (prevIndex - 1 + photos.length) % photos.length
+        (prevIndex) => (prevIndex + direction + photos.length) % photos.length
       );
     }
   };
 
+  const formatDescription = (description: string): JSX.Element[] => {
+    const parts = description.split(/\/{1,2}/);
+    return parts.map((part, index) => (
+      <React.Fragment key={index}>
+        {part}
+        {index < parts.length - 1 && <br />}
+      </React.Fragment>
+    ));
+  };
+
+  const formatPrice = (price: any): string => {
+    return new Intl.NumberFormat("es-AR", {
+      style: "currency",
+      currency: "ARS",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(price);
+  };
+
+  const generateWhatsAppMessage = () => {
+    const productInfo = `Información del Producto: Nombre: ${
+      product.data.items[0].name
+    }, Marca: ${product.data.items[0].marca || "No disponible"}, Precio: $${
+      product.data.items[0].price
+    }, Descripción: ${product.data.items[0].description}, Enlace: ${
+      window.location.href
+    }`;
+    return productInfo.replace(/\s/g, "%20");
+  };
+
+  const handleLabelChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    itemName: string
+  ) => {
+    const value = Number(event.target.value);
+    if (!isNaN(value)) {
+      setQuantities((prevQuantities) => ({
+        ...prevQuantities,
+        [itemName]: value, // Actualizar la cantidad del color específico
+      }));
+    }
+  };
+
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div>
       <div
-        className="w-full h-38 sm:h-38 bg-cover bg-center -mb-2 rounded-full"
+        className="w-auto h-38 sm:h-38 bg-center"
         style={{ backgroundImage: "url('/articulos-merceria-destcada.jpg')" }}
       >
         <h1 className="text-3xl font-bold text-white p-8">PRODUCTOS</h1>
@@ -174,157 +221,279 @@ const ProductDetail: React.FC = () => {
           {product.section} / {product.subsection}
         </h2>
       </div>
+      <div className="max-w-7xl mx-auto p-4 font-sans">
+        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+          <div className="p-6">
+            <div className="flex flex-col lg:flex-row gap-8">
+              <div className="lg:w-1/2">
+                <div className="relative rounded-lg overflow-hidden">
+                  <img
+                    src={photos[currentImageIndex]}
+                    alt="Producto"
+                    className="w-full h-[542px] object-center"
+                  />
+                  {photos.length > 1 && (
+                    <>
+                      <button
+                        onClick={() => handleImageChange(-1)}
+                        className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition duration-300"
+                      >
+                        <ChevronLeft className="w-6 h-6" />
+                      </button>
+                      <button
+                        onClick={() => handleImageChange(1)}
+                        className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition duration-300"
+                      >
+                        <ChevronRight className="w-6 h-6" />
+                      </button>
+                    </>
+                  )}
+                </div>
+                <div className="grid grid-cols-4 gap-2 mt-4">
+                  {photos.map((photo, index) => (
+                    <img
+                      key={index}
+                      src={photo}
+                      alt={`Miniatura ${index}`}
+                      className="w-full h-32 object-center cursor-pointer rounded-md border-2 border-gray-200 hover:border-blue-500 transition duration-300"
+                      onClick={() => setCurrentImageIndex(index)}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className="lg:w-1/2">
+                <h1 className="text-3xl font-bold text-gray-800 mb-2">
+                  {product.data.items[0].marca
+                    ? `${product.data.items[0].marca} ${product.data.items[0].name}`
+                    : product.data.items[0].name}
+                </h1>
 
-      <div className="flex flex-col md:flex-row 2xl:px-44 xl:px-38 lg:px-30 md:px-26 sm:px-12 mt-4">
-        <div className="md:w-1/2 w-full p-4">
-          <div className="relative">
-            <img
-              src={photos[currentImageIndex]}
-              alt="Product"
-              className="w-full h-[350px] 2xl:h-[500px] mb-4"
-            />
-            {photos.length > 1 && (
-              <>
-                <button
-                  onClick={handlePrevImage}
-                  className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md"
-                >
-                  &lt;
-                </button>
-                <button
-                  onClick={handleNextImage}
-                  className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md"
-                >
-                  &gt;
-                </button>
-              </>
-            )}
-          </div>
-          <div className="grid grid-cols-3 gap-2">
-            {photos.map((photo, index) => (
-              <img
-                key={index}
-                src={photo}
-                alt={`Thumbnail ${index}`}
-                className="w-full cursor-pointer border-2 border-gray-200 h-[120px] xl:h-[140px] 2xl:h-[170px]"
-                onClick={() => setCurrentImageIndex(index)}
-              />
-            ))}
-          </div>
-        </div>
+                {product.data.items[0].wholesalePrice !== "0" && (
+                  <div className="bg-gradient-to-r from-yellow-500 to-yellow-100 p-4 rounded-lg mb-6">
+                    <h2 className="text-2xl font-bold text-yellow-800 mb-2">
+                      ¡OFERTA COMPRANDO {product.data.items[0].quantity} O MAS!
+                    </h2>
 
-        <div className="md:w-1/2 w-full p-4">
-          <h2 className="text-2xl font-bold mb-4">
-            {product.data.items[0].marca
-              ? product.data.items[0].marca + " " + product.data.items[0].name
-              : product.data.items[0].name}
-          </h2>
-          <div className="mb-4">
-            <h3 className="text-xl font-semibold">Precio:</h3>
-            <p className="text-base">
-              ${product.data.items[0].price}
-            </p>
-          </div>
-          <p className="mb-4">
-            <span className="font-semibold">
-              Descripción General: {product.data.items[0].description}
-            </span>
-          </p>
+                    <p className="text-lg text-yellow-900">
+                      Comprando {product.data.items[0].quantity} o más, ¡ahorrás{" "}
+                      <span className="font-bold text-green-700">
+                        {" "}
+                        {formatPrice(
+                          (parseFloat(product.data.items[0].price) -
+                            parseFloat(product.data.items[0].wholesalePrice) /
+                              parseInt(
+                                product.data.items[0].quantity.split(" ")[0]
+                              )) *
+                            parseInt(
+                              product.data.items[0].quantity.split(" ")[0]
+                            )
+                        )}{" "}
+                      </span>
+                      o más !{" "}
+                    </p>
 
-          {hasColours && (
-            <div className="mb-4">
-              <h3 className="text-xl font-semibold mb-2">
-                Variedad de colores
-              </h3>
-              <p className="mb-2 text-xs">*Los colores son orientativos.</p>
-              <div className="grid grid-cols-2 gap-4">
-                {productColours.map((colour, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-col items-center justify-center gap-2"
-                  >
-                    <p>{colour?.name}</p>
-                    <div className="flex items-center gap-2">
-                      <img
-                        src={colour?.path}
-                        alt={colour?.name}
-                        className="w-8 h-8 object-cover rounded"
-                      />
-                      <div className="py-2 px-3 inline-block bg-white border border-gray-200 rounded-lg">
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => handleDecrease(colour.name)}
-                            className="bg-gray-200 px-1.5 rounded"
-                          >
-                            -
-                          </button>
-                          <span>{quantities[colour.name] || 0}</span>
-                          <button
-                            onClick={() => handleIncrease(colour.name)}
-                            className="bg-gray-200 px-1 rounded"
-                          >
-                            +
-                          </button>
+                    {isWholesaleApplicable && (
+                      <p className="text-lg font-bold text-green-700 mt-2">
+                        ¡Descuento aplicado de{" "}
+                        <span className="font-bold text-green-700">
+                          {" "}
+                          {formatPrice(discountAmount)}{" "}
+                        </span>
+                        , y podes seguir sumando!
+                      </p>
+                    )}
+                    <p className="text-xs">
+                      *Las ofertas son válidas únicamente comprando por este
+                      medio.
+                    </p>
+                  </div>
+                )}
+
+                <div className="flex items-end gap-4 mb-6">
+                  <div>
+                    <p className="text-sm text-gray-500 mb-1">
+                      Precio por unidad
+                    </p>
+                    <p className="text-3xl font-semibold text-blue-600">
+                      {formatPrice(product.data.items[0].price)}
+                    </p>
+                  </div>
+                  {product.data.items[0].wholesalePrice !== "0" && (
+                    <div>
+                      <p className="text-sm text-gray-500 mb-1">
+                        Precio por mayor ({product.data.items[0].quantity}+)
+                      </p>
+                      <p className="text-3xl font-bold text-green-600">
+                        {formatPrice(
+                          parseFloat(product.data.items[0].wholesalePrice) /
+                            parseInt(
+                              product.data.items[0].quantity.split(" ")[0]
+                            )
+                        )}
+                        /u
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                <p className="text-gray-700 mb-4 text-xl font-semibold">
+                  {formatDescription(product.data.items[0].description)}
+                </p>
+
+                {hasColours && (
+                  <div className="mb-6">
+                    <h3 className="text-xl font-semibold mb-2">
+                      Variedad de colores
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
+                      {productColours.map((item: any, index: number) => (
+                        <div
+                          key={index}
+                          className="flex items-center gap-2 w-full bg-gray-100 p-2 rounded-lg"
+                        >
+                          <img
+                            src={item.path}
+                            alt={item.name}
+                            className="w-8 h-8 object-cover rounded-full border-2 border-white"
+                          />
+                          <span className="text-sm font-medium flex-grow">
+                            {item.name}
+                          </span>
+                          <div className="flex items-center border rounded bg-white">
+                            <button
+                              onClick={() => handleDecrease(item.name)}
+                              className="px-2 py-1 hover:bg-gray-100 transition duration-300"
+                            >
+                              -
+                            </button>
+                            <input
+                              type="number"
+                              value={quantities[item.name] || 0}
+                              onChange={(e) => handleLabelChange(e, item.name)}
+                              className="w-12 text-center border-none outline-none appearance-none"
+                            />
+                            <button
+                              onClick={() => handleIncrease(item.name)}
+                              className="px-2 py-1 hover:bg-gray-100 transition duration-300"
+                            >
+                              +
+                            </button>
+                          </div>
                         </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          )}
+                )}
 
-          {hasModels && (
-            <div className="mb-4">
-              <h3 className="text-xl font-semibold mb-2">
-                Modelos Disponibles
-              </h3>
-              <div className="grid grid-cols-2 gap-4">
-                {models.map((model, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-col items-center justify-center gap-2"
+                {hasModels && (
+                  <div className="mb-6">
+                    <h3 className="text-xl font-semibold mb-2">
+                      Modelos Disponibles
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
+                      {models.map((model: string, index: number) => (
+                        <div
+                          key={index}
+                          className="flex items-center gap-2 w-full bg-gray-100 p-2 rounded-lg"
+                        >
+                          <span className="text-sm font-medium flex-grow">
+                            {model}
+                          </span>
+                          <div className="flex items-center border rounded bg-white">
+                            <button
+                              onClick={() => handleModelDecrease(model)}
+                              className="px-2 py-1 hover:bg-gray-100 transition duration-300"
+                            >
+                              -
+                            </button>
+                            <span className="px-3 py-1 font-medium">
+                              <span>{quantities[model] || 0}</span>
+                            </span>
+                            <button
+                              onClick={() => handleModelIncrease(model)}
+                              className="px-2 py-1 hover:bg-gray-100 transition duration-300"
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <button
+                      onClick={handleAddToCart}
+                      className="flex flex-col items-center justify-center bg-blue-600 text-white py-3 px-2 rounded-md hover:bg-blue-700 transition duration-300"
+                    >
+                      <ShoppingCart className="w-6 h-6 mb-1" />
+                      <span className="text-sm">Agregar al carrito</span>
+                    </button>
+                    <a
+                      href={`https://wa.me/5493492279892?text=${generateWhatsAppMessage()}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex flex-col items-center justify-center bg-green-500 text-white py-3 px-2 rounded-md hover:bg-green-600 transition duration-300"
+                    >
+                      <Heart className="w-6 h-6 mb-1" />
+                      <span className="text-sm">¡Consulta por WhatsApp!</span>
+                    </a>
+                  </div>
+
+                  <button
+                    onClick={() => navigate(-1)}
+                    className="w-full bg-gray-200 text-gray-800 py-3 rounded-md hover:bg-gray-300 transition duration-300"
                   >
-                    <p>{model}</p>
-                    <div className="py-2 px-3 inline-block bg-white border border-gray-200 rounded-lg">
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => handleModelDecrease(model)}
-                          className="bg-gray-200 px-1.5 rounded"
-                        >
-                          -
-                        </button>
-                        <span>{quantities[model] || 0}</span>
-                        <button
-                          onClick={() => handleModelIncrease(model)}
-                          className="bg-gray-200 px-1 rounded"
-                        >
-                          +
-                        </button>
-                      </div>
+                    Volver atrás
+                  </button>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex flex-col items-center bg-blue-50 p-3 rounded-lg">
+                      <CreditCard className="text-blue-600 w-8 h-8 mb-2" />
+                      <p className="font-semibold text-blue-600 text-center text-sm">
+                        ¡PAGÁ EN CUOTAS!
+                      </p>
+                      <p className="text-xs text-gray-600 text-center">
+                        Aceptamos todas las tarjetas
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-center bg-green-50 p-3 rounded-lg">
+                      <Truck className="text-green-600 w-8 h-8 mb-2" />
+                      <p className="font-semibold text-green-600 text-center text-sm">
+                        ENVÍO A TODO EL PAÍS
+                      </p>
+                      <p className="text-xs text-gray-600 text-center">
+                        De forma rápida y segura
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-center bg-yellow-50 p-3 rounded-lg">
+                      <Shield className="text-yellow-600 w-8 h-8 mb-2" />
+                      <p className="font-semibold text-yellow-600 text-center text-sm">
+                        TU COMPRA ES SEGURA
+                      </p>
+                      <p className="text-xs text-gray-600 text-center">
+                        100 años de trayectoria nos avalan
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-center bg-purple-50 p-3 rounded-lg">
+                      <ShoppingCart className="text-purple-600 w-8 h-8 mb-2" />
+                      <p className="font-semibold text-purple-600 text-center text-sm">
+                        CALIDAD GARANTIZADA
+                      </p>
+                      <p className="text-xs text-gray-600 text-center">
+                        En todos nuestros productos
+                      </p>
                     </div>
                   </div>
-                ))}
+                </div>
               </div>
             </div>
-          )}
-
-          <button
-            onClick={handleAddToCart}
-            className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
-          >
-            Agregar al carrito
-          </button>
-          <button
-            onClick={handleGoBack}
-            className="bg-gray-500 hover:bg-gray-600 text-white font-semibold px-4 py-2 rounded ml-4"
-          >
-            Volver atrás
-          </button>
+          </div>
+          <MoreOfferCarousel subsection={product.subsection} />
         </div>
       </div>
     </div>
   );
-};
-
-export default ProductDetail;
+}

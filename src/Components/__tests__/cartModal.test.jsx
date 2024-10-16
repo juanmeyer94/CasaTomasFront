@@ -24,6 +24,8 @@ beforeEach(() => {
               marca: "Marca 1",
               price: "100",
               photo: ["url1"],
+              wholesalePrice: "4500",
+              quantity: "10 UNIDADES"
             },
           ],
           section: "Sección 1",
@@ -40,6 +42,8 @@ beforeEach(() => {
               marca: "Marca 2",
               price: "200",
               photo: ["url2"],
+               wholesalePrice: "4500",
+              quantity: "10 UNIDADES"
             },
           ],
           section: "Sección 2",

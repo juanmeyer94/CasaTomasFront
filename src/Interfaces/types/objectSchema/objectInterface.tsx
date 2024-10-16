@@ -12,6 +12,9 @@ export interface Item {
   isAuth?: boolean;
   handleRemoveImage?:any;
   code?: string;
+  quantity: string;
+  wholesalePrice: string;
+  offer: boolean;
 }
 
 interface Data {
@@ -22,7 +25,7 @@ interface Data {
 
 interface ObjectType {
   _id: string;
-  offer: boolean;
+  offer: any;
   section: string;
   subsection: string;
   filter: boolean;

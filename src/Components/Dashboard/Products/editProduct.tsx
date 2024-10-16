@@ -44,6 +44,8 @@ const [updateProduct, setUpdateProduct] = useState<NewProductState>({
           colours: [],
           models: [],
           code:"",
+          wholesalePrice:"0",
+          quantity: "0",
         },
       ],
     },
@@ -71,6 +73,8 @@ const [updateProduct, setUpdateProduct] = useState<NewProductState>({
           colours: item.colours || [],
           models: item.models || [],
           code: item.code || "",
+          wholesalePrice: item.wholesalePrice || "0",
+          quantity: item.quantity || "0",
         })),
       },
     };
@@ -520,6 +524,9 @@ const addModel = (modelName: string) => {
             name={updateProduct.data.items[0].name}
             summary={updateProduct.data.items[0].summary}
             price={updateProduct.data.items[0].price}
+            wholesalePrice="0"
+            quantity="0"
+            offer={updateProduct.offer}
             _id="1"
             specsTecs={updateProduct.data.items[0].specsTecs}
             description={updateProduct.data.items[0].description}

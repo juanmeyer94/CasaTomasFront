@@ -2,11 +2,18 @@ import React, { useState, useEffect } from "react";
 import useUserContext from "../../Utils/contextUserHook";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { BuyCarInterface, OrderItemData } from "../../Interfaces/interfacesIndex";
-import { NewOrder } from "../../Interfaces/types/OrderInterface/OrderInterface";
+import { BuyCarInterface} from "../../Interfaces/interfacesIndex";
+import { NewOrder, OrderItemData } from "../../Interfaces/types/OrderInterface/OrderInterface";
 import CartModal from "./cartModal";
 
-// Definir la interfaz para el estado del formulario
+const formatPrice = (price: number): string => {
+  return new Intl.NumberFormat('es-AR', {
+    style: 'decimal',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(price);
+};
+
 interface FormData {
   firstName: string;
   lastName: string;
@@ -23,6 +30,17 @@ const BuyCart = () => {
     email: "",
     phone: "",
   });
+
+  const calculateDiscount = (item: BuyCarInterface) => {
+    const originalPrice = parseFloat(item.item.price) * item.totalQuantities;
+    const discountedPrice = item.totalPrice;
+    const discountPercentage = ((originalPrice - Number(discountedPrice)) / originalPrice) * 100;
+    return {
+      originalPrice,
+      discountedPrice,
+      discountPercentage: discountPercentage.toFixed(2)
+    };
+  };
 
   const orderData: NewOrder = {
     orderItems: buyCart.map((product: { 
@@ -91,20 +109,16 @@ const BuyCart = () => {
       }
     } catch (error) {
       Swal.close();
-  
       Swal.fire("Error", "No se pudo completar el pedido. Intenta nuevamente.", "error");
     }
   };
-  
-  
-  
-
 
   const [isBuyButtonEnabled, setIsBuyButtonEnabled] = useState(false);
-  const subtotal = buyCart.reduce(
-    (acc: string, item: BuyCarInterface) => acc + item.totalPrice,
-    0
-  );
+  const subtotal = buyCart.reduce((acc: number, item: BuyCarInterface) => acc + item.totalPrice, 0);
+  const totalDiscount = buyCart.reduce((acc: number, item: BuyCarInterface) => {
+    const { originalPrice, discountedPrice } = calculateDiscount(item);
+    return acc + (originalPrice - Number(discountedPrice));
+  }, 0);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -115,8 +129,8 @@ const BuyCart = () => {
     const { firstName, lastName, email } = formData;
     setIsBuyButtonEnabled(
       firstName.trim() !== "" && lastName.trim() !== "" && email.trim() !== ""
-    );
-  }, [formData]);
+    ); 
+  }, [formData, buyCart]);
 
   const handleDelete = (itemId: string) => {
     Swal.fire({
@@ -140,7 +154,6 @@ const BuyCart = () => {
     });
   };
 
-  //validaciones
   const [emailError, setEmailError] = useState<string | null>(null);
   const [phoneError, setPhoneError] = useState<string | null>(null);
 
@@ -156,8 +169,7 @@ const BuyCart = () => {
   };
 
   const validatePhone = (phone: string) => {
-    const phonePattern =
-      /^(?:(?:00)?549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})?\d{8}$/;
+    const phonePattern = /^(?:(?:00)?549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})?\d{8}$/;
     if (phone && !phonePattern.test(phone)) {
       setPhoneError("Por favor, introduce un número de teléfono válido.");
       return false;
@@ -171,13 +183,11 @@ const BuyCart = () => {
     navigate("/")
   }
 
-  //actualizar cantidades
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const handleCartModal = () => {
-      setIsCartOpen(!isCartOpen);
+    setIsCartOpen(!isCartOpen);
   };
-
 
   return (
     <div className="p-4">
@@ -194,50 +204,74 @@ const BuyCart = () => {
               </tr>
             </thead>
             <tbody>
-              {buyCart.map((item: BuyCarInterface) => (
-                <tr key={item.id} className="relative hover:bg-gray-50">
-                  <td className="py-2 px-4 border-b flex items-center">
-                    <div className="flex items-center w-full">
-                      <img src={item.item.photo[0]} alt={item.item.name} className="w-16 h-16 object-cover mr-4" />
-                      <div>
-                        <span className="block font-semibold text-sm md:text-base">{item.item.name}</span>
-                        <span className="text-xs text-gray-500 md:text-sm">{item.item.marca}</span>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="py-2 px-4 border-b text-center">
-                    <span>${parseFloat(item.item.price).toFixed(2)}</span>
-                  </td>
-                  <td className="py-2 border-b text-center">
-                    <input type="number" value={item.totalQuantities} className="border rounded py-1 w-20 mx-auto text-center" readOnly />
-                  </td>
-                  <td className="py-2 px-4 border-b text-center">${parseFloat(item.totalPrice).toFixed(2)}</td>
-                  <td className="py-2 px-4 border-b relative text-right">
-                    <button className="text-red-500 hover:text-red-700 absolute top-2 right-2" onClick={() => handleDelete(item.id)} aria-label="eliminar">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </button>
-                    <div className="hidden min-[770px]:block">
-                      {Object.entries(item.quantities).length > 0 ? (
+              {buyCart.map((item: BuyCarInterface) => {
+                const { originalPrice, discountedPrice, discountPercentage } = calculateDiscount(item);
+                return (
+                  <tr key={item.id} className="relative border-b hover:bg-gray-50">
+                    <td className="py-2 px-4 flex items-center">
+                      <div className="flex items-center w-full">
+                        <img src={item.item.photo[0]} alt={item.item.name} className="w-16 h-16 object-cover mr-4" />
                         <div>
-                          {Object.entries(item.quantities).map(([color, qty]) =>
-                            color ? (
-                              <div key={color} className="flex items-center space-x-2">
-                                <p className="text-xs text-gray-500">Color: {color} - Cantidad: {qty as number}</p>
-                              </div>
-                            ) : (
-                              <div key="no-color" className="text-xs text-gray-500 flex items-center">Cantidad: {qty as number}</div>
-                            )
-                          )}
+                          <span className="block font-semibold text-sm md:text-base">{item.item.name}</span>
+                          <span className="text-xs text-gray-500 md:text-sm">{item.item.marca}</span>
                         </div>
-                      ) : (
-                        <div className="text-xs text-gray-500">No especificado</div>
+                      </div>
+                    </td>
+                    <td className="py-2 px-4 text-center">
+                      <span className={discountPercentage !== "0.00" ? "line-through text-gray-500" : ""}>
+                        ${formatPrice(parseFloat(item.item.price))}
+                      </span>
+                      {discountPercentage !== "0.00" && (
+                        <span className="block text-green-600 font-semibold">
+                          ${formatPrice(Number(discountedPrice) / item.totalQuantities)}
+                        </span>
                       )}
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td className="py-2 text-center">
+                      <input type="number" value={item.totalQuantities} className="border rounded py-1 w-20 mx-auto text-center" readOnly />
+                    </td>
+                    <td className="py-2 px-4 text-center">
+                      <span className={discountPercentage !== "0.00" ? "line-through text-gray-500" : ""}>
+                        ${formatPrice(originalPrice)}
+                      </span>
+                      {discountPercentage !== "0.00" && (
+                        <span className="block text-green-600 font-semibold">
+                          ${formatPrice(Number(discountedPrice))}
+                        </span>
+                      )}
+                      {discountPercentage !== "0.00" && (
+                        <span className="block text-xs text-green-600">
+                          Ahorras: {discountPercentage}%
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-2 px-4 relative text-right">
+                      <button className="text-red-500 hover:text-red-700 absolute top-2 right-2" onClick={() => handleDelete(item.id)} aria-label="eliminar">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                      <div className="hidden min-[770px]:block">
+                        {Object.entries(item.quantities).length > 0 ? (
+                          <div>
+                            {Object.entries(item.quantities).map(([color, qty]) =>
+                              color ? (
+                                <div key={color} className="flex items-center space-x-2">
+                                  <p className="text-xs text-gray-500">Color: {color} - Cantidad: {qty as number}</p>
+                                </div>
+                              ) : (
+                                <div key="no-color" className="text-xs text-gray-500 flex items-center">Cantidad: {qty as number}</div>
+                              )
+                            )}
+                          </div>
+                        ) : (
+                          <div className="text-xs text-gray-500">No especificado</div>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -260,11 +294,18 @@ const BuyCart = () => {
             </form>
           </div>
           <div>
-            <p className="text-lg">Subtotal: ${subtotal.toFixed(2)}</p>
+            <p className="text-lg">Subtotal: ${formatPrice(subtotal)}</p>
+            {totalDiscount > 0 && (
+              <p className="text-lg text-green-600">Ahorro total: ${formatPrice(totalDiscount)}</p>
+            )}
             <p className="text-lg">Envío: A confirmar</p>
-            <p className="text-xl font-bold">TOTAL: ${subtotal.toFixed(2)}</p>
+            <p className="text-xl font-bold">TOTAL: ${formatPrice(subtotal)}</p>
           </div>
-          <button className={`mt-4 py-2 px-4 rounded ${isBuyButtonEnabled ? "bg-gray-700 text-white" : "bg-gray-300 text-gray-600 cursor-not-allowed"}`} disabled={!isBuyButtonEnabled} onClick={finishOrder}>
+          <button 
+            className={`mt-4 py-2 px-4 rounded ${isBuyButtonEnabled ? "bg-gray-700 text-white" : "bg-gray-300 text-gray-600 cursor-not-allowed"}`} 
+            disabled={!isBuyButtonEnabled} 
+            onClick={finishOrder}
+          >
             PEDIR PRESUPUESTO
           </button>
           <p className="mt-4 text-gray-500 text-xs">
@@ -282,8 +323,7 @@ const BuyCart = () => {
       </div>
       {isCartOpen && <CartModal handleCartModal={handleCartModal} />}
     </div>
-);
-
+  );
 };
 
 export default BuyCart;

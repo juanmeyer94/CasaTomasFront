@@ -13,7 +13,15 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
     useUserContext();
   const navigate = useNavigate();
 
-  // Función para combinar cantidades de los mismos productos
+  const formatPrice = (price: number): string => {
+    return new Intl.NumberFormat("es-AR", {
+      style: "currency",
+      currency: "ARS",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price);
+  };
+
   const mergeQuantities = (items: CartItem[]) => {
     const map: Record<string, CartItem> = {};
 
@@ -27,7 +35,6 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
         });
       }
     });
-
     return Object.values(map);
   };
 
@@ -35,7 +42,6 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
     return data.find((product: ObjectType) => product.data._id === id);
   };
 
-  // Función para obtener los detalles de los artículos del carrito
   const getCartItemsWithDetails = (
     cart: CartItem[],
     data: ObjectType[]
@@ -45,14 +51,26 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
 
       if (product) {
         const item = product.data.items[0];
-        const itemPrice = Number(item.price);
-
-        // Sumar los valores de quantities
+        const itemPrice = parseFloat(item.price);
         const totalQuantities = Object.values(
           cartItem.quantities
         ).reduce<number>((sum, quantity) => sum + quantity, 0);
+        let totalPrice = totalQuantities * itemPrice;
+        let discountApplied = false;
+        let discountPercentage = 0;
 
-        const totalPrice = totalQuantities * itemPrice;
+        if (
+          totalQuantities >= parseInt(item.quantity.split(" ")[0]) &&
+          parseInt(item.quantity.split(" ")[0]) !== 0
+        ) {
+          const wholesalePrice = parseFloat(item.wholesalePrice);
+          const wholesaleQuantity = parseInt(item.quantity.split(" ")[0]);
+          discountApplied = true;
+          discountPercentage = Math.round(
+            (1 - wholesalePrice / (itemPrice * wholesaleQuantity)) * 100
+          );
+          totalPrice = (wholesalePrice / wholesaleQuantity) * totalQuantities;
+        }
 
         return {
           ...cartItem,
@@ -64,6 +82,9 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
           },
           totalQuantities,
           totalPrice,
+          originalPrice: itemPrice * totalQuantities,
+          discountApplied,
+          discountPercentage,
         };
       } else {
         console.warn(`Product with id ${cartItem.id} not found`);
@@ -172,11 +193,8 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
                             cartItem.item.name ? ` ${cartItem.item.name}` : ""
                           }`.trim()}
                         </h3>
-
                         <button
-                          onClick={() => {
-                            deleteItem(cartItem.id);
-                          }}
+                          onClick={() => deleteItem(cartItem.id)}
                           className="text-gray-500 hover:text-gray-900"
                           aria-label="borrar"
                         >
@@ -235,10 +253,7 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
                                   aria-label="Decrease"
                                   data-hs-input-number-decrement=""
                                   onClick={() =>
-                                    handleDecreaseQuantity(
-                                      cartItem.id,
-                                      color // Aquí usamos color en lugar de cartItem.color
-                                    )
+                                    handleDecreaseQuantity(cartItem.id, color)
                                   }
                                 >
                                   <svg
@@ -253,11 +268,11 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                   >
-                                    <path d="M5 12h14"></path>
+                                    <path d="M5  12h14"></path>
                                   </svg>
                                 </button>
                                 <input
-                                  className="p-0 w-4 bg-transparent border-0 text-gray-800 text-center focus:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none  focus:outline-none"
+                                  className="p-0 w-4 bg-transparent border-0 text-gray-800 text-center focus:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none focus:outline-none"
                                   type="number"
                                   aria-roledescription="Number field"
                                   value={qty as number}
@@ -269,10 +284,7 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
                                   aria-label="Increase"
                                   data-hs-input-number-increment=""
                                   onClick={() =>
-                                    handleIncreaseQuantity(
-                                      cartItem.id,
-                                      color // Aquí usamos color en lugar de cartItem.color
-                                    )
+                                    handleIncreaseQuantity(cartItem.id, color)
                                   }
                                 >
                                   <svg
@@ -296,88 +308,27 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
                           </div>
                         )
                       )}
-                      {Object.entries(cartItem.models).map(([color, qty]) => (
-                        <div
-                          key={color}
-                          className="flex items-center space-x-2 mt-2"
-                        >
-                          <p className="text-sm text-gray-500">
-                            Color: {color} - Cantidad: {qty as number}
-                          </p>
-                          <div
-                            className="py-1 px-1 inline-block bg-white border border-gray-200 rounded-lg"
-                            data-hs-input-number=""
-                          >
-                            <div className="flex items-center gap-x-1.5">
-                              <button
-                                type="button"
-                                className="size-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-red-500 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
-                                aria-label="Decrease"
-                                data-hs-input-number-decrement=""
-                                onClick={() =>
-                                  handleDecreaseQuantity(
-                                    cartItem.id,
-                                    color // Aquí usamos color en lugar de cartItem.color
-                                  )
-                                }
-                              >
-                                <svg
-                                  className="shrink-0 size-3.5"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="24"
-                                  height="24"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth="2"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                >
-                                  <path d="M5 12h14"></path>
-                                </svg>
-                              </button>
-                              <input
-                                className="p-0 w-4 bg-transparent border-0 text-gray-800 text-center focus:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none  focus:outline-none"
-                                type="number"
-                                aria-roledescription="Number field"
-                                value={qty as number}
-                                readOnly
-                              />
-                              <button
-                                type="button"
-                                className="size-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm focus:outline-none hover:bg-green-500 disabled:opacity-50 disabled:pointer-events-none"
-                                aria-label="Increase"
-                                data-hs-input-number-increment=""
-                                onClick={() =>
-                                  handleIncreaseQuantity(
-                                    cartItem.id,
-                                    color // Aquí usamos color en lugar de cartItem.color
-                                  )
-                                }
-                              >
-                                <svg
-                                  className="shrink-0 size-3.5"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="24"
-                                  height="24"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth="2"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                >
-                                  <path d="M5 12h14"></path>
-                                  <path d="M12 5v14"></path>
-                                </svg>
-                              </button>
-                            </div>
+                      <div className="mt-2">
+                        {cartItem.discountApplied ? (
+                          <div className="flex flex-col items-start">
+                            <p className="text-sm text-gray-500 line-through">
+                              Precio original:{" "}
+                              {formatPrice(cartItem.originalPrice)}
+                            </p>
+                            <p className="text-lg font-semibold text-green-600">
+                              Precio con descuento:{" "}
+                              {formatPrice(cartItem.totalPrice)}
+                            </p>
+                            <p className="text-sm font-medium text-green-600">
+                              ¡Ahorras {cartItem.discountPercentage}%!
+                            </p>
                           </div>
-                        </div>
-                      ))}
-                      <p className="text-lg font-semibold text-gray-900 mt-2">
-                        ${cartItem.totalPrice.toFixed(2)}
-                      </p>
+                        ) : (
+                          <p className="text-lg font-semibold text-gray-900">
+                            {formatPrice(cartItem.totalPrice)}
+                          </p>
+                        )}
+                      </div>
                     </div>
                   </li>
                 ))
@@ -389,7 +340,7 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
             <div className="flex items-center justify-between">
               <p className="text-sm font-medium text-gray-900">Total</p>
               <p className="text-xl font-semibold text-gray-900">
-                $ {subtotal.toFixed(2)}
+                {formatPrice(subtotal)}
               </p>
             </div>
           </div>
@@ -399,7 +350,8 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
               type="button"
               className="bg-sky-600 text-white py-2 px-4 rounded-full font-bold hover:bg-sky-700"
               onClick={sendBuyCart}
-            >Finalizar pedido
+            >
+              Finalizar pedido
             </button>
           </div>
         </div>
