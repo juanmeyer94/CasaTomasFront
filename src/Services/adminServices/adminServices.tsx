@@ -47,6 +47,15 @@ export const newItem = async (data: NewProductState) => {
   }
 };
 
+export const getItemsWithPrice = async () => {
+  try {
+    const response = await axios.get("/itemswithprices")
+    return response
+  } catch (error) {
+    console.error("Error al obtener los items con precios", error)
+  }
+}
+
 export const deleteItemById = async (id: string) => {
   try {
     const response = await axios.delete(`/items/${id}`);

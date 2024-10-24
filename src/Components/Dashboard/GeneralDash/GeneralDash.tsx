@@ -1,5 +1,4 @@
-import { UnderConstruction } from "../../underConstruction/underConstruction";
-
+import UnderConstruction from "../../underConstruction/underConstruction";
 const GeneralAdmDash = () => {
     return (
         <>

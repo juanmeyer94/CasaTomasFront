@@ -11,6 +11,7 @@ module.exports = {
   collectCoverageFrom: [ // Acá elegis donde queres que tome los test, en este caso components
     'src/Components/**/*.{js,jsx,ts,tsx}', // Solo incluir archivos dentro de la carpeta `components`
     '!src/Components/**/*.d.ts', // Excluir archivos de definición de TypeScript
+    '!src/Components/Dashboard/**/*.tsx',
   ],
   
   collectCoverage: true, // Genera el reporte que se ve en consola

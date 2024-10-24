@@ -105,6 +105,7 @@ const Products: React.FC = () => {
               summary={item.data.items[0].summary}
               wholesalePrice={item.data.items[0].wholesalePrice}
               offer={item.offer}
+              code={item.data.items[0].code}
               quantity={item.data.items[0].quantity}
               description={item.data.items[0].description}
               specsTecs={item.data.items[0].specsTecs}

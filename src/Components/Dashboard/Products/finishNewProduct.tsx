@@ -1,4 +1,4 @@
-import { newItem } from "../../../Services/adminServices/adminServices";
+import { getItemsWithPrice, newItem } from "../../../Services/adminServices/adminServices";
 import Swal from "sweetalert2";
 import AdminCard from "./AdminCard/adminCard";
 import ColorPicker from "../DashUtils/ColorPicker";
@@ -140,7 +140,8 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
         title: "Éxito",
         text: "La operación se realizó correctamente.",
       }).then(function () {
-        getAllItems();
+       // getAllItems();
+       getItemsWithPrice();
         setComponent("Products");
       });
     } catch (error) {
