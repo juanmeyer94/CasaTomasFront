@@ -20,6 +20,7 @@ const AdminCard: React.FC<AdminCardProps> = ({
   marca,
   _id,
   isAuth,
+  code,
   handleRemoveImage,
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -125,6 +126,7 @@ const AdminCard: React.FC<AdminCardProps> = ({
                 className={isLargeScreen ? "w-6 h-6" : "w-4 h-4"}
               />
             </button>
+            <p className="text-xs text-right">Código:{code}</p>
           </div>
         )}
         <div>

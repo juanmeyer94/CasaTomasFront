@@ -74,16 +74,18 @@ const categories: Category[] = [
     name: "Mercería",
     subcategories: [
       { name: "Hilos", types: ["Hilos de bordar y de tejer", "Hilos de costura", "Hilos para manualidades"] },
-      { name: "Puntillas", types: ["Puntillas de Nylon", "Puntillas de Algodon", "Puntillas de Lycra", "Puntillas de Broderie"] },
+      { name: "Puntillas", types: ["Puntillas de Nylon", "Puntillas de Algodon", "Puntillas de Lycra", "Puntillas de Broderie", "Puntilla de Guipure", "Flecos"] },
       { name: "Agujas", types: ["Agujas para Máquinas", "Agujas de mano", "Agujas de Lana", "Agujas de tejer y crochet", "Alfileres y accesorios"] },
       { name: "Apliques y abrojos", types: ["Apliques", "Abrojos"] },
       { name: "Reparadores", types: ["Parches y reparadores"] },
       { name: "Elásticos", types: ["Elásticos de Algodon", "Elásticos de Poliester", "Elásticos Redondos", "Elásticos Afelpados", "Elásticos Bretel", "Elásticos Quebrados", "Elásticos Lencería"] },
       { name: "Tijeras", types: ["Tijeras", "Herramientas"] },
       { name: "Lubricantes y pegamentos", types: ["Lubricantes", "Pegamento"] },
-      { name: "Cintas", types: ["Cinta de Raso", "Cinta Gross", "Cinta Bies", "Cinta Mochilera", "Cinta Fantasía", "Cinta Hilera"] },
+      { name: "Cintas", types: ["Cinta de Raso", "Cinta Gross", "Cinta Bies", "Cinta Mochilera", "Cinta Fantasía", "Galones","Cinta Hilera", "Herrajes"] },
       { name: "Cierres", types: ["Cierre Común Fijo", "Cierre Reforzado Fijo", "Cierre Reforzado Desmontable", "Cierre D. de Perro", "Cierre Perrito", "Cierre de Aluminio y Empavonado", "Cierre Fijo Bronce", "Cierre Inivisible", "Cierre por Metro y Deslizadores"] },
-      { name: "Cordones", types: ["Cordón de Zapato", "Cordón de Zapatilla", "Cordón de Borcego", "Cordón Polipropireno", "Cordón de Raso"] }
+      { name: "Cordones", types: ["Cordón de Zapato", "Cordón de Zapatilla", "Cordón de Borcego", "Cordón Polipropireno", "Cordón de Raso"] },
+
+
     ]
   }
 ];
@@ -101,7 +103,7 @@ const AccordionItem: React.FC<{
       className="flex items-center justify-between w-full py-2 px-3 font-medium text-left text-gray-900 border-b border-gray-900"
     >
       <span className="xl:text-lg text-base">{title}</span>
-      {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+      {isOpen ? <ChevronUp className="absolute right-3 w-4 h-4" /> : <ChevronDown className="w-4 h-4 absolute right-3" />}
     </button>
     {isOpen && (
       <div className="py-2 px-3 ">

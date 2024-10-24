@@ -25,13 +25,15 @@ export default function ProductDetail() {
   const [product, setProduct] = useState<ObjectType | null>(null);
   const { FilteredObjects, addToCart } = useUserContext();
   const [quantities, setQuantities] = useState<Record<string, number>>({});
-  const [modelQuantities] = useState<Record<string, number>>({});
+  const [modelQuantities, setModelQuantities] = useState<Record<string, number>>({});
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     const producto = FilteredObjects.find((item) => item._id === id);
     setProduct(producto || null);
+    setQuantities({});
+    setModelQuantities({});
   }, [id, FilteredObjects]);
 
   const totalQuantity = useMemo(() => {
@@ -65,6 +67,8 @@ export default function ProductDetail() {
       parseInt(product.data.items[0].quantity.split(" ")[0]);
     return (regularPrice - wholesalePrice) * totalQuantity;
   }, [product, isWholesaleApplicable, totalQuantity]);
+
+  console.log(totalQuantity)
 
   useEffect(() => {
     if (isWholesaleApplicable) {
@@ -205,7 +209,7 @@ export default function ProductDetail() {
     if (!isNaN(value)) {
       setQuantities((prevQuantities) => ({
         ...prevQuantities,
-        [itemName]: value, // Actualizar la cantidad del color específico
+        [itemName]: value, 
       }));
     }
   };

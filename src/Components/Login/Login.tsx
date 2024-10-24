@@ -1,3 +1,4 @@
+import React from "react"
 import { useState } from "react";
 import frases from "../../assets/frases.json"
 import useAdminContext from "../../Utils/contextAdminHook";
@@ -49,7 +50,7 @@ const Login = () => {
                     name="email"
                     id="email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    placeholder="name@company.com"
+                    placeholder="email@empresa.com"
                     required
                     value={credentials.email}
                     onChange={handleChange}

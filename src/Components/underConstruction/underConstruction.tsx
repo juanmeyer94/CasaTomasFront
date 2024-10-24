@@ -1,4 +1,6 @@
-export const UnderConstruction = () => {
+import React from "react"
+
+const UnderConstruction: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-screen bg-sky-100 ">
       <h1 className="text-4xl font-bold text-gray-700 mb-4 lg:text-2xl">En mantenimiento</h1>
@@ -8,3 +10,4 @@ export const UnderConstruction = () => {
   );
 };
 
+export default UnderConstruction
