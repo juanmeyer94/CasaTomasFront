@@ -5,7 +5,6 @@ import ColorPicker from "../DashUtils/ColorPicker";
 import colors from "../../../../public/colours/coloursIndex.json";
 import { useState, RefObject } from "react";
 import { ArrowLeftCircleIcon } from "@heroicons/react/16/solid";
-import useUserContext from "../../../Utils/contextUserHook";
 import { NewProductState } from "../../../Interfaces/interfacesIndex";
 
 // Interfaz para las props del componente
@@ -26,7 +25,7 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
   fileInputRef,
   setComponent,
 }) => {
-  const { getAllItems } = useUserContext();
+
   const [hasOrNot, setHasOrNot] = useState<string>("NOT_SELECTED");
 
   const updateModel = (index: number, modelName: string) => {
