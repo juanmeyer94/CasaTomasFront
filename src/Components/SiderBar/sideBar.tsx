@@ -74,7 +74,7 @@ const categories: Category[] = [
     name: "Mercería",
     subcategories: [
       { name: "Hilos", types: ["Hilos de bordar y de tejer", "Hilos de costura", "Hilos para manualidades"] },
-      { name: "Puntillas", types: ["Puntillas de Nylon", "Puntillas de Algodon", "Puntillas de Lycra", "Puntillas de Broderie", "Puntilla de Guipure", "Flecos"] },
+      { name: "Puntillas", types: ["Puntillas de Nylon", "Puntillas de Algodon", "Puntillas de Lycra", "Puntillas de Broderie", "Puntillas de Guipure", "Flecos"] },
       { name: "Agujas", types: ["Agujas para Máquinas", "Agujas de mano", "Agujas de Lana", "Agujas de tejer y crochet", "Alfileres y accesorios"] },
       { name: "Apliques y abrojos", types: ["Apliques", "Abrojos"] },
       { name: "Reparadores", types: ["Parches y reparadores"] },
