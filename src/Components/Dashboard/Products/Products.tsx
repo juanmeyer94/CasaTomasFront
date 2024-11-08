@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import useUserContext from "../../../Utils/contextUserHook";
 import { ObjectType } from "../../../Interfaces/interfacesIndex";
 import SearchBar from "../../SearchBar/searchBar";
@@ -16,7 +16,6 @@ const Products: React.FC = () => {
     currentPage,
     FilteredObjects,
     postPerPage,
-    setPostsPerPage,
   } = useUserContext();
 
   const { isAuth } = useAdminContext();
@@ -65,27 +64,6 @@ const Products: React.FC = () => {
     return <div>Error: {error}</div>;
   }
 
-  useEffect(() => {
-    const updateItemsPerPage = () => {
-      if (window.innerWidth >= 1736) {
-        setPostsPerPage(10); // 2xl
-      } else if (window.innerWidth >= 1500) {
-        setPostsPerPage(10); // xl
-      } else if (window.innerWidth >= 1280) {
-        setPostsPerPage(10); // lg
-      } else if (window.innerWidth >= 1025) {
-        setPostsPerPage(6); // default
-      } else {
-        setPostsPerPage(4); // sm
-      }
-    };
-
-    window.addEventListener("resize", updateItemsPerPage);
-    updateItemsPerPage();
-
-    return () => window.removeEventListener("resize", updateItemsPerPage);
-  }, []);
-
   return (
     <div className="px-6 pt-6 ml-5 bg-sky-100 h-auto">
       <div className="flex flex-col-1">
@@ -109,6 +87,7 @@ const Products: React.FC = () => {
               quantity={item.data.items[0].quantity}
               description={item.data.items[0].description}
               specsTecs={item.data.items[0].specsTecs}
+              filter={item.filter}
               isAuth={isAuth}
             />
           ))}

@@ -1,48 +1,54 @@
-// Layout.test.tsx
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import { LayoutWithNavBarAndFooter, LayoutWithoutNavBarAndFooter, LayoutWithNavBar } from '../Layaouts/Layaouts';
 
-
-jest.mock('../Navbar/navBar', () => () => <div>Mock NavBar</div>);
-jest.mock('../SiderBar/sideBar', () => () => <div>Mock SideBar</div>);
-jest.mock('../Footer/Footer', () => () => <div>Mock Footer</div>);
+// Mock
+jest.mock('../SiderBar/sideBar', () => () => <div data-testid="sidebar">Sidebar</div>);
+jest.mock('../Navbar/navBar', () => () => <div data-testid="navbar">Navbar</div>);
+jest.mock('../Footer/Footer', () => () => <div data-testid="footer">Footer</div>);
+jest.mock('../carrousel/ProductsBrandsCaroussel', () => () => <div data-testid="products-brands-carrousel">Products Brands Carrousel</div>);
 
 describe('Layout Components', () => {
-  test('LayoutWithNavBarAndFooter renders children, NavBar, SideBar, and Footer', () => {
-    const { getByText } = render(
+  test('LayoutWithNavBarAndFooter renders correctly', () => {
+    render(
       <LayoutWithNavBarAndFooter>
-        <div>Child Component</div>
+        <div data-testid="child-content">Child Content</div>
       </LayoutWithNavBarAndFooter>
     );
 
-    expect(getByText('Mock NavBar')).toBeInTheDocument();
-    expect(getByText('Mock SideBar')).toBeInTheDocument();
-    expect(getByText('Mock Footer')).toBeInTheDocument();
-    expect(getByText('Child Component')).toBeInTheDocument();
+    expect(screen.getByTestId('navbar')).toBeInTheDocument();
+    expect(screen.getByTestId('sidebar')).toBeInTheDocument();
+    expect(screen.getByTestId('footer')).toBeInTheDocument();
+    expect(screen.getByTestId('products-brands-carrousel')).toBeInTheDocument();
+    expect(screen.getByTestId('child-content')).toBeInTheDocument();
   });
 
-  test('LayoutWithoutNavBarAndFooter renders only children', () => {
-    const { getByText, queryByText } = render(
+  test('LayoutWithoutNavBarAndFooter renders correctly', () => {
+    render(
       <LayoutWithoutNavBarAndFooter>
-        <div>Child Component Only</div>
+        <div data-testid="child-content">Child Content</div>
       </LayoutWithoutNavBarAndFooter>
     );
 
-    expect(getByText('Child Component Only')).toBeInTheDocument();
-    expect(queryByText('Mock NavBar')).not.toBeInTheDocument();
-    expect(queryByText('Mock Footer')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('navbar')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('sidebar')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('footer')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('products-brands-carrousel')).not.toBeInTheDocument();
+    expect(screen.getByTestId('child-content')).toBeInTheDocument();
   });
 
-  test('LayoutWithNavBar renders NavBar and children, but not Footer', () => {
-    const { getByText } = render(
+  test('LayoutWithNavBar renders correctly', () => {
+    render(
       <LayoutWithNavBar>
-        <div>Child Component</div>
+        <div data-testid="child-content">Child Content</div>
       </LayoutWithNavBar>
     );
 
-    expect(getByText('Mock NavBar')).toBeInTheDocument();
-    expect(getByText('Child Component')).toBeInTheDocument();
-
+    expect(screen.getByTestId('navbar')).toBeInTheDocument();
+    expect(screen.getByTestId('footer')).toBeInTheDocument();
+    expect(screen.queryByTestId('sidebar')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('products-brands-carrousel')).not.toBeInTheDocument();
+    expect(screen.getByTestId('child-content')).toBeInTheDocument();
   });
 });

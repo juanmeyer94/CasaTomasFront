@@ -8,13 +8,11 @@ import { UserContextProvider } from '../../Context/UserContext/userActions';
 import { useParams } from 'react-router-dom';
 import useUserContext from '../../Utils/contextUserHook';
 
-// Mock de useParams para controlar el id del producto
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useParams: jest.fn(),
 }));
 
-// Mock de useUserContext para proporcionar datos del producto
 jest.mock('../../Utils/contextUserHook', () => ({
   __esModule: true,
   default: jest.fn(),
@@ -22,15 +20,11 @@ jest.mock('../../Utils/contextUserHook', () => ({
 
 describe('ProductDetail', () => {
   beforeEach(() => {
-    // Resetear mocks antes de cada test
     jest.clearAllMocks();
   });
 
   test('renders loading message when product is not available', () => {
-    // Mockear useParams
     useParams.mockReturnValue({ id: '1' });
-
-    // Mockear useUserContext
     useUserContext.mockReturnValue({
       FilteredObjects: [],
       AllObjects: [],
@@ -49,10 +43,7 @@ describe('ProductDetail', () => {
   });
 
   test('renders product details when product is available', async () => {
-    // Mockear useParams
     useParams.mockReturnValue({ id: '1' });
-
-    // Mockear useUserContext
     useUserContext.mockReturnValue({
       FilteredObjects: [{
         _id: '1',
@@ -81,8 +72,6 @@ describe('ProductDetail', () => {
         </Router>
       </UserContextProvider>
     );
-    console.log(screen)
-
       expect(screen.getByText('MarcaTest NombreTest')).toBeInTheDocument();
       expect(screen.getByText('-$ 3.500,00')).toBeInTheDocument();
       expect(screen.getByText('Descripción de prueba')).toBeInTheDocument(); 

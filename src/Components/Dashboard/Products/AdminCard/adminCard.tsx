@@ -3,13 +3,16 @@ import { Item } from "../../../../Interfaces/interfacesIndex";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { ArchiveBoxIcon, PencilSquareIcon } from "@heroicons/react/16/solid";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 import useAdminContext from "../../../../Utils/contextAdminHook";
 import useUserContext from "../../../../Utils/contextUserHook";
 import EditProduct from "../editProduct";
+import { showHideItem } from "../../../../Services/adminServices/adminServices";
 
 
 interface AdminCardProps extends Item {
   handleRemoveImage?: (indice: number) => void;
+  filter?: boolean;
 }
 
 const AdminCard: React.FC<AdminCardProps> = ({
@@ -21,6 +24,7 @@ const AdminCard: React.FC<AdminCardProps> = ({
   _id,
   isAuth,
   code,
+  filter,
   handleRemoveImage,
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -97,14 +101,23 @@ const AdminCard: React.FC<AdminCardProps> = ({
     }
   };
 
+  const toggleVisibility = async () => {
+    try {
+      await showHideItem(_id, !filter)
+      getAllItems()
+    } catch (error) {
+      console.error("Error toggling item visibility:", error)
+    }
+  }
+
   return (
     <>
       <div
-        className={`${
-          isLargeScreen
-            ? "max-w-[280px] min-h-[300px] border-sky-200 border-4 px-4 pt-2 pb-1 rounded-xl shadow-lg transform hover:scale-105 transition duration-500 my-4 border-dashed relative flex flex-col justify-between bg-white"
-            : "max-w-[180px] min-h-[250px] border-sky-200 border-4 px-2 pt-1 pb-1 rounded-lg shadow-md transform hover:scale-105 transition duration-500 my-2 border-dashed relative flex flex-col bg-white"
-        }`}
+       className={`${
+        isLargeScreen
+          ? "max-w-[280px] min-h-[300px] border-sky-200 border-4 px-4 pt-2 pb-1 rounded-xl shadow-lg transform hover:scale-105 transition duration-500 my-4 border-dashed relative flex flex-col justify-between bg-white"
+          : "max-w-[180px] min-h-[250px] border-sky-200 border-4 px-2 pt-1 pb-1 rounded-lg shadow-md transform hover:scale-105 transition duration-500 my-2 border-dashed relative flex flex-col bg-white"
+      } ${filter ? 'opacity-50' : ''}`}
       >
         {isAuth && (
           <div className="top-2 right-2 flex space-x-2">
@@ -126,7 +139,18 @@ const AdminCard: React.FC<AdminCardProps> = ({
                 className={isLargeScreen ? "w-6 h-6" : "w-4 h-4"}
               />
             </button>
-            <p className="text-xs text-right">Código:{code}</p>
+            <button 
+  onClick={() => toggleVisibility()}
+  className={`focus:outline-none ${filter ? 'opacity-100' : ''}`}
+  aria-label={filter ? "Mostrar producto" : "Ocultar producto"}
+>
+  {filter ? (
+    <EyeOffIcon className={`${isLargeScreen ? "w-6 h-6" : "w-4 h-4"} text-red-500 hover:text-red-700 `} />
+  ) : (
+    <EyeIcon className={`${isLargeScreen ? "w-6 h-6" : "w-4 h-4"} text-green-500 hover:text-green-700 `} />
+  )}
+</button>
+            <p className="text-sm text-right mt-1">Código: {code}</p>
           </div>
         )}
         <div>

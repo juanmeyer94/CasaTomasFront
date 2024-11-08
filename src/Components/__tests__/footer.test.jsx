@@ -30,7 +30,7 @@ describe("Footer load and includes text test", () => {
         expect(developedBy).toBeInTheDocument();
 
 
-        const notElement = await screen.queryByText("Not be in the document");
+        const notElement = screen.queryByText("Not be in the document");
         expect(notElement).not.toBeInTheDocument();
 
     });

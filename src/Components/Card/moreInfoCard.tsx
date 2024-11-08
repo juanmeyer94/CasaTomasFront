@@ -68,8 +68,6 @@ export default function ProductDetail() {
     return (regularPrice - wholesalePrice) * totalQuantity;
   }, [product, isWholesaleApplicable, totalQuantity]);
 
-  console.log(totalQuantity)
-
   useEffect(() => {
     if (isWholesaleApplicable) {
       Swal.fire({

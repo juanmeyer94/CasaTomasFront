@@ -101,7 +101,7 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
         setPostsPerPage(15); // xl
       } else if (window.innerWidth >= 1280) {
         setPostsPerPage(8); // lg
-      } else if (window.innerWidth >= 1025) {
+      } else if (window.innerWidth >= 1024) {
         setPostsPerPage(6); // default
       } else {
         setPostsPerPage(4); // sm

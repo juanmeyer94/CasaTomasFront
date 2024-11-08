@@ -51,26 +51,26 @@ describe("ContactPage", () => {
     expect(address).toHaveValue("Calle 123, Refugio 33");
 
   });
+//funciona pero hay que ver que no envie el contact de manera literal
+//   test("debe enviar el formulario y mostrar el SweetAlert", async () => {
+//     render(
+//       <UserContextProvider>
+//         <MemoryRouter>
+//           <ContactPage />
+//         </MemoryRouter>
+//       </UserContextProvider>
+//     );
+//     fireEvent.change(screen.getByLabelText('Apellido y Nombres'), { target: { value: 'Juan Meyer' } });
+//     fireEvent.change(screen.getByLabelText('Email'), { target: { value: 'juan.meyer@example.com' } });
+//     fireEvent.change(screen.getByLabelText('Teléfono'), { target: { value: '3492555666' } });
+//     fireEvent.change(screen.getByLabelText('Dirección / Ciudad'), { target: { value: 'Calle 123, Refugio 33' } });
+//     fireEvent.change(screen.getByPlaceholderText('Mensaje'), { target: { value: 'Este es un mensaje de prueba.' } });
 
-  test("debe enviar el formulario y mostrar el SweetAlert", async () => {
-    render(
-      <UserContextProvider>
-        <MemoryRouter>
-          <ContactPage />
-        </MemoryRouter>
-      </UserContextProvider>
-    );
-    fireEvent.change(screen.getByLabelText('Apellido y Nombres'), { target: { value: 'Juan Meyer' } });
-    fireEvent.change(screen.getByLabelText('Email'), { target: { value: 'juan.meyer@example.com' } });
-    fireEvent.change(screen.getByLabelText('Teléfono'), { target: { value: '3492555666' } });
-    fireEvent.change(screen.getByLabelText('Dirección / Ciudad'), { target: { value: 'Calle 123, Refugio 33' } });
-    fireEvent.change(screen.getByPlaceholderText('Mensaje'), { target: { value: 'Este es un mensaje de prueba.' } });
+//     fireEvent.click(screen.getByRole("button", { name: /ENVIAR/i }));
 
-    fireEvent.click(screen.getByRole("button", { name: /ENVIAR/i }));
-
- //swet alert
-    await waitFor(() => {
-      expect(screen.getByText(/Mensaje enviado/i)).toBeInTheDocument();
-    });
-  });
+//  //swet alert
+//     await waitFor(() => {
+//       expect(screen.getByText(/Mensaje enviado/i)).toBeInTheDocument();
+//     });
+//   });
 });
