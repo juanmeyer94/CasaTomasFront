@@ -6,7 +6,7 @@ import { ObjectType } from "../../Interfaces/interfacesIndex";
 import OfferCarousel from "../carrousel/OfferCarrousel";
 import ExitIntentOfferModal from "../../Utils/exit-window";
 
-export default function GeneralContainer() {
+const GeneralContainer: React.FC = () => {
   const {
     currentPosts,
     loading,
@@ -134,3 +134,6 @@ export default function GeneralContainer() {
     </div>
   );
 }
+
+
+export default GeneralContainer

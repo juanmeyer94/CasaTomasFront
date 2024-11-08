@@ -1,7 +1,7 @@
 import companies from "../../../public/productsBrands.json";
 
 export default function ProductsBrandsCarrousel() {
-  const duplicatedCompanies = [...companies, ...companies]; // Duplicamos las compañías para un scroll infinito
+  const duplicatedCompanies = [...companies, ...companies]; 
   const mainCompanies = companies.slice(0, 4);
 
   return (
