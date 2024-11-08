@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "logo": "/ProductsBrands/alfalogo.jpg"
+    },
+    {
+        "id": 3,
+        "logo": "/ProductsBrands/janome.webp"
+    },
+    {
+        "id": 4,
+        "logo": "/ProductsBrands/brother.svg"
+    },
+    {
+        "id": 5,
+        "logo": "/ProductsBrands/master.png"
+    },
+    {
+        "id": 6,
+        "logo": "/ProductsBrands/logo-jack_1.png"
+    },
+    {
+        "id": 7,
+        "logo": "/ProductsBrands/logo+mendafacil.jpg"
+    },
+    {
+        "id": 8,
+        "logo": "/ProductsBrands/cbx-logo.webp"
+    },
+    {
+        "id": 9,
+        "logo": "/ProductsBrands/orangeNeedles.jpg"
+    },
+    {
+        "id": 10,
+        "logo": "/ProductsBrands/typical.png"
+    },
+    {
+        "id": 11,
+        "logo": "/ProductsBrands/brotel.png"
+    },
+    {
+        "id": 12,
+        "logo": "/ProductsBrands/cordondeoro.jpg"
+    },
+    {
+        "id": 13,
+        "logo": "/ProductsBrands/erizo.png"
+    },
+    {
+        "id": 14,
+        "logo": "/ProductsBrands/DRIMA.png"
+    },
+    {
+        "id": 15,
+        "logo": "/ProductsBrands/ykk.png"
+    }
+]

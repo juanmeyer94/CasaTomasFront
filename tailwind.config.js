@@ -7,6 +7,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+
+      animation: {
+        'infinite-scroll': 'infinite-scroll 25s linear infinite',
+      },
+      keyframes: {
+        'infinite-scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-100%)' },
+        }
+},
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
@@ -17,7 +27,6 @@ module.exports = {
   },
   plugins: [
     require("tailwindcss-animate"),
-    // Aquí puedes agregar el código para ocultar las flechas en los inputs tipo number
     function ({ addUtilities }) {
       addUtilities({
         'input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button': {
@@ -25,7 +34,7 @@ module.exports = {
           margin: 0,
         },
         'input[type="number"]': {
-          '-moz-appearance': 'textfield', // Firefox
+          '-moz-appearance': 'textfield',
         },
       });
     },

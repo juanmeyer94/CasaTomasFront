@@ -1,4 +1,4 @@
-import { getItemsWithPrice, newItem } from "../../../Services/adminServices/adminServices";
+import {newItem } from "../../../Services/adminServices/adminServices";
 import Swal from "sweetalert2";
 import AdminCard from "./AdminCard/adminCard";
 import ColorPicker from "../DashUtils/ColorPicker";
@@ -6,6 +6,7 @@ import colors from "../../../../public/colours/coloursIndex.json";
 import { useState, RefObject } from "react";
 import { ArrowLeftCircleIcon } from "@heroicons/react/16/solid";
 import { NewProductState } from "../../../Interfaces/interfacesIndex";
+import useUserContext from "../../../Utils/contextUserHook";
 
 // Interfaz para las props del componente
 interface DataItemCardsProps {
@@ -27,6 +28,7 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
 }) => {
 
   const [hasOrNot, setHasOrNot] = useState<string>("NOT_SELECTED");
+  const {getAllItems } = useUserContext()
 
   const updateModel = (index: number, modelName: string) => {
     setNewProduct(prev => {
@@ -139,8 +141,8 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
         title: "Éxito",
         text: "La operación se realizó correctamente.",
       }).then(function () {
-       // getAllItems();
-       getItemsWithPrice();
+       getAllItems();
+      //  getItemsWithPrice();
         setComponent("Products");
       });
     } catch (error) {

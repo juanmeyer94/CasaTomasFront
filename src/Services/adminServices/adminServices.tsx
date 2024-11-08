@@ -152,3 +152,21 @@ export const verifyTokenRequest = async () => {
     throw new Error("Error al verificar el token");
   }
 };
+
+
+export const showHideItem = async (id: string, showHide: boolean) => {
+  try {
+    const response = await axios.put(`/showhideitem/${id}`, {
+      filter: showHide
+    });
+
+    if (response.status !== 200) {
+      throw new Error('Failed to update filter status');
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error('Error updating filter status:', error);
+    throw error;
+  }
+};

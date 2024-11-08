@@ -38,7 +38,7 @@ describe("loads and displays aboutUs", () => {
     expect(ourMissionResponse).toBeInTheDocument();
 
 
-    const notElement = await screen.queryByText("Casa Cob");
+    const notElement = screen.queryByText("Casa Cob");
     
     expect(notElement).not.toBeInTheDocument();
 

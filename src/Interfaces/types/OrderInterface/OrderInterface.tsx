@@ -8,6 +8,8 @@ export interface OrderItemData {
   specsTecs?: string;
   _id: string;
   code?:string;
+  wholesalePrice?:string,
+  quantity?:string,
 }
 
 export interface OrderItem {
