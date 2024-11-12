@@ -82,7 +82,7 @@ const categories: Category[] = [
       { name: "Tijeras", types: ["Tijeras", "Herramientas"] },
       { name: "Lubricantes y pegamentos", types: ["Lubricantes", "Pegamento"] },
       { name: "Cintas", types: ["Cinta de Raso", "Cinta Gross", "Cinta Bies", "Cinta Mochilera", "Cinta Fantasía", "Galones","Cinta Hilera", "Herrajes"] },
-      { name: "Cierres", types: ["Cierre Común Fijo", "Cierre Reforzado Fijo", "Cierre Reforzado Desmontable", "Cierre D. de Perro", "Cierre Perrito", "Cierre de Aluminio y Empavonado", "Cierre Fijo Bronce", "Cierre Inivisible", "Cierre por Metro y Deslizadores"] },
+      { name: "Cierres", types: ["Cierre Común Fijo", "Cierre Reforzado Fijo", "Cierre Reforzado Desmontable", "Cierre D. de Perro", "Cierre Perrito", "Cierre de Aluminio y Empavonado", "Cierre Fijo Bronce", "Cierre Inivisible", "Cierre por metro y Deslizadores"] },
       { name: "Cordones", types: ["Cordón de Zapato", "Cordón de Zapatilla", "Cordón de Borcego", "Cordón Polipropireno", "Cordón de Raso"] },
 
 
