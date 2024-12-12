@@ -48,6 +48,8 @@ const DataItemCards: React.FC<DataItemCardsProps> = ({
       };
     });
   };
+
+  console.log(newProduct)
   
   // Modificación de addModel para manejar el nuevo modelo
   const addModel = (modelName: string) => {

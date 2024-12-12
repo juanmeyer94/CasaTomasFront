@@ -77,6 +77,11 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
     setCurrentPage(1);
   },[])
 
+  const showHideItems = useCallback((query:boolean) => {
+    dispatch({ type: "SHOW_HIDE_ITEMS", payload: query });
+    setCurrentPage(1);
+  },[])
+
 
   useEffect(() => {
     if (!isMounted.current) {
@@ -208,6 +213,7 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
       setPostsPerPage,
       getAllItems,
       searchByCode,
+      showHideItems,
       currentPage,
       postPerPage,
       currentPosts,

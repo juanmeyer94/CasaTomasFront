@@ -39,4 +39,5 @@ export type Action =
   | { type: "RESET_FILTERS" }
   | { type: "RESET_CART" }
   | {type: "SEARCH_BY_CODE"; payload: string}
-  | {type: "GET_ORDERS"; payload: NewOrder};
+  | {type: "GET_ORDERS"; payload: NewOrder}
+  | {type: "SHOW_HIDE_ITEMS"; payload: boolean};
