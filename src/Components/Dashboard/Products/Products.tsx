@@ -1,4 +1,5 @@
-import React from "react";
+
+import React, { useState } from "react";
 import useUserContext from "../../../Utils/contextUserHook";
 import { ObjectType } from "../../../Interfaces/interfacesIndex";
 import SearchBar from "../../SearchBar/searchBar";
@@ -16,9 +17,17 @@ const Products: React.FC = () => {
     currentPage,
     FilteredObjects,
     postPerPage,
+    showHideItems,
   } = useUserContext();
 
   const { isAuth } = useAdminContext();
+
+  const [showHiddenItems, setShowHiddenItems] = useState<boolean>(true);
+
+   const toggleHiddenItems = () => {
+    setShowHiddenItems(!showHiddenItems);
+    showHideItems(showHiddenItems)
+  };
 
   if (loading) {
     return (
@@ -66,9 +75,15 @@ const Products: React.FC = () => {
 
   return (
     <div className="px-6 pt-6 ml-5 bg-sky-100 h-auto">
-      <div className="flex flex-col-1">
+      <div className="flex items-center space-x-4 mb-4">
         <AdmSearchBar />
         <SearchBar />
+        <button
+          onClick={toggleHiddenItems}
+          className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
+        >
+          {!showHiddenItems ? "Dejar de Mostrar Ítems Ocultos" : "Mostrar Ítems Ocultos"}
+        </button>
       </div>
       {currentPosts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-5 min-[1700px]:grid-cols-5 gap-0 ">

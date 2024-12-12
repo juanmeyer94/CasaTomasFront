@@ -41,4 +41,5 @@ export interface UserContextType {
     setPostsPerPage: any;
     state: any;
     searchByCode: any;
+    showHideItems: (query:boolean) => void;
   }
