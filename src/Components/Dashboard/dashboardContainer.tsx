@@ -194,7 +194,10 @@ const DashContainer = () => {
 
               <a
                 href="#"
-                onClick={() => handleEvent("Orders")}
+                onClick={() => {
+                  handleEvent("Orders");
+                  getOrders();
+                }}
                 className="relative flex items-center space-x-2 p-4 text-lg font-semibold hover:bg-sky-100 focus:outline-none w-[90%] rounded-full"
               >
                 <div className="relative flex items-center">
