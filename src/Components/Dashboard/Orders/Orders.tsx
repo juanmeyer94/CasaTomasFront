@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { format, compareDesc } from 'date-fns';
+import { compareDesc } from 'date-fns';
 import useAdminContext from "../../../Utils/contextAdminHook";
 import OrderModal from "./OrdersModal";
 import { Order } from "../../../Interfaces/interfacesIndex";
@@ -93,6 +93,22 @@ const Orders = () => {
   const sortedOrders = [...filteredOrders].sort((a, b) =>
     compareDesc(new Date(a.createdAt), new Date(b.createdAt))
   );
+  const formatPrice = (price: number): string => {
+    return new Intl.NumberFormat('es-AR', {
+      style: 'decimal',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price);
+  };
+
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toLocaleString('es-AR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
 
   return (
     <div className="h-screen overflow-hidden bg-sky-100">
@@ -172,13 +188,13 @@ const Orders = () => {
                       <td>
                         <div className="flex items-center pl-5">
                           <p className="text-base font-medium leading-none text-gray-700">
-                            {format(new Date(order.createdAt), "dd MMM yyyy")}
+                            {formatDate(order.createdAt)}
                           </p>
                         </div>
                       </td>
                       <td className="px-4 text-center">
                         <p className="text-left text-base font-medium leading-none text-gray-700">
-                          {totalPrice.toFixed(2)} $
+                          ${formatPrice(totalPrice)}
                         </p>
                       </td>
                       <td className="pl-4">
