@@ -25,43 +25,101 @@ interface DiscountInfo {
   discountPercentage?: string;
   totalOrderedQuantity: number;
   hasDiscount: boolean;
+    minQuantityForWholesale?: number;
 }
 
 const OrderModal: React.FC<{ order: Order; onClose: () => void }> = ({ order, onClose }) => {
   const [isPrinting, setIsPrinting] = useState(false);
 
+  // const calculateDiscount = (item: OrderItem): DiscountInfo => {
+  //   const totalOrderedQuantity = Object.values(item.quantity).reduce((a, b) => a + b, 0);
+  //   const originalUnitPrice = parseFloat(item.items[0].price);
+  //   const originalTotalPrice = originalUnitPrice * totalOrderedQuantity;
+    
+  //   const wholesaleQuantity = parseInt(item.items[0].quantity?.split(" ")[0]);
+  //   const wholesaleTotalPrice = parseFloat(item.items[0].wholesalePrice);
+
+  //   if (wholesaleTotalPrice !== 0 && wholesaleQuantity !== 0) {
+  //     const discountedUnitPrice = wholesaleTotalPrice / wholesaleQuantity;
+  //     const discountedTotalPrice = discountedUnitPrice * totalOrderedQuantity;
+  //     const discountPercentage = ((originalTotalPrice - discountedTotalPrice) / originalTotalPrice) * 100;
+      
+  //     return {
+  //       originalUnitPrice,
+  //       originalTotalPrice,
+  //       discountedUnitPrice,
+  //       discountedTotalPrice,
+  //       discountPercentage: discountPercentage.toFixed(2),
+  //       totalOrderedQuantity,
+  //       hasDiscount: true
+  //     };
+  //   } else {
+  //     return {
+  //       originalUnitPrice,
+  //       originalTotalPrice,
+  //       totalOrderedQuantity,
+  //       hasDiscount: false
+  //     };
+  //   }
+  // };
+
+
   const calculateDiscount = (item: OrderItem): DiscountInfo => {
+    // Calculate total quantity ordered across all colors/variants
     const totalOrderedQuantity = Object.values(item.quantity).reduce((a, b) => a + b, 0);
     const originalUnitPrice = parseFloat(item.items[0].price);
     const originalTotalPrice = originalUnitPrice * totalOrderedQuantity;
     
-    const wholesaleQuantity = parseInt(item.items[0].quantity?.split(" ")[0]);
-    const wholesaleTotalPrice = parseFloat(item.items[0].wholesalePrice);
+    // Get wholesale information
+    const minQuantityForWholesale = item.items[0].quantity ? parseInt(item.items[0].quantity.split(" ")[0]) : 0;
+    const wholesalePrice = parseFloat(item.items[0].wholesalePrice || "0");
 
-    if (wholesaleTotalPrice !== 0 && wholesaleQuantity !== 0) {
-      const discountedUnitPrice = wholesaleTotalPrice / wholesaleQuantity;
+    console.log(`Processing item:`, {
+      totalOrderedQuantity,
+      minQuantityForWholesale,
+      originalUnitPrice,
+      wholesalePrice
+    });
+
+    // Check if wholesale price exists and quantity meets minimum
+    if (wholesalePrice && wholesalePrice !== 0 && minQuantityForWholesale && totalOrderedQuantity >= minQuantityForWholesale) {
+      // Calculate unit price based on wholesale price and minimum quantity
+      const discountedUnitPrice = wholesalePrice / minQuantityForWholesale;
       const discountedTotalPrice = discountedUnitPrice * totalOrderedQuantity;
-      const discountPercentage = ((originalTotalPrice - discountedTotalPrice) / originalTotalPrice) * 100;
       
-      return {
-        originalUnitPrice,
-        originalTotalPrice,
-        discountedUnitPrice,
-        discountedTotalPrice,
-        discountPercentage: discountPercentage.toFixed(2),
-        totalOrderedQuantity,
-        hasDiscount: true
-      };
-    } else {
-      return {
-        originalUnitPrice,
-        originalTotalPrice,
-        totalOrderedQuantity,
-        hasDiscount: false
-      };
-    }
-  };
+      // Only apply discount if it's actually cheaper than regular price
+      if (discountedTotalPrice < originalTotalPrice) {
+        const discountPercentage = ((originalTotalPrice - discountedTotalPrice) / originalTotalPrice) * 100;
+        
+        console.log(`Applying discount:`, {
+          discountedUnitPrice,
+          discountedTotalPrice,
+          discountPercentage
+        });
 
+        return {
+          originalUnitPrice,
+          originalTotalPrice,
+          discountedUnitPrice,
+          discountedTotalPrice,
+          discountPercentage: discountPercentage.toFixed(2),
+          totalOrderedQuantity,
+          hasDiscount: true,
+          minQuantityForWholesale
+        };
+      }
+    }
+
+    console.log(`No discount applied`);
+    
+    return {
+      originalUnitPrice,
+      originalTotalPrice,
+      totalOrderedQuantity,
+      hasDiscount: false,
+      minQuantityForWholesale
+    };
+  };
   const memoizedDiscountInfo = useMemo(() => {
     return order.orderItems.map(item => calculateDiscount(item as any));
   }, [order.orderItems]);
