@@ -12,6 +12,7 @@ import Login from "../Components/Login/Login";
 import { AdminContextProvider } from "../Context/AdminContext/adminActions";
 import { UserContextProvider } from "../Context/UserContext/userActions"
 import ProtectedRoute from "../Utils/ProtectedRoutes";
+import CreditCardFeeCalculator from "../Components/Dashboard/Calculadora/Calculadora";
 
 
 // Importing all the components here to be more clarity in app component
@@ -25,6 +26,13 @@ const routes = [
                         <LayoutWithNavBarAndFooter>
                             <GeneralContainer />
                         </LayoutWithNavBarAndFooter>
+                    </UserContextProvider>
+            },{
+                path: "/calculadora", element:
+                    <UserContextProvider>
+                       
+                            <CreditCardFeeCalculator />
+
                     </UserContextProvider>
             },
             {

@@ -7,6 +7,7 @@ import Products from "./Products/Products";
 import useAdminContext from "../../Utils/contextAdminHook";
 import useUserContext from "../../Utils/contextUserHook";
 import Swal from "sweetalert2";
+import CreditCardFeeCalculator from "./Calculadora/Calculadora";
 
 const DashContainer = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -105,6 +106,9 @@ const DashContainer = () => {
     case "NewProduct":
       componentToRender = <NewProduct setComponent={handleEvent} />;
       break;
+    case "Calculadora":
+      componentToRender = <CreditCardFeeCalculator />;
+      break;
     default:
       componentToRender = <GeneralAdmDash />;
   }
@@ -169,7 +173,9 @@ const DashContainer = () => {
           x-transitionleave-start="translate-x-0"
           x-transitionleave-end="-translate-x-full"
           x-show="isSidebarOpen"
-          className={`fixed inset-y-0 z-10 w-80 bg-sky-100 lg:flex ${isSidebarOpen ? 'translate-x-0 bg-opacity-0' : 'hidden'} transition-transform duration-300`}
+          className={`fixed inset-y-0 z-10 w-80 bg-sky-100 lg:flex ${
+            isSidebarOpen ? "translate-x-0 bg-opacity-0" : "hidden"
+          } transition-transform duration-300`}
         >
           <svg
             className="absolute inset-0 w-full h-full text-white"
@@ -268,6 +274,19 @@ const DashContainer = () => {
                   </div>
                 )}
               </div>
+              <div>
+
+              </div>
+              <a
+                href="#"
+                onClick={() => {
+                  handleEvent("Calculadora");
+                }}
+                className="flex items-center space-x-2 p-4 text-lg font-semibold text-black hover:bg-red-100 focus:outline-none w-[90%] rounded-full"
+              >
+                <img src="/calculadora.jpg" alt="" className="h-8 w-8" />
+                <span>Calculadora</span>
+              </a>
 
               <a
                 href="#"
@@ -291,7 +310,9 @@ const DashContainer = () => {
       </div>
 
       {/* Render the selected component */}
-      <div className="ml-0 lg:ml-72 bg-sky-100 h-screen">{componentToRender}</div>
+      <div className="ml-0 lg:ml-72 bg-sky-100 h-screen">
+        {componentToRender}
+      </div>
     </div>
   );
 };
