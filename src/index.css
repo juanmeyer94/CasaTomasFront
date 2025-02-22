@@ -6,3 +6,11 @@
     --radius: 0.5rem
   }
 }
+
+@media print {
+  * {
+    color-adjust: exact; /* Para Chrome */
+    -webkit-print-color-adjust: exact; /* Para Safari */
+    print-color-adjust: exact; /* Para otros navegadores */
+  }
+}
