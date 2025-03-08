@@ -25,7 +25,9 @@ export default function ProductDetail() {
   const [product, setProduct] = useState<ObjectType | null>(null);
   const { FilteredObjects, addToCart } = useUserContext();
   const [quantities, setQuantities] = useState<Record<string, number>>({});
-  const [modelQuantities, setModelQuantities] = useState<Record<string, number>>({});
+  const [modelQuantities, setModelQuantities] = useState<
+    Record<string, number>
+  >({});
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const navigate = useNavigate();
 
@@ -207,7 +209,7 @@ export default function ProductDetail() {
     if (!isNaN(value)) {
       setQuantities((prevQuantities) => ({
         ...prevQuantities,
-        [itemName]: value, 
+        [itemName]: value,
       }));
     }
   };
@@ -269,7 +271,19 @@ export default function ProductDetail() {
                     ? `${product.data.items[0].marca} ${product.data.items[0].name}`
                     : product.data.items[0].name}
                 </h1>
-
+                {product.data.items[0].code && (
+                  <div className={`inline-flex items-center -mt-2 mb-2`}>
+                    <span
+                      className={`
+                  
+                  text-black text-xs  
+                
+                `}
+                    >
+                      Código: {product.data.items[0].code}
+                    </span>
+                  </div>
+                )}
                 {product.data.items[0].wholesalePrice !== "0" && (
                   <div className="bg-gradient-to-r from-yellow-500 to-yellow-100 p-4 rounded-lg mb-6">
                     <h2 className="text-2xl font-bold text-yellow-800 mb-2">
@@ -310,7 +324,7 @@ export default function ProductDetail() {
                     </p>
                   </div>
                 )}
-
+               
                 <div className="flex items-end gap-4 mb-6">
                   <div>
                     <p className="text-sm text-gray-500 mb-1">
