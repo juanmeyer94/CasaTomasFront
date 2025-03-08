@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Printer } from "lucide-react";
@@ -340,4 +339,3 @@ const CreditCardFeeCalculator = () => {
 };
 
 export default CreditCardFeeCalculator;
-
