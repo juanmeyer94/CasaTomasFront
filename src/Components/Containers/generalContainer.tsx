@@ -100,6 +100,7 @@ const GeneralContainer: React.FC = () => {
                 wholesalePrice={item.data.items[0].wholesalePrice}
                 quantity={item.data.items[0].quantity}
                 offer={item.offer}
+                code={item.data.items[0].code}
               />
             ))}
         </div>

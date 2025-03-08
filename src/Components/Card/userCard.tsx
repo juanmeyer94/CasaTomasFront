@@ -11,7 +11,8 @@ const UserCard: React.FC<Item> = ({
   marca,
   _id,
   offer,
-  wholesalePrice
+  wholesalePrice,
+  code
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1400);
@@ -110,6 +111,19 @@ const UserCard: React.FC<Item> = ({
           <h2 className="mt-4 text-gray-800 font-bold cursor-pointer lg:text-sm xl:text-lg 2xl:text-lg">
             {marca && name ? `${marca} ${name}` : marca}
           </h2>
+          {code && (
+              <div className={`inline-flex items-center ${isLargeScreen ? "mt-1" : "mt-0.5"}`}>
+                <span
+                  className={`
+                  ${isLargeScreen ? "text-xs" : "text-[8px]"} 
+                  text-black font-medium px-2 py-0.5 
+                
+                `}
+                >
+                  Código: {code}
+                </span>
+              </div>
+            )}
         </div>
         <div className="relative aspect-w-1 aspect-h-1">
           {photo && photo.length > 1 && (
