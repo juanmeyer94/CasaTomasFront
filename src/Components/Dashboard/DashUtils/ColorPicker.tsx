@@ -9,7 +9,7 @@ interface Color {
 interface ColorPickerProps {
   colors: Color[];
   setNewProduct: (product: any) => void;
-  currentColors: string[];
+  currentColors?: string[];
 }
 
 const ColorPicker: React.FC<ColorPickerProps> = ({ colors, setNewProduct, currentColors }) => {
