@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Printer } from "lucide-react";
 
 const CreditCardFeeCalculator = () => {
   const [basePrice, setBasePrice] = useState<number>(0);
-  const [displayPrice, setDisplayPrice] = useState<string>(
-    formatPrice(0)
-  );
+  const [displayPrice, setDisplayPrice] = useState<string>(formatPrice(0));
   const [installments, setInstallments] = useState<string>("3");
-  const [financingRate, setRate] = useState(0.0555);
+  const [financingRate, setRate] = useState(0);
   const [results, setResults] = useState<{
     finalAmount: number;
     fee: number;
@@ -132,7 +130,7 @@ const CreditCardFeeCalculator = () => {
     setInstallments(value);
     switch (value) {
       case "3":
-        setRate(5.55 / 100);
+        setRate(6.35 / 100);
         break;
       case "6":
         setRate(13.7 / 100);
@@ -179,159 +177,181 @@ const CreditCardFeeCalculator = () => {
       </motion.div>
     );
   };
-
+  const [isOpen, setIsOpen] = useState(false);
+  const columnNames: Record<string, string> = {
+    finalAmount: "Monto Total",
+    fee: "Arancel",
+    financingCost: "Costo Financiero",
+    interestRate: "Tasa de Interés",
+    principalAmount: "Monto del Préstamo",
+    totalDeductions: "Total de Deducido",
+    iva10_5: "Iva 10,5% RG2408",
+    iva1_5: "Iva 10,5%",
+    iva21: "Iva 21%",
+    ibSantaFe: "Impuesto IB Santa Fe",
+    iva3: "Iva 3% RG2408",
+  };
   return (
-    <div className="w-full max-w-2xl mx-auto bg-white rounded-lg shadow-lg">
-      <div className="p-6 relative">
-        <div className="absolute top-6 right-6">
-          <img
-            src="/LOGO.png?height=60&width=60"
-            alt="Casa Tomas Logo"
-            width={60}
-            height={60}
-            className=""
-          />
-        </div>
-
-        <motion.div
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="text-2xl font-bold text-center mb-6"
-        >
-          <SplitText text="Casa Tomas Financiamientos" />
-        </motion.div>
-
-        <div className="space-y-6">
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-4"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="space-y-2">
-              <label
-                htmlFor="basePrice"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Neto a Percibir
-              </label>
-
-              <div className="relative w-full">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
-                  $
-                </span>
-                <input
-                  id="basePrice"
-                  type="text"
-                  value={displayPrice}
-                  onChange={handleInputChange}
-                  className="w-full pl-7 pr-3 py-2 text-left border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label
-                htmlFor="installments"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Cuotas
-              </label>
-              <select
-                id="installments"
-                value={installments}
-                onChange={handleInstallmentsChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              >
-                <option value="3">3 cuotas</option>
-                <option value="6">6 cuotas</option>
-                <option value="12">12 cuotas</option>
-              </select>
-            </div>
-          </motion.div>
-
-          <div className="flex gap-4">
-            <button
-              onClick={calculateResults}
-              className="flex-1 py-3 px-4 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700"
-            >
-              Calcular
-            </button>
-            <button onClick={handlePrint} className="px-4 py-3">
-              <Printer className="w-4 h-4 mr-2" />
-              Imprimir
-            </button>
+    <div className="pt-4">
+      <div className="w-full max-w-2xl mx-auto bg-white rounded-lg shadow-lg">
+        <div className="p-6 relative">
+          <div className="absolute top-6 right-6">
+            <img
+              src="/LOGO.png?height=60&width=60"
+              alt="Casa Tomas Logo"
+              width={60}
+              height={60}
+              className=""
+            />
           </div>
 
           <motion.div
-            className="grid grid-cols-2 md:grid-cols-3 gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="text-2xl font-bold text-center mb-6"
           >
-            {Object.entries(results).map(([key, value]) => {
-              // Definir nombres personalizados para cada key
-              const columnNames: Record<string, string> = {
-                finalAmount: "Monto Total",
-                fee: "Arancel",
-                financingCost: "Costo Financiero",
-                interestRate: "Tasa de Interés",
-                principalAmount: "Monto del Préstamo",
-                totalDeductions: "Total de Deducido",
-                iva10_5: "Iva 10,5% RG2408",
-                iva1_5: "Iva 10,5%",
-                iva21: "Iva 21%",
-                ibSantaFe: "Impuesto IB Santa Fe",
-                iva3: "Iva 3% RG2408",
-              };
+            <SplitText text="Casa Tomas Financiamientos" />
+          </motion.div>
 
-              // Si la key es "installmentPrice", la omitimos
-              if (key === "installmentPrice") return null;
-
-              return (
-                <motion.div
-                  key={key}
-                  className="bg-gray-50 p-3 rounded-lg"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
+          <div className="space-y-6">
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 gap-4"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="space-y-2">
+                <label
+                  htmlFor="basePrice"
+                  className="block text-sm font-medium text-gray-700"
                 >
-                  <p className="text-sm font-medium text-gray-600">
-                    {columnNames[key] || key.replace(/([A-Z])/g, " $1").trim()}
-                  </p>
-                  <p className="text-lg font-bold text-gray-900">
-                    ${formatPrice(value)}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </motion.div>
+                  Neto a Percibir
+                </label>
 
-          <motion.div
-            className="bg-blue-600 text-white p-4 rounded-lg space-y-2"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <div>
-              <p className="font-medium">Total Deducciones:</p>
-              <p className="text-2xl font-bold">
-                ${formatPrice(results.totalDeductions)}
-              </p>
+                <div className="relative w-full">
+                  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                    $
+                  </span>
+                  <input
+                    id="basePrice"
+                    type="text"
+                    value={displayPrice}
+                    onChange={handleInputChange}
+                    className="w-full pl-7 pr-3 py-2 text-left border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label
+                  htmlFor="installments"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Cuotas
+                </label>
+                <select
+                  id="installments"
+                  onChange={handleInstallmentsChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="default"> Seleccionar opción</option>
+                  <option value="3">3 cuotas</option>
+                  <option value="6">6 cuotas</option>
+                  <option value="12">12 cuotas</option>
+                </select>
+              </div>
+            </motion.div>
+
+            <div className="flex gap-4">
+              <button
+                onClick={calculateResults}
+                disabled={financingRate === 0}
+                className="flex-1 py-3 px-4 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
+              >
+                Calcular
+              </button>
+
+              <button onClick={handlePrint} className="px-4 py-3 items-center justify-center flex bg-red-200 rounded-lg">
+                <Printer className="w-4 h-4 mr-2" />
+                Guardar
+              </button>
             </div>
-            <div>
-              <p className="font-medium">Monto Total:</p>
-              <p className="text-2xl font-bold">
-                ${formatPrice(results.finalAmount)}
-              </p>
+
+            <div className="w-full">
+              {/* Botón para abrir/cerrar */}
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="w-full text-left p-3 bg-gray-100 rounded-lg shadow hover:bg-gray-200 transition-colors"
+              >
+                <div className="flex justify-between items-center">
+                  <span className="text-lg font-bold text-gray-800">
+                    Información Detallada
+                  </span>
+                  <span className="text-xl text-gray-600">
+                    {isOpen ? "▲" : "▼"}
+                  </span>
+                </div>
+              </button>
+
+              {/* Contenido colapsable */}
+              <AnimatePresence>
+                {isOpen && (
+                  <motion.div
+                    key="dropdown"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden mt-4"
+                  >
+                    <motion.div
+                      className="grid grid-cols-2 md:grid-cols-3 gap-4 p-3 bg-white rounded-lg border"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.2 }}
+                    >
+                      {Object.entries(results).map(([key, value]) => {
+                        // Omitir "installmentPrice"
+                        if (key === "installmentPrice") return null;
+                        return (
+                          <div key={key} className="bg-gray-50 p-3 rounded-lg">
+                            <p className="text-sm font-medium text-gray-600">
+                              {columnNames[key] ||
+                                key.replace(/([A-Z])/g, " $1").trim()}
+                            </p>
+                            <p className="text-lg font-bold text-gray-900">
+                              ${formatPrice(value)}
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-            <div>
-              <p className="font-medium">Valor de cada cuota:</p>
-              <p className="text-2xl font-bold">
-                ${formatPrice(results.installmentPrice)}
-              </p>
-            </div>
-          </motion.div>
+            <motion.div
+              className="bg-blue-600 text-white p-4 rounded-lg space-y-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <div></div>
+              <div>
+                <p className="font-medium">Monto Total:</p>
+                <p className="text-2xl font-bold">
+                  ${formatPrice(results.finalAmount)}
+                </p>
+              </div>
+              <div>
+                <p className="font-medium">Valor de cada cuota:</p>
+                <p className="text-2xl font-bold">
+                  ${formatPrice(results.installmentPrice)}
+                </p>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </div>

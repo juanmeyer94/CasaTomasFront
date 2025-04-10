@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Item } from "../../Interfaces/interfacesIndex";
+import type React from "react";
+import { useState, useEffect, useRef } from "react";
+import type { Item } from "../../Interfaces/interfacesIndex";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Info, Tag } from "lucide-react";
+import { Helmet } from "react-helmet";
 
 const UserCard: React.FC<Item> = ({
   photo,
@@ -12,26 +14,13 @@ const UserCard: React.FC<Item> = ({
   _id,
   offer,
   wholesalePrice,
-  code
+  code,
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1400);
   const imageRef = useRef<HTMLImageElement>(null);
-
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsLargeScreen(window.innerWidth >= 1400);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
+  // Lazy loading for images
   useEffect(() => {
     if (imageRef.current) {
       const observer = new IntersectionObserver(
@@ -39,7 +28,7 @@ const UserCard: React.FC<Item> = ({
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               const img = entry.target as HTMLImageElement;
-              img.src = img.dataset.src || '';
+              img.src = img.dataset.src || "";
               observer.unobserve(img);
             }
           });
@@ -59,15 +48,18 @@ const UserCard: React.FC<Item> = ({
 
   const handleMoreInfo = () => {
     navigate(`/moreInfo/${_id}`);
+    window.scrollTo(0, 0)
   };
 
-  const handleNextImage = () => {
+  const handleNextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (photo && photo.length > 1) {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % photo.length);
     }
   };
 
-  const handlePrevImage = () => {
+  const handlePrevImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (photo && photo.length > 1) {
       setCurrentImageIndex(
         (prevIndex) => (prevIndex - 1 + photo.length) % photo.length
@@ -75,108 +67,159 @@ const UserCard: React.FC<Item> = ({
     }
   };
 
-  // Optimize image URL for Cloudinary
+  // Modificar la función optimizeImageUrl para mejorar la calidad de las imágenes
   const optimizeImageUrl = (url: string) => {
-    const baseUrl = url.split('upload/')[0] + 'upload/';
-    const imagePath = url.split('upload/')[1];
-    return `${baseUrl}/${imagePath}`;
+    if (!url) return "";
+    const parts = url.split("upload/");
+    if (parts.length !== 2) return url;
+
+    const baseUrl = parts[0] + "upload/";
+    const imagePath = parts[1];
+    // Usar mejor calidad y limitar el ancho a 600px para mantener buena calidad sin sobrecargar
+    return `${baseUrl}q_100,f_auto,w_600/${imagePath}`;
   };
 
-  const imageUrl = photo ? optimizeImageUrl(photo[currentImageIndex]) : "";
+  const imageUrl =
+    photo && photo.length > 0 ? optimizeImageUrl(photo[currentImageIndex]) : "";
 
-  const formatPrice = (price:any): string => {
-    return new Intl.NumberFormat('es-AR', {
-      style: 'currency',
-      currency: 'ARS',
+  const formatPrice = (price: any): string => {
+    if (!price) return "Consultar";
+    return new Intl.NumberFormat("es-AR", {
+      style: "currency",
+      currency: "ARS",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(price);
   };
 
+  const displayName =
+    marca && name ? `${marca} ${name}` : marca || name || "Producto";
+
+    const productSchema = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: displayName,
+      image: photo && photo.length > 0 ? photo[0] : "",
+      description: summary || "",
+      sku: code || "",
+      brand: {
+        "@type": "Brand",
+        name: marca || "Casa Tomas",
+      },
+      offers: {
+        "@type": "Offer",
+        url: `${window.location.origin}/moreInfo/${_id}`,
+        priceCurrency: "ARS",
+        price: price ? Number.parseFloat(price).toString() : "",
+        availability: "https://schema.org/InStock",
+        seller: {
+          "@type": "Organization",
+          name: "Casa Tomas",
+        },
+      },
+    }
+
   return (
-    <div
-      className={`
-        max-w-[270px] min-h-[300px] border-sky-200 border-4 px-4 pt-2 pb-1 rounded-xl shadow-lg 
-        transform hover:scale-105 transition duration-500 my-4 border-dashed relative flex flex-col justify-between bg-white
-        ${isLargeScreen ? "lg:max-w-[280px]" : "max-w-[200px] min-h-[250px]"}
-      `}
-    >
-      {offer && (
-        <div className="absolute top-0 right-0 bg-red-600 text-white font-bold py-1 px-3 rounded-bl-lg rounded-tr-lg text-xs z-10 animate-pulse">
-          ¡OFERTA!
-        </div>
-      )}
-      <div>
-        <div className="min-h-[4rem] mb-2 xl:min-h-[5rem]">
-          <h2 className="mt-4 text-gray-800 font-bold cursor-pointer lg:text-sm xl:text-lg 2xl:text-lg">
-            {marca && name ? `${marca} ${name}` : marca}
-          </h2>
-          {code && (
-              <div className={`inline-flex items-center ${isLargeScreen ? "mt-1" : "mt-0.5"}`}>
-                <span
-                  className={`
-                  ${isLargeScreen ? "text-xs" : "text-[8px]"} 
-                  text-black font-medium px-2 py-0.5 
-                
-                `}
+    <>
+    {/* Schema.org markup para SEO y vista previa en WhatsApp */}
+    <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(productSchema)}
+        </script>
+      </Helmet>
+   
+    <div className="group w-full h-full">
+      <div className="rounded-xl overflow-hidden transition-all duration-300 h-full flex flex-col border border-gray-200 hover:border-sky-300">
+        {/* Image Container - ajustar la proporción para que sea un poco más pequeña */}
+        <div className="relative w-full pt-[90%]">
+          {/* Image */}
+          <div className="absolute inset-0 overflow-hidden">
+            <img
+              ref={imageRef}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              data-src={imageUrl || "/placeholder.svg"}
+              alt={displayName}
+              loading="lazy"
+            />
+
+            {/* Image Navigation */}
+            {photo && photo.length > 1 && (
+              <>
+                <button
+                  onClick={handlePrevImage}
+                  className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+                  aria-label="Imagen anterior"
                 >
-                  Código: {code}
-                </span>
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={handleNextImage}
+                  className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+                  aria-label="Siguiente imagen"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </>
+            )}
+
+            {/* Price Tag */}
+            <div className="absolute top-0 left-0 bg-yellow-400 text-gray-900 font-bold py-1.5 px-3 rounded-br-lg">
+              {formatPrice(price)}
+            </div>
+
+            {/* Offer Badge */}
+            {offer && (
+              <div className="absolute top-0 right-0 bg-red-600 text-white font-bold py-1.5 px-3 rounded-bl-lg z-10">
+                ¡OFERTA!
               </div>
             )}
+
+            {/* Wholesale Badge */}
+            {wholesalePrice !== "0" && wholesalePrice && (
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-red-600 to-red-500 py-1.5 text-center">
+                <p className="text-xs text-white font-bold tracking-wide">
+                  OFERTA POR CANTIDAD
+                </p>
+              </div>
+            )}
+          </div>
         </div>
-        <div className="relative aspect-w-1 aspect-h-1">
-          {photo && photo.length > 1 && (
-            <>
-              <button
-                onClick={handlePrevImage}
-                className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-700 text-white rounded-full p-2 z-10"
-                aria-label="Previous Image"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                onClick={handleNextImage}
-                className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-700 text-white rounded-full p-2 z-10"
-                aria-label="Next Image"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </>
-          )}
-          <img
-            ref={imageRef}
-            className="rounded-xl w-full h-[220px] object-cover"
-            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" // Tiny placeholder
-            data-src={imageUrl}
-            alt={`${marca} ${name}`}
-            loading="lazy"
-          />
-          {wholesalePrice !== "0" && (
-            <div className="absolute bottom-0 left-0 right-0 bg-red-500 text-center rounded-b-xl">
-              <p className="text-xs lg:text-[10px] xl:text-xs text-white font-bold">OFERTA COMPRANDO EN CANTIDAD</p>
+
+        {/* Content */}
+        <div className="flex flex-col flex-grow p-4">
+          {/* Product Code */}
+          {code && (
+            <div className="flex items-center mb-1">
+              <Tag className="w-3.5 h-3.5 text-gray-500 mr-1" />
+              <span className="text-xs text-gray-500">Código: {code}</span>
             </div>
           )}
-          <p className="absolute top-0 left-0 bg-yellow-300 text-gray-800 font-bold py-1 px-3 rounded-br-lg rounded-tl-lg text-xs">
-            {price ? `${formatPrice(price)}` : "Consultar"}
-          </p>
+
+          {/* Product Name */}
+          <h2 className="text-gray-800 font-bold text-sm sm:text-base mb-2 line-clamp-2">
+            {displayName}
+          </h2>
+
+          {/* Summary */}
+          {summary && (
+            <p className="text-gray-600 text-xs sm:text-sm mb-4 line-clamp-2 flex-grow">
+              {summary}
+            </p>
+          )}
+
+          {/* Action Button */}
+          <button
+            className="w-full mt-auto py-2 px-4 bg-sky-600 hover:bg-sky-700 text-white rounded-lg transition-colors duration-300 flex items-center justify-center gap-2 text-sm"
+            onClick={handleMoreInfo}
+          >
+            <Info className="w-4 h-4" />
+            <span>Más información</span>
+          </button>
         </div>
-        <div className="my-1 text-gray-800 font-semibold text-center h-10">
-          <p className="text-sm">{summary}</p>
-        </div>
-      </div>
-      <div className="w-full flex justify-center">
-        <button
-          className={`
-            text-white bg-sky-600 rounded-xl shadow-lg hover:bg-sky-700 transition duration-300
-            ${isLargeScreen ? "text-sm w-[80%] py-2 my-4" : "text-xs w-[70%] py-1 my-2"}
-          `}
-          onClick={handleMoreInfo}
-        >
-          Más información
-        </button>
       </div>
     </div>
+    </>
   );
 };
 

@@ -87,7 +87,7 @@ const NavBar: React.FC = () => {
             </button>
 
             {isMenuOpen && (
-                <div className="absolute top-16 right-4 mt-4 z-10 bg-sky-100 shadow-lg rounded-lg w-48">
+                <div className="absolute top-16 right-4 mt-4 z-10 bg-sky-100 shadow-lg rounded-lg w-48  z-50">
                     <nav className="flex flex-col items-center space-y-2 text-lg font-semibold">
                         <a href="/" className="hover:text-blue-800 transition-colors">Inicio</a>
                         <a href="/aboutUs" className="hover:text-blue-800 transition-colors">Acerca de nosotros</a>

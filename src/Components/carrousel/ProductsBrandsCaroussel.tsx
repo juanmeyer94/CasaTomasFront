@@ -30,18 +30,24 @@ export default function ProductsBrandsCarrousel() {
         </p>
       </div>
       <div className="relative overflow-hidden w-[80%] mx-auto">
-        <div className="flex animate-infinite-scroll">
-          {duplicatedCompanies.map((company, index) => (
-            <div key={`${company.id}-${index}`} className="flex-none mx-4">
-              <img
-                src={company.logo}
-                alt={`Logo de ${company.id}`}
-                className="h-[3rem] lg:h-[5rem] w-[5rem] lg:w-[8rem] object-contain"
-              />
-            </div>
-          ))}
-        </div>
+  {/* Overlay izquierdo: gradiente de blanco a transparente */}
+  <div className="absolute inset-y-0 left-0 w-10 pointer-events-none bg-gradient-to-r from-white to-transparent z-10"></div>
+  {/* Overlay derecho: gradiente de blanco a transparente */}
+  <div className="absolute inset-y-0 right-0 w-10 pointer-events-none bg-gradient-to-l from-white to-transparent z-10"></div>
+  
+  <div className="flex animate-infinite-scroll">
+    {duplicatedCompanies.map((company, index) => (
+      <div key={`${company.id}-${index}`} className="flex-none mx-4">
+        <img
+          src={company.logo}
+          alt={`Logo de ${company.id}`}
+          className="h-[3rem] lg:h-[5rem] w-[5rem] lg:w-[8rem] object-contain"
+        />
       </div>
+    ))}
+  </div>
+</div>
+
     </div>
   );
 }

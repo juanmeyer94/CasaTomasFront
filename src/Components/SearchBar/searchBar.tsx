@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import useUserContext from "../../Utils/contextUserHook";
 
 const SearchBarr: React.FC = () => {
-  const { setSearchQuery, SearchBar, removeFilters } = useUserContext();
+  const { setSearchQuery, SearchBar, removeFilters, setCurrentPage } = useUserContext();
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,6 +14,7 @@ const SearchBarr: React.FC = () => {
   const resetFilters = () => {
     removeFilters();
     setSearchTerm("");
+    setCurrentPage(1)
   };
 
   useEffect(() => {
@@ -43,7 +44,7 @@ const SearchBarr: React.FC = () => {
           className="w-full sm:w-auto bg-red-400 text-white font-semibold px-3 py-2 rounded-xl text-xs sm:text-base sm:ml-10 md:ml-10 lg:ml-20 xl:ml-8 2xl:ml-6"
           onClick={resetFilters}
         >
-          Limpiar filtros
+          Volver atrás
         </button>
       </div>
     </div>
