@@ -37,6 +37,7 @@ export interface UserContextType {
     getAllItems:() => void;
     currentPage: number;
     postPerPage: number;
+    setCurrentPage: any;
     currentPosts: ObjectType[];
     setPostsPerPage: any;
     state: any;

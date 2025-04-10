@@ -40,7 +40,7 @@ const OfferCarousel: React.FC = () => {
 
   useEffect(() => {
     if (offerItems.length > visibleItems) {
-      const interval = setInterval(nextSlide, 5000);
+      const interval = setInterval(nextSlide, 55000);
       return () => clearInterval(interval);
     }
   }, [nextSlide, offerItems.length, visibleItems]);
@@ -55,7 +55,7 @@ const OfferCarousel: React.FC = () => {
   };
   return (
     <div className="w-full mx-auto my-8 px-4 min-[320px]:px-0 sm:px-2">
-      <div className="bg-gradient-to-r from-sky-400 to-sky-700 text-white p-4 rounded-t-lg shadow-lg">
+      <div className="bg-gradient-to-r from-sky-400 to-sky-700 text-white p-4 sm:rounded-t-lg xs:rounded sm:shadow-lg xs:shadow-none">
         <h2 className="text-3xl font-bold mb-2 flex items-center">
           <Tag className="mr-2" />
           Ofertas Especiales
@@ -63,7 +63,7 @@ const OfferCarousel: React.FC = () => {
         <p className="text-lg">¡No te pierdas estas increíbles oportunidades!</p>
       </div>
       
-      <div className="relative flex justify-center items-center  bg-gray-100 p-4 md:p-6 rounded-b-lg shadow-lg">
+      <div className="relative flex justify-center items-center  bg-gray-100 p-4 md:p-6 sm:rounded-b-lg sm:shadow-lg border-b-2">
         <div className="overflow-hidden">
           {AllObjects.length === 0 ? "Cargando" : <div className="flex transition-transform duration-500 ease-in-out"
           >

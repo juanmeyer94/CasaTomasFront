@@ -137,13 +137,17 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
     0
   );
 
+  function handleMoreInfo(id: string): void {
+    navigate(`/moreInfo/${id}`)
+  }
+ console.log(cartItems)
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-end pr-4">
       <div
         className="fixed inset-0 bg-black bg-opacity-50"
         onClick={handleCartModal}
       ></div>
-      <div className="relative bg-white w-full max-w-2xl mx-auto rounded-lg shadow-lg max-h-[70vh] overflow-y-auto">
+      <div className="relative bg-white w-full max-w-2xl mx-auto rounded-lg shadow-lg  overflow-y-auto min-[320px]:min-h-[90vh] md:min-h-[80vh]">
         <div className="flex justify-between items-center p-5 border-b">
           <h1 className="text-2xl font-semibold text-gray-900">Tu carrito</h1>
           <button
@@ -179,16 +183,27 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
                 cartItems.map((cartItem) => (
                   <li
                     key={cartItem.id}
-                    className="py-6 flex items-center justify-between"
+                    className="py-2 flex items-center justify-between"
                   >
-                    <img
-                      src={cartItem.item.photo[0]}
-                      alt={cartItem.item.name || cartItem.item.marca}
-                      className="h-24 w-24 object-cover rounded-md"
-                    />
+                    <div>
+                      <img
+                        src={cartItem.item.photo[0]}
+                        alt={cartItem.item.name || cartItem.item.marca}
+                        className="h-24 w-24 object-cover rounded-md"
+                      />
+                     <div className="items-center justify-center hidden">
+                     <button
+                        onClick={() => handleMoreInfo(cartItem.item._id)}
+                        className="mt-2 px-1 py-1 bg-blue-500 text-white text-xs font-medium rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                      >
+                        + Info
+                      </button>
+                     </div>
+                    </div>
+
                     <div className="ml-4 flex-1">
                       <div className="flex justify-between items-center">
-                        <h3 className="text-lg font-semibold text-gray-900">
+                        <h3 className="sm:text-lg font-semibold text-gray-900 min-[320px]:text-sm">
                           {`${cartItem.item.marca || ""}${
                             cartItem.item.name ? ` ${cartItem.item.name}` : ""
                           }`.trim()}
@@ -237,16 +252,19 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
                         ([color, qty]) => (
                           <div
                             key={color}
-                            className="flex items-center space-x-2 mt-2"
+                            className="flex items-center space-x-1 mt-2"
                           >
-                            <p className="text-sm text-gray-500">
-                              Color: {color} - Cantidad: {qty as number}
-                            </p>
+                            <div>
+                              <p className="text-sm min-[320px]:text-xs text-gray-500">
+                                {color} - Cantidad: {qty as number}
+                              </p>
+                            </div>
+
                             <div
-                              className="py-1 px-1 inline-block bg-white border border-gray-200 rounded-lg"
+                              className="py-1 px-1 inline-block bg-white border border-gray-200 rounded-lg right-2 justify-items-end"
                               data-hs-input-number=""
                             >
-                              <div className="flex items-center gap-x-1.5">
+                              <div className="flex items-center">
                                 <button
                                   type="button"
                                   className="size-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-red-500 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
@@ -324,7 +342,7 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
                             </p>
                           </div>
                         ) : (
-                          <p className="text-lg font-semibold text-gray-900">
+                          <p className="sm:text-lg min-[320px]:text-base font-semibold text-gray-900">
                             {formatPrice(cartItem.totalPrice)}
                           </p>
                         )}

@@ -1,210 +1,94 @@
-import React from "react";
+import { motion } from "framer-motion";
 
-const HowToBuy: React.FC = () => {
+const steps = [
+  {
+    title: "Agregá los productos a tu carrito",
+    description: "Seleccioná lo que te gusta y hacé click en \"Agregar al carrito\".",
+    img: "/shopping-cart.png",
+  },
+  {
+    title: "Modificá cantidades y confirmá tu pedido",
+    description: "Desde el carrito podés ajustar cantidades y enviar tu pedido.",
+    img: "/change.png",
+  },
+  {
+    title: "Nos contactamos con vos",
+    description: "Te llamamos o te escribimos por WhatsApp para coordinar pago y entrega.",
+    img: "/callcenter.png",
+  },
+  {
+    title: "Recibís tu pedido en casa o lo retirás",
+    description: "Hacemos envíos a todo el país o podés retirarlo en nuestro local.",
+    img: "/shipping.png",
+  },
+];
+
+export default function HowToBuy() {
   return (
-    <div className=" py-8">
-      <div className="container mx-auto px-4">
-        <h2 className="text-center text-2xl font-bold mb-8">CÓMO COMPRAR</h2>
-        <div className="text-center text-lg mb-8">
-          <p>Es muy fácil!</p>
-          <ul className="list-disc list-inside mx-auto max-w-md">
-            <li>
-              Recorré nuestro sitio, ahí podrás elegir nuestros productos.
-            </li>
-            <li>
-              Una vez terminada la compra, recibiremos tu pedido y te
-              llamaremos, para cerrar los últimos detalles.
-            </li>
-            <li>
-              Te enviaremos el pedido por el transporte que hayas elegido o lo
-              podrás pasar a retirar por nuestro local.
-            </li>
-          </ul>
-        </div>
+    <section className="py-12 px-4 max-w-3xl mx-auto relative overflow-hidden bg-gradient-to-b from-sky-100 to-white">
+      <div className="absolute top-0 left-0 w-72 h-72 bg-sky-200 opacity-20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute bottom-0 right-0 w-72 h-72 bg-sky-300 opacity-20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
 
-        <div className="flex flex-wrap justify-center items-start mb-16">
-          <div className="w-full sm:w-1/2 lg:w-1/4 p-4">
-            <div className="flex flex-col items-center">
-              <div className="relative flex items-center justify-center w-32 h-32 bg-blue-200 rounded-full mb-4">
-              <img
-                  src="/shopping-cart.png"
-                  alt="Carrito"
-                  className="h-24 w-24"
-                />
-                <div className="absolute top-0 right-0 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <h2 className="text-center text-lg font-semibold text-sky-700">
-                AGREGÁ LOS PRODUCTOS A TU CARRO DE PEDIDOS
-              </h2>
-              <p className="text-gray-500 mt-2">
-                haciendo click en los botones de
-              </p>
+      <motion.h2
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-center text-3xl font-bold mb-10 text-sky-700"
+      >
+        Cómo Comprar en Casa Tomas
+      </motion.h2>
 
-              <button className="mt-4 px-4 py-3 bg-sky-200 text-black rounded-lg hover:bg-sky-300">
-                Agregar al carrito
-              </button>
+      <div className="flex flex-col gap-8">
+        {steps.map((step, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+            className="bg-white rounded-3xl border border-gray-200 shadow-md p-6 flex flex-col items-center text-center relative overflow-hidden"
+          >
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 bg-sky-600 text-white w-12 h-12 flex items-center justify-center rounded-full text-lg font-bold shadow-lg z-10">
+              {index + 1}
             </div>
-          </div>
-          <div className="w-full sm:w-1/2 lg:w-1/4 p-4">
-            <div className="flex flex-col items-center">
-              <div className="relative flex items-center justify-center w-32 h-32 bg-blue-200 rounded-full mb-4">
-                <img
-                  src="/change.png"
-                  alt="Carrito"
-                  className="h-12 w-12"
-                />
-                <div className="absolute top-0 right-0 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <h2 className="text-center text-lg font-semibold text-sky-700">
-                PODÉS MODIFICAR CANTIDADES Y CONFIRMAR TU PEDIDO
-              </h2>
-              <p className="text-gray-500 mt-2">haciendo click en el botón</p>
-
-              <button className="mt-6 px-4 py-2 bg-sky-300 text-white rounded-lg hover:bg-sky-400">
-                <img
-                  src="/shopping-cart.svg"
-                  alt="Carrito"
-                  className="h-8 w-8"
-                />
-              </button>
-            </div>
-          </div>
-
-          <div className="w-full sm:w-1/2 lg:w-1/4 p-4">
-            <div className="flex flex-col items-center">
-              <div className="relative flex items-center justify-center w-32 h-32 bg-blue-200 rounded-full mb-4">
-                <img
-                  src="/callcenter.png"
-                  alt="Carrito"
-                  className="h-12 w-12"
-                />
-                <div className="absolute top-0 right-0 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <h2 className="text-center text-lg font-semibold text-sky-700">
-                NOS PONDREMOS EN CONTACTO CON VOS
-              </h2>
-              <p className="text-gray-500 mt-2">
-                para coordinar la entrega y el pago
-              </p>
-              <button className="mt-6 px-4 py-2 bg-sky-300 text-white rounded-lg hover:bg-sky-400">
-                <img
-                  src="/whatsapp.png"
-                  alt="Carrito"
-                  className="h-8 w-8"
-                />
-              </button>
-            </div>
-          </div>
-          <div className="w-full sm:w-1/2 lg:w-1/4 p-4">
-            <div className="flex flex-col items-center">
-              <div className="relative flex items-center justify-center w-32 h-32 bg-blue-200 rounded-full mb-4">
-                <img
-                  src="/shipping.png"
-                  alt="Carrito"
-                  className="h-12 w-12"
-                />
-                <div className="absolute top-0 right-0 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <h2 className="text-center text-lg font-semibold text-sky-700">
-                RECIBES O RETIRAS TU PEDIDO
-              </h2>
-              <p className="text-gray-500 mt-6 text-center">
-                en la puerta de tu casa o en nuestro local.
-              </p>
-              <button className="mt-4 px-4 py-2 bg-sky-300 text-white rounded-lg hover:bg-sky-400">
-                <img
-                  src="/box.png"
-                  alt="Carrito"
-                  className="h-8 w-8"
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className="text-center mb-8">
-          <h3 className="text-xl font-bold">ZONA DE COBERTURA</h3>
-          <p>
-            Llegamos a cada rincón del país. 
-          </p>
-          <p>Trabajamos con todas las empresas de transporte.</p>
-          <img
-            src="/argentinamapa.jpg"
-            alt="Mapa de cobertura"
-            className="mx-auto my-4"
-          />
-        </div>
-
-        <div className="text-center">
-          <h3 className="text-xl font-bold">FORMA DE PAGO</h3>
-          <p>
-            La modalidad de pago puede ser contado efectivo, transferencia bancaria, débito o tarjeta de crédito bancaria.
-          </p>
-          <p>Consultar por la financiacion en cuotas. </p>
-        </div>
+            <img
+              src={step.img}
+              alt={step.title}
+              className="w-24 h-24 object-contain mb-4 mt-6"
+            />
+            <h3 className="text-xl font-semibold mb-2 text-sky-700">
+              {step.title}
+            </h3>
+            <p className="text-gray-600 text-sm max-w-xs">
+              {step.description}
+            </p>
+          </motion.div>
+        ))}
       </div>
-    </div>
-  );
-};
 
-export default HowToBuy;
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.5 }}
+        className="mt-16 text-center"
+      >
+        <h3 className="text-2xl font-bold mb-4 text-sky-700">Zona de Cobertura</h3>
+        <p className="text-gray-600 mb-4">Enviamos a todo el país.</p>
+        <img src="/argentinamapa.jpg" alt="Mapa Argentina" className="mx-auto rounded-2xl shadow-md" />
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.7 }}
+        className="mt-16 text-center"
+      >
+        <h3 className="text-2xl font-bold mb-4 text-sky-700">Formas de Pago</h3>
+        <p className="text-gray-600">Aceptamos efectivo, transferencia, débito y crédito.</p>
+        <p className="text-gray-600">Consultá por financiación en cuotas.</p>
+      </motion.div>
+    </section>
+  );
+}

@@ -214,6 +214,7 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
       getAllItems,
       searchByCode,
       showHideItems,
+      setCurrentPage,
       currentPage,
       postPerPage,
       currentPosts,

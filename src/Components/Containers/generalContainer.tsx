@@ -22,38 +22,12 @@ const GeneralContainer: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex rounded-xl items-center justify-center flex-col p-8 font-bold text-2xl">
+      <div className="flex flex-col items-center justify-center w-full min-h-screen p-8 font-bold text-2xl">
         <h1>Cargando...</h1>
-        <svg
-          width="50"
-          height="50"
-          viewBox="0 0 50 50"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle
-            cx="25"
-            cy="25"
-            r="20"
-            stroke="gray"
-            strokeWidth="5"
-            fill="none"
-          />
-          <circle
-            cx="25"
-            cy="25"
-            r="20"
-            stroke="blue"
-            strokeWidth="5"
-            strokeDasharray="126"
-            strokeDashoffset="0"
-            fill="none"
-          >
-            <animate
-              attributeName="stroke-dashoffset"
-              values="0;126"
-              dur="1.5s"
-              repeatCount="indefinite"
-            />
+        <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="25" cy="25" r="20" stroke="gray" strokeWidth="5" fill="none" />
+          <circle cx="25" cy="25" r="20" stroke="blue" strokeWidth="5" strokeDasharray="126" strokeDashoffset="0" fill="none">
+            <animate attributeName="stroke-dashoffset" values="0;126" dur="1.5s" repeatCount="indefinite" />
           </circle>
         </svg>
         <p>Casa Tomas - 100 años cosiendo juntos.</p>
@@ -63,29 +37,31 @@ const GeneralContainer: React.FC = () => {
 
   if (error) {
     return (
-      <div>
-        Error: Se produjo un error, por favor vuelve a intentarlo nuevamente.
-        Disculpe las molestias
+      <div className="flex justify-center items-center w-full min-h-screen">
+        <p>Error: Se produjo un error, por favor vuelve a intentarlo nuevamente. Disculpe las molestias.</p>
       </div>
     );
   }
 
   return (
-    <div>
-      <div className="flex items-center justify-start min-[319px]:ml-0 min-[319px]:justify-center min-[319px]:mt-12 px-6">
+    <div className="w-full flex flex-col items-center">
+      {/* Barra de búsqueda */}
+      <div className="w-full flex justify-center px-6 mt-12">
         <SearchBarr />
       </div>
-      {Filters.subsection === "all" &&
-        Filters.type === "all" &&
-        SearchBar === "" && (
-          <section className="min-[319px]:w-[300px] sm:w-full p-8">
-            <OfferCarousel />
-          </section>
-        )}
+
+      {/* Carrusel de ofertas (ocupa el ancho total de la pantalla) */}
+      {Filters.subsection === "all" && Filters.type === "all" && SearchBar === "" && currentPage === 1 && (
+        <section className="w-full p-8 min-[319px]:p-0">
+          <OfferCarousel />
+        </section>
+      )}
+
+      {/* Tarjetas de productos */}
       {currentPosts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 p-6 w-full max-w-screen items-center justify-items-center">
           {currentPosts
-            .filter((item: ObjectType) => item.filter === false)
+            .filter((item: ObjectType) => !item.filter)
             .map((item: ObjectType) => (
               <UserCard
                 key={item._id}
@@ -105,26 +81,30 @@ const GeneralContainer: React.FC = () => {
             ))}
         </div>
       ) : (
-        <div className="flex items-center justify-center m-4 p-4">
+        <div className="flex items-center justify-center w-full m-4 p-4">
           <h1>No se encontró lo que buscas, disculpen las molestias.</h1>
         </div>
       )}
+
+      {/* Paginación */}
       <div className="flex justify-center mt-4 mb-4 space-x-4">
         <button
-          onClick={prevPage}
+          onClick={() => {
+            prevPage(),
+            window.scrollTo(0, 80)
+          }}
           disabled={currentPage === 1}
           className="px-4 py-2 bg-sky-600 text-white rounded-xl disabled:bg-gray-300"
         >
           Anterior
         </button>
-        <p className="text-center justify-center text-base font-semibold mt-2">
-          {currentPage}
-        </p>
+        <p className="text-center text-base font-semibold mt-2">{currentPage}</p>
         <button
-          onClick={nextPage}
-          disabled={
-            currentPage === Math.ceil(FilteredObjects.length / postPerPage)
-          }
+          onClick={() => {
+            nextPage(),
+            window.scrollTo(0, 80)
+          }}
+          disabled={currentPage === Math.ceil(FilteredObjects.length / postPerPage)}
           className="px-4 py-2 bg-sky-600 text-white rounded-xl disabled:bg-gray-300"
         >
           Siguiente
@@ -134,7 +114,6 @@ const GeneralContainer: React.FC = () => {
       <ExitIntentOfferModal />
     </div>
   );
-}
+};
 
-
-export default GeneralContainer
+export default GeneralContainer;
