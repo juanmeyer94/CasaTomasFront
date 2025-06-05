@@ -60,7 +60,7 @@ const NavBar: React.FC = () => {
                         className="h-10 w-10"
                     />
                 </a>
-                <a href="/login" className="hidden md:flex items-center text-slate-500 hover:text-blue-800 transition-colors">
+                <a href="/login" className="hidden items-center text-slate-500 hover:text-blue-800 transition-colors">
                     Login
                 </a>
             </div>
@@ -87,7 +87,7 @@ const NavBar: React.FC = () => {
             </button>
 
             {isMenuOpen && (
-                <div className="absolute top-16 right-4 mt-4 z-10 bg-sky-100 shadow-lg rounded-lg w-48  z-50">
+                <div className="absolute top-16 right-4 mt-4 bg-sky-100 shadow-lg rounded-lg w-48  z-50">
                     <nav className="flex flex-col items-center space-y-2 text-lg font-semibold">
                         <a href="/" className="hover:text-blue-800 transition-colors">Inicio</a>
                         <a href="/aboutUs" className="hover:text-blue-800 transition-colors">Acerca de nosotros</a>

@@ -35,8 +35,8 @@ const formatPrice = (price: any): string => {
 interface FormData {
   firstName: string;
   lastName: string;
-  email: string;
-  phone?: string;
+  email?: string;
+  phone: string;
 }
 
 const BuyCart = () => {
@@ -83,7 +83,7 @@ const BuyCart = () => {
         commentary: "",
       })
     ),
-    userEmail: formData.email,
+    userEmail: formData.email ? formData.email : "",
     userName: formData.firstName,
     userLastName: formData.lastName,
     cellphone: formData.phone,
@@ -175,12 +175,12 @@ const BuyCart = () => {
 
   // Validar formulario
   useEffect(() => {
-    const { firstName, lastName, email } = formData;
-    const isEmailValid = email.trim() !== "" && !emailError;
+    const { firstName, lastName, phone } = formData;
+    const isPhoneValid = phone.trim() !== "" && !phoneError;
     const isFormValid =
-      firstName.trim() !== "" && lastName.trim() !== "" && isEmailValid;
+      firstName.trim() !== "" && lastName.trim() !== "" && isPhoneValid;
     setIsBuyButtonEnabled(isFormValid && buyCart.length > 0);
-  }, [formData, emailError, buyCart]);
+  }, [formData, phoneError, buyCart]);
 
   // Eliminar producto del carrito
   const handleDelete = (itemId: string) => {
@@ -731,7 +731,7 @@ const BuyCart = () => {
                         htmlFor="firstName"
                         className="block text-sm font-medium text-gray-700 mb-1"
                       >
-                        Nombre <span className="text-red-500">*</span>
+                        Nombre <span className="text-red-500">*(Obligatorio)</span>
                       </label>
                       <div className="relative">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -755,7 +755,7 @@ const BuyCart = () => {
                         htmlFor="lastName"
                         className="block text-sm font-medium text-gray-700 mb-1"
                       >
-                        Apellido <span className="text-red-500">*</span>
+                        Apellido <span className="text-red-500">*(Obligatorio)</span>
                       </label>
                       <div className="relative">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -773,13 +773,46 @@ const BuyCart = () => {
                         />
                       </div>
                     </div>
-
                     <div>
+                      <label
+                        htmlFor="phone"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                      >
+                        Celular{" "} <span className="text-red-500">*(Obligatorio)</span>
+
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <Phone className="h-5 w-5 text-gray-400" />
+                        </div>
+                        <input
+                          type="tel"
+                          id="phone"
+                          name="phone"
+                          required
+                          value={formData.phone}
+                          onChange={(e) => {
+                            handleInputChange(e);
+                            validatePhone(e.target.value);
+                          }}
+                          placeholder="Tu número de celular"
+                          className={`w-full pl-10 pr-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 ${
+                            phoneError ? "border-red-500" : "border-gray-300"
+                          }`}
+                        />
+                      </div>
+                      {phoneError && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {phoneError}
+                        </p>
+                      )}
+                    </div>
+                     <div>
                       <label
                         htmlFor="email"
                         className="block text-sm font-medium text-gray-700 mb-1"
                       >
-                        Email <span className="text-red-500">*</span>
+                        Email
                       </label>
                       <div className="relative">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -804,42 +837,6 @@ const BuyCart = () => {
                       {emailError && (
                         <p className="text-red-500 text-xs mt-1">
                           {emailError}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="phone"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                      >
-                        Celular{" "}
-                        <span className="text-gray-500 text-xs">
-                          (opcional)
-                        </span>
-                      </label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <Phone className="h-5 w-5 text-gray-400" />
-                        </div>
-                        <input
-                          type="tel"
-                          id="phone"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={(e) => {
-                            handleInputChange(e);
-                            validatePhone(e.target.value);
-                          }}
-                          placeholder="Tu número de celular"
-                          className={`w-full pl-10 pr-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 ${
-                            phoneError ? "border-red-500" : "border-gray-300"
-                          }`}
-                        />
-                      </div>
-                      {phoneError && (
-                        <p className="text-red-500 text-xs mt-1">
-                          {phoneError}
                         </p>
                       )}
                     </div>
