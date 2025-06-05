@@ -8,6 +8,7 @@ import useAdminContext from "../../Utils/contextAdminHook";
 import useUserContext from "../../Utils/contextUserHook";
 import Swal from "sweetalert2";
 import CreditCardFeeCalculator from "./Calculadora/Calculadora";
+import ContactMessages from "./Contact/ContactMessages";
 
 const DashContainer = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -94,6 +95,9 @@ const DashContainer = () => {
   // Determine which component to render
   let componentToRender;
   switch (component) {
+    case "ContactMessages":
+      componentToRender = <ContactMessages />;
+      break;
     case "Dashboard":
       componentToRender = <GeneralAdmDash />;
       break;
@@ -286,6 +290,16 @@ const DashContainer = () => {
               >
                 <img src="/calculadora.jpg" alt="" className="h-8 w-8" />
                 <span>Calculadora</span>
+              </a>
+              <a
+                href="#"
+                onClick={() => {
+                  handleEvent("ContactMessages");
+                }}
+                className="flex items-center space-x-2 p-4 text-lg font-semibold text-black hover:bg-red-100 focus:outline-none w-[90%] rounded-full"
+              >
+                <img src="/nuevopost.png" alt="" className="h-8 w-8" />
+                <span>Contacto (Alpha)</span>
               </a>
 
               <a
