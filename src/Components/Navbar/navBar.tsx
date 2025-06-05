@@ -93,7 +93,6 @@ const NavBar: React.FC = () => {
                         <a href="/aboutUs" className="hover:text-blue-800 transition-colors">Acerca de nosotros</a>
                         <a href="/contact" className="hover:text-blue-800 transition-colors">Contacto</a>
                         <a href="/howToBuy" className="hover:text-blue-800 transition-colors">Como comprar</a>
-                        <a href="/login" className="hover:text-blue-800 transition-colors">Login</a>
                     </nav>
                 </div>
             )}
