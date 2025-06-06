@@ -18,6 +18,7 @@ export interface Item {
 }
 
 interface Data {
+  section: string;
   type: string;
   items: Item[];
   _id: string;

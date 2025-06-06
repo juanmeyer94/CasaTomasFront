@@ -38,19 +38,17 @@ const MobileCategoryButtons: React.FC<MobileCategoryButtonsProps> = ({ categorie
   }
 
   // Función para manejar la selección de subcategoría
-  const handleSubcategorySelect = (subcategoryName: string) => {
-    // Si ya está seleccionada, la deseleccionamos
-    if (activeSubcategory === subcategoryName) {
-      setActiveSubcategory(null)
+ const handleSubcategorySelect = (subcategoryName: string) => {
+    setActiveSubcategory(subcategoryName)
+    // Si es "Ver todos", filtramos por la sección (category)
+    if (subcategoryName === "Ver todos" && activeCategory) {
+      setFilters({ ...Filters, subsection: "all", type: activeCategory.toLowerCase() })
+      closeModal()
       return
     }
-
-    setActiveSubcategory(subcategoryName)
-
     // Solo establecemos el filtro si no tiene contenido especial
     const category = categories.find((cat) => cat.name === activeCategory)
     const subcategory = category?.subcategories.find((sub) => sub.name === subcategoryName)
-
     if (subcategory && !subcategory.specialContent) {
       setFilters({ ...Filters, subsection: subcategoryName, type: "all" })
     }
@@ -58,8 +56,14 @@ const MobileCategoryButtons: React.FC<MobileCategoryButtonsProps> = ({ categorie
 
   // Función para manejar la selección de tipo
   const handleTypeSelect = (type: string) => {
+    // Si es "Ver todos", filtramos por todos los tipos de la subcategoría seleccionada
+    if (type === "Ver todos" && activeCategory && activeSubcategory) {
+      setFilters({ ...Filters, subsection: activeSubcategory, type: "all" })
+      closeModal()
+      return
+    }
     setFilters({ ...Filters, type })
-    closeModal() // Cerramos el modal después de seleccionar
+    closeModal()
   }
 
   // Encontrar la categoría activa
@@ -100,6 +104,24 @@ const MobileCategoryButtons: React.FC<MobileCategoryButtonsProps> = ({ categorie
 
             {/* Modal body */}
             <div className="flex-1 overflow-y-auto">
+              {/* Botón "Ver todos" para la sección */}
+              <div className="border-b border-gray-200">
+                <button
+                  onClick={() => handleSubcategorySelect("Ver todos")}
+                  className={`flex items-center justify-between w-full p-4 text-left font-medium transition-colors ${
+                    activeSubcategory === "Ver todos"
+                      ? "bg-sky-50 text-sky-700"
+                      : "text-sky-600 hover:bg-gray-50"
+                  }`}
+                >
+                  <span>Ver todos</span>
+                  {activeSubcategory === "Ver todos" ? (
+                    <X className="w-4 h-4" />
+                  ) : (
+                    <ChevronRight className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
               {activeCategoryData.subcategories.map((subcategory, subIndex) => (
                 <div key={subIndex} className="border-b border-gray-200 last:border-b-0">
                   <button
@@ -124,6 +146,13 @@ const MobileCategoryButtons: React.FC<MobileCategoryButtonsProps> = ({ categorie
                         subcategory.specialContent
                       ) : (
                         <div className="grid grid-cols-2 gap-2">
+                          {/* Botón "Ver todos" para tipos */}
+                          <button
+                            onClick={() => handleTypeSelect("Ver todos")}
+                            className="p-3 text-left text-gray-700 bg-white rounded-md shadow-sm hover:bg-sky-50 hover:text-sky-600 transition-colors font-semibold"
+                          >
+                            Ver todos
+                          </button>
                           {subcategory.types.map((type, typeIndex) => (
                             <button
                               key={typeIndex}
