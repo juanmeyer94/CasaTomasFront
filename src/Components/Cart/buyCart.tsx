@@ -126,7 +126,7 @@ const BuyCart = () => {
         const response = await sendOrder(orderData);
         Swal.close();
 
-        if (response.status === 200) {
+       if (response.status >= 200 && response.status < 300) {
           Swal.fire(
             "¡Pedido confirmado!",
             "Tu pedido ha sido realizado con éxito. ¡Pronto nos comunicaremos para finalizar la compra!",
