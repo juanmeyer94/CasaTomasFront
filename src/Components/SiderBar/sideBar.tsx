@@ -271,7 +271,7 @@ const SideBar: React.FC = () => {
                         className="hover:underline hover:text-sky-400 hover:decoration-wavy 2xl:text-lg text-sm text-left"
                         onClick={() => handleTypeChange(type)}
                       >
-                        {type}1
+                        {type}
                       </button>
                     </li>
                   ))}
