@@ -7,7 +7,7 @@ interface NewProductProps {
   setComponent: (componentName: string) => void;
 }
 
-const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
+const NewProduct: React.FC<NewProductProps> = ({ setComponent }) => {
   const categorias = [
     {
       name: "Maquina",
@@ -20,14 +20,14 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
         "Hilos",
         "Puntillas",
         "Agujas",
-        "Apliques y abrojos",
+        "Abrojos",
         "Reparadores",
         "Elásticos",
-        "Tijeras",
-        "Lubricantes y pegamentos",
+        "Herramientas",
         "Cintas",
         "Cierres",
         "Cordones",
+        "Herrajes y Broches",
       ],
       title: "Seleccionemos la categoría de la Mercería",
     },
@@ -67,8 +67,8 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
         "Puntillas de Algodon",
         "Puntillas de Lycra",
         "Puntillas de Broderie",
-        "Puntillas de Guipure", 
-        "Flecos"
+        "Puntillas de Guipure",
+        "Flecos",
       ],
       title: "Seleccionemos la categoría de Puntillas",
     },
@@ -77,15 +77,15 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
       subtypes: [
         "Agujas para Máquinas",
         "Agujas de Mano",
-        "Agujas de Lana",
-        "Agujas de tejer y crochet",
-        "Alfileres y accesorios",
+        "Agujas de tejer",
+        "Alfileres",
+        "Accesorios",
       ],
       title: "Seleccionemos la categoría de Agujas",
     },
     {
-      name: "Apliques y abrojos",
-      subtypes: ["Apliques", "Abrojos"],
+      name: "Abrojos",
+      subtypes: ["Abrojos"],
       title: "Seleccionemos la categoría de Apliques y abrojos",
     },
     {
@@ -100,15 +100,13 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
         "Elásticos de Poliester",
         "Elásticos Redondos",
         "Elásticos afelpados",
-        "Elásticos de Bretel",
-        "Elásticos Quebrados",
-        "Elásticos de Lencería",
+        "Elásticos Lencería",
       ],
       title: "Seleccionemos la categoría de Elásticos",
     },
     {
-      name: "Tijeras",
-      subtypes: ["Tijeras", "Herramientas"],
+      name: "Herramientas",
+      subtypes: ["Tijeras", "Reglas", "Herramientas"],
       title: "Seleccionemos la categoría de Tijeras",
     },
     {
@@ -120,16 +118,19 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
       name: "Cintas",
       subtypes: [
         "Cinta de Raso",
-        "Cinta de Gross",
+        "Cinta Gross",
         "Cinta Bies",
         "Cinta Mochilera",
-        "Herrajes",
         "Cinta Fantasía",
         "Galones",
         "Cinta Hilera",
-        
       ],
       title: "Seleccionemos la categoría de Cintas",
+    },
+    {
+      name: "Herrajes y Broches",
+      subtypes: ["Herrajes", "Broches"],
+      title: "Seleccionemos la categoría de Herrajes y Broches",
     },
     {
       name: "Cierres",
@@ -152,8 +153,8 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
         "Cordón de Zapato",
         "Cordón de Zapatilla",
         "Cordón de Borcego",
-        "Cordón de Polipropireno",
-        "Cordón de Raso",
+        "Cordón por Metro",
+        "Plantillas",
       ],
       title: "Seleccionemos la categoría de Cordones",
     },
@@ -177,7 +178,7 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
           specsTecs: "",
           colours: [],
           models: [],
-          code:"",
+          code: "",
           quantity: "0",
           wholesalePrice: "0",
         },
@@ -270,7 +271,9 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
       }
       break;
     case "Apliques y abrojos":
-      const Apliques = subcategorias.find((item) => item.name === "Apliques y abrojos");
+      const Apliques = subcategorias.find(
+        (item) => item.name === "Apliques y abrojos"
+      );
       if (Apliques) {
         typesOptions = <DropDown {...Apliques} func={handleTypeChange} />;
       }
@@ -372,11 +375,8 @@ const NewProduct: React.FC<NewProductProps> = ({setComponent}) => {
   };
 
   const handleRemoveImage = (index: number) => {
-
     setNewProduct((prevState) => {
-
       const updatedItems = prevState.data.items.map((item) => {
-
         const updatedPhotos = item.photo.filter(
           (_, imgIndex) => imgIndex != index
         );

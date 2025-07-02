@@ -90,6 +90,28 @@ const categories: Category[] = [
         ],
       },
       {
+        name: "Agujas",
+        types: [
+          "Agujas para Máquinas",
+          "Agujas de mano",
+          "Agujas de tejer",
+          "Alfileres",
+          "Accesorios",
+        ],
+      },
+      { name: "Abrojos", types: ["Abrojos"] },
+      { name: "Reparadores", types: ["Parches y reparadores"] },
+      {
+        name: "Elásticos",
+        types: [
+          "Elásticos de Algodon",
+          "Elásticos de Poliester",
+          "Elásticos Redondos",
+          "Elásticos Afelpados",
+          "Elásticos Lencería",
+        ],
+      },
+      {
         name: "Puntillas",
         types: [
           "Puntillas de Nylon",
@@ -101,32 +123,6 @@ const categories: Category[] = [
         ],
       },
       {
-        name: "Agujas",
-        types: [
-          "Agujas para Máquinas",
-          "Agujas de mano",
-          "Agujas de Lana",
-          "Agujas de tejer y crochet",
-          "Alfileres y accesorios",
-        ],
-      },
-      { name: "Apliques y abrojos", types: ["Apliques", "Abrojos"] },
-      { name: "Reparadores", types: ["Parches y reparadores"] },
-      {
-        name: "Elásticos",
-        types: [
-          "Elásticos de Algodon",
-          "Elásticos de Poliester",
-          "Elásticos Redondos",
-          "Elásticos Afelpados",
-          "Elásticos Bretel",
-          "Elásticos Quebrados",
-          "Elásticos Lencería",
-        ],
-      },
-      { name: "Tijeras", types: ["Tijeras", "Herramientas"] },
-      { name: "Lubricantes y pegamentos", types: ["Lubricantes", "Pegamento"] },
-      {
         name: "Cintas",
         types: [
           "Cinta de Raso",
@@ -136,7 +132,12 @@ const categories: Category[] = [
           "Cinta Fantasía",
           "Galones",
           "Cinta Hilera",
+        ],
+      },{
+        name: "Herrajes y Broches",
+        types: [
           "Herrajes",
+          "Broches",
         ],
       },
       {
@@ -149,7 +150,7 @@ const categories: Category[] = [
           "Cierre Perrito",
           "Cierre de Aluminio y Empavonado",
           "Cierre Fijo Bronce",
-          "Cierre Inivisible",
+          "Cierre Invisible",
           "Cierre por metro y Deslizadores",
         ],
       },
@@ -159,10 +160,11 @@ const categories: Category[] = [
           "Cordón de Zapato",
           "Cordón de Zapatilla",
           "Cordón de Borcego",
-          "Cordón Polipropireno",
-          "Cordón de Raso",
+          "Cordón por Metro",
+          "Plantillas",
         ],
       },
+      { name: "Herramientas", types: ["Tijeras", "Reglas","Herramientas"] },
     ],
   },
 ];
