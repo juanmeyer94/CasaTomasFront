@@ -150,9 +150,7 @@ const NewProduct: React.FC<NewProductProps> = ({ setComponent }) => {
     {
       name: "Cordones",
       subtypes: [
-        "Cordón de Zapato",
-        "Cordón de Zapatilla",
-        "Cordón de Borcego",
+        "Cordón de Calzado",
         "Cordón por Metro",
         "Plantillas",
       ],
