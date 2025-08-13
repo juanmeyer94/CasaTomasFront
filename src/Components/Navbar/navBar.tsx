@@ -57,7 +57,7 @@ const NavBar: React.FC = () => {
                     <img
                         src="/whatsapp.png"
                         alt="WhatsApp"
-                        className="h-10 w-10"
+                        className="h-10 w-10 min-[319px]:hidden sm:block"
                     />
                 </a>
                 <a href="/login" className="hidden items-center text-slate-500 hover:text-blue-800 transition-colors">

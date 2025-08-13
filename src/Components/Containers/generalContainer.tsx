@@ -5,6 +5,7 @@ import useUserContext from "../../Utils/contextUserHook";
 import { ObjectType } from "../../Interfaces/interfacesIndex";
 import OfferCarousel from "../carrousel/OfferCarrousel";
 import ExitIntentOfferModal from "../../Utils/exit-window";
+import { FloatingWhatsAppButton } from "../../Utils/floatingWhatssapButton";
 
 const GeneralContainer: React.FC = () => {
   const {
@@ -45,21 +46,23 @@ const GeneralContainer: React.FC = () => {
 
   return (
     <div className="w-full flex flex-col items-center">
+      <FloatingWhatsAppButton />
+
       {/* Barra de búsqueda */}
-      <div className="w-full flex justify-center px-6 mt-12">
+      <div className="w-full flex justify-center px-6 mt-12 min-[319px]:hidden sm:block">
         <SearchBarr />
       </div>
 
       {/* Carrusel de ofertas (ocupa el ancho total de la pantalla) */}
       {Filters.subsection === "all" && Filters.type === "all" && SearchBar === "" && currentPage === 1 && (
-        <section className="w-full p-8 min-[319px]:p-0">
+        <section className="w-full p-8 min-[319px]:p-0 min-[319px]:mt-16 sm:mt-0">
           <OfferCarousel />
         </section>
       )}
 
       {/* Tarjetas de productos */}
       {currentPosts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 p-6 w-full max-w-screen items-center justify-items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 p-6 w-full max-w-screen items-center justify-items-center min-[319px]:mt-28 sm:mt-0">
           {currentPosts
             .filter((item: ObjectType) => !item.filter)
             .map((item: ObjectType) => (

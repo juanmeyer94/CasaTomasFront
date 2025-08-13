@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import UserCard from "../Card/userCard";
-import { ChevronLeft, ChevronRight, Tag, Clock } from "lucide-react";
+import { ChevronLeft, ChevronRight, Tag } from "lucide-react";
 import { ObjectType } from "../../Interfaces/interfacesIndex";
 import useUserContext from "../../Utils/contextUserHook";
 
@@ -56,11 +56,11 @@ const OfferCarousel: React.FC = () => {
   return (
     <div className="w-full mx-auto my-8 px-4 min-[320px]:px-0 sm:px-2">
       <div className="bg-gradient-to-r from-sky-400 to-sky-700 text-white p-4 sm:rounded-t-lg xs:rounded sm:shadow-lg xs:shadow-none">
-        <h2 className="text-3xl font-bold mb-2 flex items-center">
-          <Tag className="mr-2" />
+        <h2 className="2xl:text-3xl text-2xl font-bold mb-2 flex items-center">
+          <Tag className="mr-2 2xl:w-6 2xl:h-6 w-5 h-5" />
           Ofertas Especiales
         </h2>
-        <p className="text-lg">¡No te pierdas estas increíbles oportunidades!</p>
+        <p className="2xl:text-lg text-base">¡No te pierdas estas increíbles oportunidades!</p>
       </div>
       
       <div className="relative flex justify-center items-center  bg-gray-100 p-4 md:p-6 sm:rounded-b-lg sm:shadow-lg border-b-2">
@@ -104,16 +104,6 @@ const OfferCarousel: React.FC = () => {
         >
           <ChevronRight className="w-6 h-6 text-gray-800" />
         </button>
-      </div>
-      
-      <div className="mt-4 text-center">
-        <p className="text-lg font-semibold text-gray-700 flex items-center justify-center">
-          <Clock className="mr-2" />
-          ¡Ofertas por tiempo limitado!
-        </p>
-        <p className="text-sm text-gray-600">
-          Aprovecha ahora antes de que se agoten
-        </p>
       </div>
     </div>
   );
