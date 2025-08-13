@@ -2,6 +2,7 @@ import type React from "react"
 import { useState } from "react"
 import { X, ChevronRight } from "lucide-react"
 import useUserContext from "../../Utils/contextUserHook"
+import SearchBarr from "../SearchBar/searchBar"
 
 type Category = {
   name: string
@@ -72,8 +73,12 @@ const MobileCategoryButtons: React.FC<MobileCategoryButtonsProps> = ({ categorie
   return (
     <>
       {/* Botones de categoría - siempre visibles en móvil */}
-      <div className="absolute top-16 left-0 right-0 z-40 flex justify-center gap-2 p-1 mt-4 bg-sky-100 shadow-md sm:hidden">
-        {categories.map((category, index) => (
+    <div className="absolute top-16 left-0 right-0 z-40 flex justify-center gap-2 p-1 mt-4 bg-sky-100 shadow-md sm:hidden flex-col items-center">
+       <div className="sm:hidden w-full px-2">
+        <SearchBarr />
+      </div>
+        <div className="flex w-full max-w-3xl gap-2">
+          {categories.map((category, index) => (
           <button
             key={index}
             onClick={() => openCategoryModal(category.name)}
@@ -84,6 +89,7 @@ const MobileCategoryButtons: React.FC<MobileCategoryButtonsProps> = ({ categorie
             {category.name}
           </button>
         ))}
+        </div>
       </div>
 
       {/* Modal */}

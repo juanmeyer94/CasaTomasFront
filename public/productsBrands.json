@@ -4,55 +4,239 @@
         "logo": "/ProductsBrands/alfalogo.jpg"
     },
     {
-        "id": 3,
+        "id": 2,
         "logo": "/ProductsBrands/janome.webp"
     },
     {
-        "id": 4,
+        "id": 3,
         "logo": "/ProductsBrands/brother.svg"
     },
     {
-        "id": 5,
+        "id": 4,
         "logo": "/ProductsBrands/master.png"
     },
     {
-        "id": 6,
+        "id": 5,
         "logo": "/ProductsBrands/logo-jack_1.png"
     },
     {
-        "id": 7,
+        "id": 6,
         "logo": "/ProductsBrands/logo+mendafacil.jpg"
     },
     {
-        "id": 8,
+        "id": 7,
         "logo": "/ProductsBrands/cbx-logo.webp"
     },
     {
-        "id": 9,
+        "id": 8,
         "logo": "/ProductsBrands/orangeNeedles.jpg"
     },
     {
-        "id": 10,
+        "id": 9,
         "logo": "/ProductsBrands/typical.png"
     },
     {
-        "id": 11,
+        "id": 10,
         "logo": "/ProductsBrands/brotel.png"
     },
     {
-        "id": 12,
+        "id": 11,
         "logo": "/ProductsBrands/cordondeoro.jpg"
     },
     {
-        "id": 13,
+        "id": 12,
         "logo": "/ProductsBrands/erizo.png"
     },
     {
-        "id": 14,
+        "id": 13,
         "logo": "/ProductsBrands/DRIMA.png"
     },
     {
-        "id": 15,
+        "id": 14,
         "logo": "/ProductsBrands/ykk.png"
+    },
+    {
+        "id": 15,
+        "logo": "/ProductsBrands/alfalogo.jpg"
+    },
+    {
+        "id": 16,
+        "logo": "/ProductsBrands/janome.webp"
+    },
+    {
+        "id": 17,
+        "logo": "/ProductsBrands/brother.svg"
+    },
+    {
+        "id": 18,
+        "logo": "/ProductsBrands/master.png"
+    },
+    {
+        "id": 19,
+        "logo": "/ProductsBrands/logo-jack_1.png"
+    },
+    {
+        "id": 20,
+        "logo": "/ProductsBrands/logo+mendafacil.jpg"
+    },
+    {
+        "id": 21,
+        "logo": "/ProductsBrands/cbx-logo.webp"
+    },
+    {
+        "id": 22,
+        "logo": "/ProductsBrands/orangeNeedles.jpg"
+    },
+    {
+        "id": 23,
+        "logo": "/ProductsBrands/typical.png"
+    },
+    {
+        "id": 24,
+        "logo": "/ProductsBrands/brotel.png"
+    },
+    {
+        "id": 25,
+        "logo": "/ProductsBrands/cordondeoro.jpg"
+    },
+    {
+        "id": 26,
+        "logo": "/ProductsBrands/erizo.png"
+    },
+    {
+        "id": 27,
+        "logo": "/ProductsBrands/DRIMA.png"
+    },
+    {
+        "id": 28,
+        "logo": "/ProductsBrands/ykk.png"
+    },
+    {
+        "id": 29,
+        "logo": "/ProductsBrands/alfalogo.jpg"
+    },
+    {
+        "id": 30,
+        "logo": "/ProductsBrands/janome.webp"
+    },
+    {
+        "id": 31,
+        "logo": "/ProductsBrands/brother.svg"
+    },
+    {
+        "id": 32,
+        "logo": "/ProductsBrands/master.png"
+    },
+    {
+        "id": 33,
+        "logo": "/ProductsBrands/logo-jack_1.png"
+    },
+    {
+        "id": 34,
+        "logo": "/ProductsBrands/logo+mendafacil.jpg"
+    },
+    {
+        "id": 35,
+        "logo": "/ProductsBrands/cbx-logo.webp"
+    },
+    {
+        "id": 36,
+        "logo": "/ProductsBrands/orangeNeedles.jpg"
+    },
+    {
+        "id": 37,
+        "logo": "/ProductsBrands/typical.png"
+    },
+    {
+        "id": 38,
+        "logo": "/ProductsBrands/brotel.png"
+    },
+    {
+        "id": 39,
+        "logo": "/ProductsBrands/cordondeoro.jpg"
+    },
+    {
+        "id": 40,
+        "logo": "/ProductsBrands/erizo.png"
+    },
+    {
+        "id": 41,
+        "logo": "/ProductsBrands/DRIMA.png"
+    },
+    {
+        "id": 42,
+        "logo": "/ProductsBrands/ykk.png"
+    },
+    {
+        "id": 43,
+        "logo": "/ProductsBrands/alfalogo.jpg"
+    },
+    {
+        "id": 44,
+        "logo": "/ProductsBrands/janome.webp"
+    },
+    {
+        "id": 45,
+        "logo": "/ProductsBrands/brother.svg"
+    },
+    {
+        "id": 46,
+        "logo": "/ProductsBrands/master.png"
+    },
+    {
+        "id": 47,
+        "logo": "/ProductsBrands/logo-jack_1.png"
+    },
+    {
+        "id": 48,
+        "logo": "/ProductsBrands/logo+mendafacil.jpg"
+    },
+    {
+        "id": 49,
+        "logo": "/ProductsBrands/cbx-logo.webp"
+    },
+    {
+        "id": 50,
+        "logo": "/ProductsBrands/orangeNeedles.jpg"
+    },
+    {
+        "id": 51,
+        "logo": "/ProductsBrands/typical.png"
+    },
+    {
+        "id": 52,
+        "logo": "/ProductsBrands/brotel.png"
+    },
+    {
+        "id": 53,
+        "logo": "/ProductsBrands/cordondeoro.jpg"
+    },
+    {
+        "id": 54,
+        "logo": "/ProductsBrands/erizo.png"
+    },
+    {
+        "id": 55,
+        "logo": "/ProductsBrands/DRIMA.png"
+    },
+    {
+        "id": 56,
+        "logo": "/ProductsBrands/ykk.png"
+    },
+    {
+        "id": 57,
+        "logo": "/ProductsBrands/alfalogo.jpg"
+    },
+    {
+        "id": 58,
+        "logo": "/ProductsBrands/janome.webp"
+    },
+    {
+        "id": 59,
+        "logo": "/ProductsBrands/brother.svg"
+    },
+    {
+        "id": 60,
+        "logo": "/ProductsBrands/master.png"
     }
 ]

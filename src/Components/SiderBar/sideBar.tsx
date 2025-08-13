@@ -157,9 +157,7 @@ const categories: Category[] = [
       {
         name: "Cordones",
         types: [
-          "Cordón de Zapato",
-          "Cordón de Zapatilla",
-          "Cordón de Borcego",
+          "Cordón de Calzado",
           "Cordón por Metro",
           "Plantillas",
         ],

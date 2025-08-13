@@ -1,0 +1,216 @@
+/* Estilos específicos para ProductsBrandsCaroussel */
+
+/* Animación del carrusel infinito - más rápida y fluida */
+@keyframes infinite-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+.animate-infinite-scroll {
+  animation: infinite-scroll 45s linear infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .animate-infinite-scroll {
+    animation-duration: 45s;
+  }
+}
+
+@media (min-width: 1024px) {
+  .animate-infinite-scroll {
+    animation-duration: 45s;
+  }
+}
+
+/* Efectos de hover mejorados */
+.brand-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.brand-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Efecto de brillo en hover */
+.brand-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.brand-card:hover .brand-shine {
+  left: 100%;
+}
+
+/* Gradientes de texto mejorados */
+.text-gradient {
+  background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Fondo con patrón sutil - azul cuadriculado */
+.pattern-bg {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(14, 165, 233, 0.1) 1px, transparent 0),
+    linear-gradient(135deg, rgba(14, 165, 233, 0.05) 0%, transparent 50%);
+  background-size: 20px 20px, 100% 100%;
+  background-position: 0 0, 0 0;
+}
+
+/* Mejoras de accesibilidad */
+.brand-card:focus {
+  outline: 2px solid #0ea5e9;
+  outline-offset: 2px;
+}
+
+/* Optimización de rendimiento */
+.brand-card {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Efectos de carga */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Indicadores de scroll animados - 5 segundos */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+.scroll-indicator {
+  animation: pulse 5s ease-in-out infinite;
+}
+
+.scroll-indicator:nth-child(2) {
+  animation-delay: 1.67s;
+}
+
+.scroll-indicator:nth-child(3) {
+  animation-delay: 3.33s;
+}
+
+/* Animaciones automáticas para móvil */
+@keyframes autoHighlight {
+  0%, 100% {
+    transform: scale(1) translateY(0);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+}
+
+@keyframes autoGlow {
+  0%, 100% {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.3), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Efectos específicos para móvil */
+@media (max-width: 767px) {
+  .brand-card {
+    transition: all 20s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Animación suave para el anillo de resaltado */
+  .brand-card[class*="ring-sky-400"] {
+    animation: autoGlow 20s ease-in-out infinite;
+  }
+
+  /* Efecto de pulso para las imágenes activas */
+  .brand-card[class*="ring-sky-400"] img {
+    animation: autoHighlight 20s ease-in-out infinite;
+  }
+
+  /* Mejora del efecto de brillo en móvil */
+  .brand-shine {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(14, 165, 233, 0.2),
+      transparent
+    );
+  }
+
+  /* Transiciones más suaves para móvil */
+  .brand-card img {
+    transition: all 20s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* Efectos de entrada mejorados */
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.brand-card {
+  animation: slideInFromBottom 0.6s ease-out;
+}
+
+/* Mejoras para el carrusel en móvil */
+@media (max-width: 767px) {
+  /* Efecto de resaltado más pronunciado en móvil */
+  .brand-card[class*="ring-sky-400"] {
+    border-color: #0ea5e9;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+  }
+}
+
+/* Optimización para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .brand-card {
+    padding: 0.75rem;
+  }
+
+  .brand-card img {
+    height: 2rem;
+  }
+}
