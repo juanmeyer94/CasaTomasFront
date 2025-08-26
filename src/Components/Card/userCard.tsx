@@ -130,7 +130,7 @@ const UserCard: React.FC<Item> = ({
       </Helmet>
 
       <div className="group w-full h-full">
-        <div className="rounded-xl overflow-hidden transition-all duration-300 h-full flex flex-col border border-gray-200 hover:border-sky-300">
+        <div className="rounded-xl overflow-hidden transition-all duration-300 h-full flex flex-col border border-gray-200 hover:border-sky-300 min-w-[280px]">
           {/* Image Container - ajustar la proporción para que sea un poco más pequeña */}
           <div className="relative w-full pt-[90%]">
             {/* Image */}
@@ -149,17 +149,17 @@ const UserCard: React.FC<Item> = ({
                 <>
                   <button
                     onClick={handlePrevImage}
-                    className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+                    className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black/40 hover:bg-white text-gray-800 rounded-full p-1.5  group-hover:opacity-100 transition-opacity duration-300 z-10"
                     aria-label="Imagen anterior"
                   >
-                    <ChevronLeft className="w-4 h-4" />
+                    <ChevronLeft className="w-4 h-4 text-white" />
                   </button>
                   <button
                     onClick={handleNextImage}
-                    className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+                    className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black/40 hover:bg-white text-gray-800 rounded-full p-1.5 group-hover:opacity-100 transition-opacity duration-300 z-10"
                     aria-label="Siguiente imagen"
                   >
-                    <ChevronRight className="w-4 h-4" />
+                    <ChevronRight className="w-4 h-4 text-white" />
                   </button>
                 </>
               )}
