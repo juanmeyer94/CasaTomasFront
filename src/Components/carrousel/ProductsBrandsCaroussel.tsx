@@ -69,8 +69,7 @@ export default function ProductsBrandsCaroussel() {
       scale: 1,
       y: 0,
       transition: {
-        duration: 0.5,
-        ease: "easeOut"
+        duration: 0.5
       }
     }
   };
@@ -81,8 +80,7 @@ export default function ProductsBrandsCaroussel() {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        ease: "easeOut"
+        duration: 0.6
       }
     }
   };
