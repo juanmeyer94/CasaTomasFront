@@ -50,9 +50,12 @@ const GeneralContainer: React.FC = () => {
   return (
     <div className="w-full flex flex-col items-center relative">
       {/* Fondos animados espectaculares */}
+      <div className="min-[310px]:hidden sm:block">
       <AnimatedBackground />
       <BrandLogosBackground />
       <ParticleEffects />
+      </div>
+   
       
       {/* Gradiente superior espectacular */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-yellow-400 via-yellow-100 to-yellow-100 shadow-lg z-10"></div>
