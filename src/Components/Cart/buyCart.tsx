@@ -9,7 +9,7 @@ import type {
   OrderItemData,
 } from "../../Interfaces/types/OrderInterface/OrderInterface";
 import CartModal from "./cartModal";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import {
   ShoppingBag,
   Trash2,

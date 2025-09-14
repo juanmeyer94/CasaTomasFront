@@ -7,7 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-
+      screens: {
+        'xs': '475px',
+      },
       animation: {
         'infinite-scroll': 'infinite-scroll 25s linear infinite',
       },

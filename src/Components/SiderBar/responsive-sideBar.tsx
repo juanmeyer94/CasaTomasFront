@@ -1,6 +1,7 @@
 import type React from "react"
 import SideBar from "./sideBar"
 import MobileCategoryButtons from "./mobile-sideBar"
+import useUserContext from "../../Utils/contextUserHook"
 
 type Category = {
   name: string
@@ -18,6 +19,7 @@ interface ResponsiveSidebarProps {
 }
 
 const ResponsiveSidebar: React.FC<ResponsiveSidebarProps> = ({ categories }) => {
+  const {loading} = useUserContext();
     return (
       <>
         {/* Botones de categoría para móvil - ahora con mejor integración */}
@@ -27,7 +29,7 @@ const ResponsiveSidebar: React.FC<ResponsiveSidebarProps> = ({ categories }) => 
   
         {/* Sidebar tradicional solo para escritorio */}
         <div className="hidden sm:block">
-          <SideBar />
+         {!loading ?  <SideBar />: ""}
         </div>
       </>
     )

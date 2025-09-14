@@ -95,6 +95,7 @@ const MoreOfferCarousel: React.FC<MoreOfferCarouselProps> = ({ subsection }) => 
                     wholesalePrice={item.data?.items[0]?.wholesalePrice}
                     quantity={item.data?.items[0]?.quantity}
                     offer={item.offer || false}
+                    models={item.data?.items[0]?.models}
                   />
                 </div>
               ))}
