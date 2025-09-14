@@ -101,11 +101,11 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     const updateItemsPerPage = () => {
       if (window.innerWidth >= 1736) {
-        setPostsPerPage(15); // 2xl
+        setPostsPerPage(16); // 2xl
       } else if (window.innerWidth >= 1500) {
-        setPostsPerPage(15); // xl
+        setPostsPerPage(13); // xl
       } else if (window.innerWidth >= 1280) {
-        setPostsPerPage(8); // lg
+        setPostsPerPage(9); // lg
       } else if (window.innerWidth >= 1024) {
         setPostsPerPage(6); // default
       } else {

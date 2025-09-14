@@ -73,7 +73,7 @@ const MobileCategoryButtons: React.FC<MobileCategoryButtonsProps> = ({ categorie
   return (
     <>
       {/* Botones de categoría - siempre visibles en móvil */}
-    <div className="absolute top-16 left-0 right-0 z-40 flex justify-center gap-2 p-1 mt-4 bg-sky-100 shadow-md sm:hidden flex-col items-center">
+    <div className="fixed top-16 left-0 right-0 z-40 flex justify-center gap-2 p-1 bg-sky-100/95 backdrop-blur-sm shadow-md sm:hidden flex-col items-center">
        <div className="sm:hidden w-full px-2">
         <SearchBarr />
       </div>
@@ -179,8 +179,8 @@ const MobileCategoryButtons: React.FC<MobileCategoryButtonsProps> = ({ categorie
         </div>
       )}
 
-      {/* Espaciador para compensar los botones fijos */}
-      <div className="h-16 sm:h-0 block sm:hidden"></div>
+      {/* Espaciador para compensar los botones fijos - altura ajustada para el sidebar móvil */}
+      <div className="h-24 sm:h-0 block sm:hidden"></div>
     </>
   )
 }

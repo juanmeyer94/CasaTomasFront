@@ -6,6 +6,9 @@ import { ObjectType } from "../../Interfaces/interfacesIndex";
 import OfferCarousel from "../carrousel/OfferCarrousel";
 import ExitIntentOfferModal from "../../Utils/exit-window";
 import { FloatingWhatsAppButton } from "../../Utils/floatingWhatssapButton";
+import AnimatedBackground from "../Background/AnimatedBackground";
+import BrandLogosBackground from "../Background/BrandLogosBackground";
+import ParticleEffects from "../Background/ParticleEffects";
 
 const GeneralContainer: React.FC = () => {
   const {
@@ -45,24 +48,31 @@ const GeneralContainer: React.FC = () => {
   }
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center relative">
+      {/* Fondos animados espectaculares */}
+      <AnimatedBackground />
+      <BrandLogosBackground />
+      <ParticleEffects />
+      
+      {/* Gradiente superior espectacular */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-yellow-400 via-yellow-100 to-yellow-100 shadow-lg z-10"></div>
       <FloatingWhatsAppButton />
 
       {/* Barra de búsqueda */}
-      <div className="w-full flex justify-center px-6 mt-12 min-[319px]:hidden sm:block">
+      <div className="w-full flex justify-center px-6 mt-8  relative z-10">
         <SearchBarr />
       </div>
 
       {/* Carrusel de ofertas (ocupa el ancho total de la pantalla) */}
       {Filters.subsection === "all" && Filters.type === "all" && SearchBar === "" && currentPage === 1 && (
-        <section className="w-full p-8 min-[319px]:p-0 min-[319px]:mt-16 sm:mt-0">
+        <section className="relative z-10 -mt-4 sm:-mt-2">
           <OfferCarousel />
         </section>
       )}
 
       {/* Tarjetas de productos */}
       {currentPosts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 p-6 w-full max-w-screen items-center justify-items-center min-[319px]:mt-28 sm:mt-0">
+        <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 sm:gap-4 md:gap-5 lg:gap-6 px-4 py-2 sm:px-4 sm:py-4 md:px-6 md:py-6 lg:px-8 lg:py-8 xl:px-12 xl:py-12 w-full max-w-screen justify-items-center sm:mt-0 ${Filters.subsection === "all" && Filters.type === "all" && SearchBar === "" ? "min-[319px]:mt-38 min-[319px]:pl-6 min-[375px]:pl-14 min-[425px]:pl-20" : "min-[319px]:mt-28 min-[319px]:pl-6 min-[375px]:pl-14 min-[425px]:pl-20"} relative z-10`}>
           {currentPosts
             .filter((item: ObjectType) => !item.filter)
             .map((item: ObjectType) => (
@@ -81,17 +91,18 @@ const GeneralContainer: React.FC = () => {
                 offer={item.offer}
                 code={item.data.items[0].code}
                 colours={item.data.items[0].colours}
+                models={item.data.items[0].models}
               />
             ))}
         </div>
       ) : (
-        <div className="flex items-center justify-center w-full m-4 p-4">
+        <div className="flex items-center justify-center w-full m-4 p-4 relative z-10">
           <h1>No se encontró lo que buscas, disculpen las molestias.</h1>
         </div>
       )}
 
       {/* Paginación */}
-      <div className="flex justify-center mt-4 mb-4 space-x-4">
+      <div className="flex justify-center mt-4 mb-4 space-x-4 relative z-10">
         <button
           onClick={() => {
             prevPage(),

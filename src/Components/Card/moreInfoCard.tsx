@@ -21,7 +21,7 @@ import {
   Layers,
 } from "lucide-react";
 import MoreOfferCarousel from "../carrousel/MoreOfferCarrousel";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 // Crear mapa de colores para acceso rápido
 const coloursMap = coloursIndex.reduce((acc, colour) => {
@@ -368,7 +368,7 @@ export default function ProductDetail() {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="max-w-5xl mx-auto px-3 sm:px-4 md:px-6">
           <div className="bg-white shadow-sm rounded-xl overflow-hidden mt-4">
             {/* Galería de imágenes */}
             <div className="relative">
@@ -459,7 +459,7 @@ export default function ProductDetail() {
             </div>
 
             {/* Información del producto */}
-            <div className="p-4 sm:p-6">
+            <div className="p-3 sm:p-4 md:p-5">
               {/* Código del producto */}
               {productCode && (
                 <div className="flex items-center mb-2 text-gray-500">
@@ -469,7 +469,7 @@ export default function ProductDetail() {
               )}
 
               {/* Nombre y marca */}
-              <h1 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">
+              <h1 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
                 {productBrand ? `${productBrand} ${productName}` : productName}
               </h1>
 
@@ -477,7 +477,7 @@ export default function ProductDetail() {
               <div className="flex flex-wrap items-end gap-4 mb-4 mt-3">
                 <div>
                   <p className="text-xs text-gray-500 mb-1">Precio unitario</p>
-                  <p className="text-2xl font-bold text-sky-600">
+                  <p className="text-xl font-bold text-sky-600">
                     {formatPrice(regularPrice)}
                   </p>
                 </div>
@@ -487,7 +487,7 @@ export default function ProductDetail() {
                     <p className="text-xs text-gray-500 mb-1">
                       Precio mayorista ({minQuantity}+)
                     </p>
-                    <p className="text-xl font-bold text-green-600">
+                    <p className="text-lg font-bold text-green-600">
                       {formatPrice(
                         Number.parseFloat(wholesalePrice) /
                           Number.parseInt(minQuantity.split(" ")[0])
@@ -500,13 +500,13 @@ export default function ProductDetail() {
 
               {/* Oferta por mayor */}
               {wholesalePrice !== "0" && (
-                <div className="bg-gradient-to-r from-amber-50 to-amber-100 rounded-lg p-4 mb-5 border border-amber-200">
+                <div className="bg-gradient-to-r from-amber-50 to-amber-100 rounded-lg p-3.5 mb-4 border border-amber-200">
                   <div className="flex items-start gap-3">
                     <div className="bg-amber-400 rounded-full p-2 mt-0.5">
                       <Info className="w-4 h-4 text-amber-800" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-amber-800 text-base">
+                      <h3 className="font-bold text-amber-800 text-sm">
                         ¡OFERTA POR CANTIDAD!
                       </h3>
                       <p className="text-sm text-amber-900 mt-1">
@@ -542,21 +542,21 @@ export default function ProductDetail() {
               )}
 
               {/* Descripción */}
-              <div className="mb-6">
-                <h2 className="text-base font-semibold text-gray-700 mb-2">
+              <div className="mb-5">
+                <h2 className="text-sm font-semibold text-gray-700 mb-2">
                   Descripción
                 </h2>
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-gray-600 text-xs leading-relaxed">
                   {formatDescription(productDescription)}
                 </p>
               </div>
 
               {/* Selección de colores */}
               {hasColours && (
-                <div className="mb-6">
-                  <div className="flex items-center mb-3">
-                    <Palette className="w-4 h-4 text-gray-700 mr-2" />
-                    <h2 className="text-base font-semibold text-gray-700">
+                <div className="mb-5">
+                  <div className="flex items-center mb-2.5">
+                    <Palette className="w-3.5 h-3.5 text-gray-700 mr-2" />
+                    <h2 className="text-sm font-semibold text-gray-700">
                       Colores disponibles
                     </h2>
                   </div>
@@ -565,7 +565,7 @@ export default function ProductDetail() {
                     {productColours.map((item: any, index: number) => (
                       <div
                         key={index}
-                        className="flex items-center gap-2 w-full bg-gray-50 p-3 rounded-lg border border-gray-100"
+                        className="flex items-center gap-2 w-full bg-gray-50 p-2.5 rounded-lg border border-gray-100"
                       >
                         <div className="relative w-8 h-8">
                           <img
@@ -618,10 +618,10 @@ export default function ProductDetail() {
 
               {/* Selección de modelos */}
               {hasModels && (
-                <div className="mb-6">
-                  <div className="flex items-center mb-3">
-                    <Layers className="w-4 h-4 text-gray-700 mr-2" />
-                    <h2 className="text-base font-semibold text-gray-700">
+                <div className="mb-5">
+                  <div className="flex items-center mb-2.5">
+                    <Layers className="w-3.5 h-3.5 text-gray-700 mr-2" />
+                    <h2 className="text-sm font-semibold text-gray-700">
                       Modelos disponibles
                     </h2>
                   </div>
@@ -630,7 +630,7 @@ export default function ProductDetail() {
                     {models.map((model: string, index: number) => (
                       <div
                         key={index}
-                        className="flex items-center gap-2 w-full bg-gray-50 p-3 rounded-lg border border-gray-100"
+                        className="flex items-center gap-2 w-full bg-gray-50 p-2.5 rounded-lg border border-gray-100"
                       >
                         <span className="text-sm font-medium flex-grow">
                           {model}
@@ -665,7 +665,7 @@ export default function ProductDetail() {
 
               {/* Resumen de cantidad */}
               {totalQuantity > 0 && (
-                <div className="bg-sky-50 p-3 rounded-lg mb-5 border border-sky-100">
+                <div className="bg-sky-50 p-2.5 rounded-lg mb-4 border border-sky-100">
                   <div className="flex justify-between items-center">
                     <div>
                       <p className="text-sm font-medium text-gray-700">
@@ -697,13 +697,13 @@ export default function ProductDetail() {
                 </div>
               )}
               {/* Botones de acción */}
-              <div className="space-y-3 mt-6">
+              <div className="space-y-2.5 mt-5">
                 <div className="grid grid-cols-2 gap-3">
                   <button
                     onClick={handleAddToCart}
-                    className="flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-700 text-white py-3 px-4 rounded-lg font-medium transition-colors"
+                    className="flex items-center justify-center gap-1.5 bg-sky-600 hover:bg-sky-700 text-white py-2.5 px-3.5 rounded-lg font-medium transition-colors text-sm"
                   >
-                    <ShoppingCart className="w-5 h-5" />
+                    <ShoppingCart className="w-4 h-4" />
                     <span>Agregar al carrito</span>
                   </button>
 
@@ -711,26 +711,26 @@ export default function ProductDetail() {
                     href={`https://wa.me/5493492279892?text=${generateWhatsAppMessage()}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-lg font-medium transition-colors"
+                    className="flex items-center justify-center gap-1.5 bg-green-500 hover:bg-green-600 text-white py-2.5 px-3.5 rounded-lg font-medium transition-colors text-sm"
                   >
-                    <img src="/whatsapp.png" className="w-8 h-8" />
+                    <img src="/whatsapp.png" className="w-6 h-6" />
                     <span>WhatsApp</span>
                   </a>
                 </div>
 
                 <button
                   onClick={() => navigate(-1)}
-                  className="w-full flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-lg font-medium transition-colors"
+                  className="w-full flex items-center justify-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 rounded-lg font-medium transition-colors text-sm"
                 >
-                  <ArrowLeft className="w-4 h-4" />
+                  <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Volver a productos</span>
                 </button>
               </div>
             </div>
 
             {/* Beneficios de compra */}
-            <div className="px-4 pb-6 pt-2">
-              <div className="grid grid-cols-2 gap-3">
+            <div className="px-3.5 pb-5 pt-2">
+              <div className="grid grid-cols-2 gap-2.5">
                 <div className="flex flex-col items-center bg-blue-50 p-3 rounded-lg border border-blue-100">
                   <CreditCard className="text-blue-600 w-6 h-6 mb-2" />
                   <p className="font-semibold text-blue-700 text-center text-xs">

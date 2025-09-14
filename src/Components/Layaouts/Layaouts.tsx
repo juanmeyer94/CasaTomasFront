@@ -93,9 +93,9 @@ const categories: Category[] = [
 ];
 
 export const LayoutWithNavBarAndFooter:React.FC <({ children:React.ReactNode})> = ({children}) => (
-  <div className="flex flex-col h-screen">
+  <div className="min-h-screen flex flex-col">
     <NavBar />
-    <div className="flex flex-grow">
+    <div className="flex flex-1">
       <ResponsiveSidebar categories={categories} />
       <div className="flex-grow flex justify-center">
         {children}
@@ -118,9 +118,9 @@ export const LayoutWithoutNavBarAndFooter:React.FC <({ children:React.ReactNode}
 
 
 export const LayoutWithNavBar:React.FC <({ children:React.ReactNode})> = ({children}) => (
-  <div className="">
+  <div className="min-h-screen flex flex-col">
     <NavBar />
-    <div className="">
+    <div className="flex-1">
       <div className="">
         {children}
       </div>
