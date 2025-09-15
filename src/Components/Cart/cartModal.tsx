@@ -142,21 +142,21 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
   }
  console.log(cartItems)
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-end pr-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div
         className="fixed inset-0 bg-black bg-opacity-50"
         onClick={handleCartModal}
       ></div>
-      <div className="relative bg-white w-full max-w-2xl mx-auto rounded-lg shadow-lg  overflow-y-auto min-[320px]:min-h-[90vh] md:min-h-[80vh]">
-        <div className="flex justify-between items-center p-5 border-b">
-          <h1 className="text-2xl font-semibold text-gray-900">Tu carrito</h1>
+      <div className="relative bg-white w-full max-w-2xl mx-auto rounded-lg shadow-lg flex flex-col max-h-[95vh] min-[320px]:max-h-[90vh]">
+        <div className="flex justify-between items-center p-4 sm:p-5 border-b flex-shrink-0">
+          <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">Tu carrito</h1>
           <button
             onClick={handleCartModal}
-            className="text-gray-500 hover:text-gray-900"
+            className="text-gray-500 hover:text-gray-900 p-1"
             aria-label="close"
           >
             <svg
-              className="h-6 w-6"
+              className="h-5 w-5 sm:h-6 sm:w-6"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -172,7 +172,7 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
           </button>
         </div>
 
-        <div className="p-6">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6">
           <div className="flow-root">
             <ul role="list" className="-my-6 divide-y divide-gray-200">
               {cartItems.length === 0 ? (
@@ -183,13 +183,13 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
                 cartItems.map((cartItem) => (
                   <li
                     key={cartItem.id}
-                    className="py-2 flex items-center justify-between"
+                    className="py-3 flex items-start justify-between"
                   >
-                    <div>
+                    <div className="flex-shrink-0">
                       <img
                         src={cartItem.item.photo[0]}
                         alt={cartItem.item.name || cartItem.item.marca}
-                        className="h-24 w-24 object-cover rounded-md"
+                        className="h-16 w-16 sm:h-20 sm:w-20 object-cover rounded-md"
                       />
                      <div className="items-center justify-center hidden">
                      <button
@@ -201,7 +201,7 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
                      </div>
                     </div>
 
-                    <div className="ml-4 flex-1">
+                    <div className="ml-3 flex-1 min-w-0">
                       <div className="flex justify-between items-center">
                         <h3 className="sm:text-lg font-semibold text-gray-900 min-[320px]:text-sm">
                           {`${cartItem.item.marca || ""}${
@@ -252,97 +252,93 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
                         ([color, qty]) => (
                           <div
                             key={color}
-                            className="flex items-center space-x-1 mt-2"
+                            className="flex items-center justify-between mt-2 p-2 bg-gray-50 rounded-lg"
                           >
-                            <div>
-                              <p className="text-sm min-[320px]:text-xs text-gray-500">
+                            <div className="flex-1">
+                              <p className="text-xs sm:text-sm text-gray-600">
                                 {color} - Cantidad: {qty as number}
                               </p>
                             </div>
 
                             <div
-                              className="py-1 px-1 inline-block bg-white border border-gray-200 rounded-lg right-2 justify-items-end"
+                              className="flex items-center bg-white border border-gray-200 rounded-md"
                               data-hs-input-number=""
                             >
-                              <div className="flex items-center">
-                                <button
-                                  type="button"
-                                  className="size-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-red-500 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
-                                  aria-label="Decrease"
-                                  data-hs-input-number-decrement=""
-                                  onClick={() =>
-                                    handleDecreaseQuantity(cartItem.id, color)
-                                  }
+                              <button
+                                type="button"
+                                className="w-6 h-6 sm:w-7 sm:h-7 inline-flex justify-center items-center text-xs font-medium rounded-l-md border-r border-gray-200 bg-white text-gray-800 hover:bg-red-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
+                                aria-label="Decrease"
+                                data-hs-input-number-decrement=""
+                                onClick={() =>
+                                  handleDecreaseQuantity(cartItem.id, color)
+                                }
+                              >
+                                <svg
+                                  className="w-3 h-3"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                 >
-                                  <svg
-                                    className="shrink-0 size-3.5"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                  >
-                                    <path d="M5  12h14"></path>
-                                  </svg>
-                                </button>
-                                <input
-                                  className="p-0 w-4 bg-transparent border-0 text-gray-800 text-center focus:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none focus:outline-none"
-                                  type="number"
-                                  aria-roledescription="Number field"
-                                  value={qty as number}
-                                  readOnly
-                                />
-                                <button
-                                  type="button"
-                                  className="size-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm focus:outline-none hover:bg-green-500 disabled:opacity-50 disabled:pointer-events-none"
-                                  aria-label="Increase"
-                                  data-hs-input-number-increment=""
-                                  onClick={() =>
-                                    handleIncreaseQuantity(cartItem.id, color)
-                                  }
+                                  <path d="M5  12h14"></path>
+                                </svg>
+                              </button>
+                              <input
+                                className="w-8 sm:w-10 h-6 sm:h-7 bg-transparent border-0 text-gray-800 text-center text-xs focus:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none focus:outline-none"
+                                type="number"
+                                aria-roledescription="Number field"
+                                value={qty as number}
+                                readOnly
+                              />
+                              <button
+                                type="button"
+                                className="w-6 h-6 sm:w-7 sm:h-7 inline-flex justify-center items-center text-xs font-medium rounded-r-md border-l border-gray-200 bg-white text-gray-800 hover:bg-green-50 focus:outline-none disabled:opacity-50 disabled:pointer-events-none"
+                                aria-label="Increase"
+                                data-hs-input-number-increment=""
+                                onClick={() =>
+                                  handleIncreaseQuantity(cartItem.id, color)
+                                }
+                              >
+                                <svg
+                                  className="w-3 h-3"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                 >
-                                  <svg
-                                    className="shrink-0 size-3.5"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                  >
-                                    <path d="M5 12h14"></path>
-                                    <path d="M12 5v14"></path>
-                                  </svg>
-                                </button>
-                              </div>
+                                  <path d="M5 12h14"></path>
+                                  <path d="M12 5v14"></path>
+                                </svg>
+                              </button>
                             </div>
                           </div>
                         )
                       )}
-                      <div className="mt-2">
+                      <div className="mt-3">
                         {cartItem.discountApplied ? (
-                          <div className="flex flex-col items-start">
-                            <p className="text-sm text-gray-500 line-through">
-                              Precio original:{" "}
-                              {formatPrice(cartItem.originalPrice)}
+                          <div className="space-y-1">
+                            <p className="text-xs text-gray-500 line-through">
+                              Original: {formatPrice(cartItem.originalPrice)}
                             </p>
-                            <p className="text-lg font-semibold text-green-600">
-                              Precio con descuento:{" "}
-                              {formatPrice(cartItem.totalPrice)}
+                            <p className="text-sm sm:text-base font-semibold text-green-600">
+                              Con descuento: {formatPrice(cartItem.totalPrice)}
                             </p>
-                            <p className="text-sm font-medium text-green-600">
+                            <p className="text-xs font-medium text-green-600">
                               ¡Ahorras {cartItem.discountPercentage}%!
                             </p>
                           </div>
                         ) : (
-                          <p className="sm:text-lg min-[320px]:text-base font-semibold text-gray-900">
+                          <p className="text-sm sm:text-base font-semibold text-gray-900">
                             {formatPrice(cartItem.totalPrice)}
                           </p>
                         )}
@@ -354,19 +350,20 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
             </ul>
           </div>
 
-          <div className="mt-6 border-t border-gray-200 py-4">
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-medium text-gray-900">Total</p>
-              <p className="text-xl font-semibold text-gray-900">
-                {formatPrice(subtotal)}
-              </p>
-            </div>
+        </div>
+
+        <div className="border-t border-gray-200 p-4 sm:p-6 flex-shrink-0 bg-white">
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-sm font-medium text-gray-900">Total</p>
+            <p className="text-lg sm:text-xl font-semibold text-gray-900">
+              {formatPrice(subtotal)}
+            </p>
           </div>
 
-          <div className="mt-6 text-center">
+          <div className="text-center">
             <button
               type="button"
-              className="bg-sky-600 text-white py-2 px-4 rounded-full font-bold hover:bg-sky-700"
+              className="w-full bg-sky-600 text-white py-3 px-4 rounded-lg font-bold hover:bg-sky-700 transition-colors"
               onClick={sendBuyCart}
             >
               Finalizar pedido
