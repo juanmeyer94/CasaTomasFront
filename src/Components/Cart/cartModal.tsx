@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import useUserContext from "../../Utils/contextUserHook";
 import { CartItem, ObjectType } from "../../Interfaces/interfacesIndex";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,9 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
   const { cart, AllObjects, upgradeCart, removeCart, changeQuantity } =
     useUserContext();
   const navigate = useNavigate();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [showScrollIndicator, setShowScrollIndicator] = useState(false);
+  const [showBottomIndicator, setShowBottomIndicator] = useState(false);
 
   const formatPrice = (price: number): string => {
     return new Intl.NumberFormat("es-AR", {
@@ -96,6 +99,28 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
   const mergedData = mergeQuantities(cart);
   const cartItems = getCartItemsWithDetails(mergedData, AllObjects);
 
+  // Detectar si hay contenido para hacer scroll
+  useEffect(() => {
+    const checkScroll = () => {
+      if (scrollContainerRef.current) {
+        const { scrollTop, scrollHeight, clientHeight } = scrollContainerRef.current;
+        const hasMoreContent = scrollHeight > clientHeight;
+        const isAtBottom = scrollTop + clientHeight >= scrollHeight - 10;
+        const isNearBottom = scrollTop + clientHeight >= scrollHeight - 200;
+        
+        setShowScrollIndicator(hasMoreContent && !isAtBottom);
+        setShowBottomIndicator(hasMoreContent && isNearBottom && !isAtBottom);
+      }
+    };
+
+    checkScroll();
+    const scrollContainer = scrollContainerRef.current;
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', checkScroll);
+      return () => scrollContainer.removeEventListener('scroll', checkScroll);
+    }
+  }, [cartItems]);
+
   const sendBuyCart = () => {
     upgradeCart(cartItems);
     navigate("/cart");
@@ -149,7 +174,19 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
       ></div>
       <div className="relative bg-white w-full max-w-2xl mx-auto rounded-lg shadow-lg flex flex-col max-h-[95vh] min-[320px]:max-h-[90vh]">
         <div className="flex justify-between items-center p-4 sm:p-5 border-b flex-shrink-0">
-          <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">Tu carrito</h1>
+          <div className="flex items-center space-x-3">
+            <h1 className="text-xl sm:text-2xl font-semibold text-gray-900">Tu carrito</h1>
+            {showScrollIndicator && (
+              <div className="flex items-center space-x-2">
+                <div className="flex space-x-1">
+                  <div className="w-1 h-1 bg-sky-400 rounded-full opacity-60 animate-bounce"></div>
+                  <div className="w-1 h-1 bg-sky-400 rounded-full opacity-60 animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                  <div className="w-1 h-1 bg-sky-400 rounded-full opacity-60 animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                </div>
+                <p className="text-xs text-sky-500 font-medium">Desliza para ver más</p>
+              </div>
+            )}
+          </div>
           <button
             onClick={handleCartModal}
             className="text-gray-500 hover:text-gray-900 p-1"
@@ -172,7 +209,8 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto p-4 sm:p-6 relative">
+          
           <div className="flow-root">
             <ul role="list" className="-my-6 divide-y divide-gray-200">
               {cartItems.length === 0 ? (
@@ -350,6 +388,20 @@ const CartModal: React.FC<CartModalProps> = ({ handleCartModal }) => {
             </ul>
           </div>
 
+          {/* Indicador de scroll en la parte inferior */}
+          {showBottomIndicator && (
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 pointer-events-none">
+              <div className="flex flex-col items-center space-y-3 bg-white/90 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg border border-sky-200">
+                <div className="flex space-x-2">
+                  <div className="w-2 h-2 bg-sky-500 rounded-full opacity-80 animate-bounce"></div>
+                  <div className="w-2 h-2 bg-sky-500 rounded-full opacity-80 animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                  <div className="w-2 h-2 bg-sky-500 rounded-full opacity-80 animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                </div>
+                <div className="w-12 h-1 bg-gradient-to-r from-sky-300 via-sky-500 to-sky-300 rounded-full opacity-90"></div>
+                <p className="text-xs text-sky-600 font-semibold">¡Casi llegas al final!</p>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="border-t border-gray-200 p-4 sm:p-6 flex-shrink-0 bg-white">
