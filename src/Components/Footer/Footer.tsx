@@ -89,7 +89,7 @@ const Footer: React.FC = () => {
                 <div>
                   <p className="text-sm text-gray-300">Celular</p>
                   <a href="tel:3492279892" className="text-white hover:text-yellow-400 transition-colors duration-300">
-                    3492-279892
+                    (3492) 279892
                   </a>
                 </div>
               </motion.div>

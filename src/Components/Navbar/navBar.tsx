@@ -142,7 +142,7 @@ const NavBar: React.FC = () => {
             </nav>
 
             {/* Acciones de la derecha */}
-            <div className="flex items-center space-x-0.5 sm:space-x-2 md:space-x-3 lg:space-x-4">
+            <div className="flex items-center space-x-4 sm:space-x-2 md:space-x-3 lg:space-x-4">
               {/* Carrito con animación espectacular */}
               <motion.button
                 onClick={handleCartModal}

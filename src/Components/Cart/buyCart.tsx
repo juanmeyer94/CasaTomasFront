@@ -956,7 +956,7 @@ const BuyCart = () => {
                       disabled={!isBuyButtonEnabled}
                       onClick={finishOrder}
                     >
-                      Pedir presupuesto
+                      COMPRAR
                     </button>
 
                     <button
