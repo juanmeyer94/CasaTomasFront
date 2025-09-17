@@ -324,6 +324,18 @@ const NewProduct: React.FC<NewProductProps> = ({ setComponent }) => {
         typesOptions = <DropDown {...Cordones} func={handleTypeChange} />;
       }
       break;
+    case "Herramientas":
+      const Herramientas = subcategorias.find((item) => item.name === "Herramientas");
+      if (Herramientas) {
+        typesOptions = <DropDown {...Herramientas} func={handleTypeChange} />;
+      }
+      break;
+    case "Herrajes y Broches":
+      const HerrajesyBroches = subcategorias.find((item) => item.name === "Herrajes y Broches");
+      if (HerrajesyBroches) {
+        typesOptions = <DropDown {...HerrajesyBroches} func={handleTypeChange} />;
+      }
+      break;
   }
 
   const handleShowCards = () => {
