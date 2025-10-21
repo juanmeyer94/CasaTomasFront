@@ -130,10 +130,10 @@ const CreditCardFeeCalculator = () => {
     setInstallments(value);
     switch (value) {
       case "3":
-        setRate(10.35 / 100);
+        setRate(12 / 100);
         break;
       case "6":
-        setRate(20 / 100);
+        setRate(24 / 100);
         break;
       case "12":
         setRate(95.5 / 100);
