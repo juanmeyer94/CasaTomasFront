@@ -6,9 +6,7 @@ import { ObjectType } from "../../Interfaces/interfacesIndex";
 import OfferCarousel from "../carrousel/OfferCarrousel";
 import ExitIntentOfferModal from "../../Utils/exit-window";
 import { FloatingWhatsAppButton } from "../../Utils/floatingWhatssapButton";
-import AnimatedBackground from "../Background/AnimatedBackground";
-import BrandLogosBackground from "../Background/BrandLogosBackground";
-import ParticleEffects from "../Background/ParticleEffects";
+import SimpleBackground from "../Background/SimpleBackground";
 
 const GeneralContainer: React.FC = () => {
   const {
@@ -49,11 +47,9 @@ const GeneralContainer: React.FC = () => {
 
   return (
     <div className="w-full flex flex-col items-center relative">
-      {/* Fondos animados espectaculares */}
+      {/* Fondo simple con logo y texto */}
       <div className="min-[310px]:hidden sm:block">
-      <AnimatedBackground />
-      <BrandLogosBackground />
-      <ParticleEffects />
+        <SimpleBackground />
       </div>
    
       

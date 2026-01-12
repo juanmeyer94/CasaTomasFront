@@ -5,35 +5,6 @@ import { ObjectType } from "../../Interfaces/interfacesIndex";
 import useUserContext from "../../Utils/contextUserHook";
 import { motion } from "framer-motion";
 
-// Componente SplitText para animaciones de texto
-const SplitText: React.FC<{ text: string; className?: string; delay?: number }> = ({ 
-  text, 
-  className = "", 
-  delay = 0 
-}) => {
-  const words = text.split(" ");
-  
-  return (
-    <span className={className}>
-      {words.map((word, index) => (
-        <motion.span
-          key={index}
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.6,
-            delay: delay + index * 0.1,
-            ease: "easeOut"
-          }}
-          className="inline-block mr-2"
-        >
-          {word}
-        </motion.span>
-      ))}
-    </span>
-  );
-};
-
 const OfferCarousel: React.FC = () => {
   const { AllObjects} = useUserContext();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -128,18 +99,13 @@ const OfferCarousel: React.FC = () => {
               </motion.div>
               <div className="flex-1">
                 <h2 className="text-sm sm:text-lg md:text-xl lg:text-xl xl:text-3xl 2xl:text-4xl font-black mb-0.5 sm:mb-1 flex flex-col sm:flex-row sm:items-center">
-                  <SplitText 
-                    text="OFERTAS ESPECIALES" 
-                    className="bg-gradient-to-r from-yellow-300 to-white bg-clip-text text-transparent"
-                    delay={0.6}
-                  />
-                  
+                  <span className="bg-gradient-to-r from-yellow-300 to-white bg-clip-text text-transparent">
+                    OFERTAS ESPECIALES
+                  </span>
                 </h2>
-                <SplitText 
-                  text="¡Descubre las mejores oportunidades del mercado!"
-                  className="text-xs sm:text-sm md:text-sm lg:text-base xl:text-lg 2xl:text-xl font-semibold text-sky-100"
-                  delay={1.0}
-                />
+                <p className="text-xs sm:text-sm md:text-sm lg:text-base xl:text-lg 2xl:text-xl font-semibold text-sky-100">
+                  ¡Descubre las mejores oportunidades del mercado!
+                </p>
               </div>
             </div>
             
@@ -206,9 +172,9 @@ const OfferCarousel: React.FC = () => {
         <div className="overflow-visible rounded-xl">
           <div className="flex transition-transform duration-700 ease-in-out">
             {getVisibleItems().map((item: ObjectType, index: number) => (
-              <motion.div 
+              <div 
                 key={`${item._id || index}-${index}`} 
-                className={`flex-shrink-0 transform transition-all duration-300 hover:scale-105 ${
+                className={`flex-shrink-0 ${
                   visibleItems === 1 ? 'w-full px-1 py-1' : 
                   visibleItems === 2 ? 'w-1/2 px-1 sm:px-2 py-1 sm:py-2' : 
                   visibleItems === 3 ? 'w-1/3 px-1 sm:px-2 md:px-3 py-1 sm:py-2' : 
@@ -216,43 +182,24 @@ const OfferCarousel: React.FC = () => {
                   visibleItems === 5 ? 'w-1/5 px-1 sm:px-2 md:px-3 lg:px-4 py-1 sm:py-2' :
                   'w-1/6 px-1 sm:px-2 md:px-3 lg:px-4 py-1 sm:py-2'
                 }`}
-                initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ 
-                  duration: 0.6, 
-                  delay: 0.6 + index * 0.1,
-                  ease: "easeOut"
-                }}
-                whileHover={{ 
-                  scale: 1.05,
-                  transition: { duration: 0.2 }
-                }}
               >
-                <div className="relative group overflow-visible">
-                  {/* Efecto RGB como sombra que se extiende hacia arriba y abajo - detrás de la card */}
-                  <div className="absolute -inset-4 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-3xl opacity-0 group-hover:opacity-70 blur-lg transition-all duration-500 z-0"></div>
-                  
-                  {/* Sombra adicional para profundidad - detrás de la card */}
-                  <div className="absolute -inset-2 bg-gradient-to-r from-sky-400 to-blue-500 rounded-2xl opacity-0 group-hover:opacity-50 blur-sm transition-all duration-300 z-0"></div>
-                  
-                  <div className="relative  rounded-xl group-hover:shadow-2xl transition-all duration-300 z-10">
-                    <UserCard
-                      _id={item._id || `offer-${index}`}
-                      marca={item.data?.items[0]?.marca || ''}
-                      name={item.data?.items[0]?.name || ''}
-                      photo={item.data?.items[0]?.photo}
-                      price={item.data?.items[0]?.price}
-                      summary={item.data?.items[0]?.summary || ''}
-                      description={item.data?.items[0]?.description || ''}
-                      specsTecs={item.data?.items[0]?.specsTecs}
-                      wholesalePrice={item.data?.items[0]?.wholesalePrice}
-                      quantity={item.data?.items[0]?.quantity}
-                      offer={item.offer || false}
-                      models={item.data?.items[0]?.models}
-                    />
-                  </div>
+                <div className="relative rounded-xl">
+                  <UserCard
+                    _id={item._id || `offer-${index}`}
+                    marca={item.data?.items[0]?.marca || ''}
+                    name={item.data?.items[0]?.name || ''}
+                    photo={item.data?.items[0]?.photo}
+                    price={item.data?.items[0]?.price}
+                    summary={item.data?.items[0]?.summary || ''}
+                    description={item.data?.items[0]?.description || ''}
+                    specsTecs={item.data?.items[0]?.specsTecs}
+                    wholesalePrice={item.data?.items[0]?.wholesalePrice}
+                    quantity={item.data?.items[0]?.quantity}
+                    offer={item.offer || false}
+                    models={item.data?.items[0]?.models}
+                  />
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
