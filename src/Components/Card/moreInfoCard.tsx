@@ -305,13 +305,6 @@ export default function ProductDetail() {
             ? `${productBrand} ${productName} - Casa Tomas`
             : `${productName} - Casa Tomas`}
         </title>
-        <style>{`
-          @keyframes rainbow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-          }
-        `}</style>
         <script type="application/ld+json">
           {JSON.stringify(productSchema)}
         </script>
@@ -706,63 +699,23 @@ export default function ProductDetail() {
               {/* Botones de acción */}
               <div className="space-y-3 mt-5">
                 <div className="grid grid-cols-1 gap-3">
-                  {/* Botón Agregar al Carrito - SÚPER LLAMATIVO */}
-                    <button
-                      onClick={handleAddToCart}
-                      className="group relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-red-500 hover:from-blue-700 hover:via-purple-700 hover:to-red-600 text-white py-4 px-6 rounded-2xl font-bold text-base transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg"
-                      style={{
-                        background: 'linear-gradient(45deg, #3b82f6, #8b5cf6, #ef4444, #3b82f6)',
-                        backgroundSize: '300% 300%',
-                        animation: 'rainbow 3s ease infinite'
-                      }}
+                  <button
+                    type="button"
+                    onClick={handleAddToCart}
+                    className="w-full bg-sky-600 hover:bg-sky-700 text-white py-3 px-4 rounded-lg font-medium text-sm transition-colors"
                   >
-                    {/* Efecto de brillo animado */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                    
-                    {/* Sombra RGB animada */}
-                    <div className="absolute inset-0 rounded-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-300"
-                         style={{
-                           background: 'linear-gradient(45deg, #3b82f6, #8b5cf6, #ef4444, #3b82f6)',
-                           backgroundSize: '300% 300%',
-                           animation: 'rainbow 2s ease infinite',
-                           filter: 'blur(8px)',
-                           zIndex: -1
-                         }}
-                    ></div>
-                    
-                    <div className="relative flex items-center justify-center gap-2">
-                      <span className="text-lg font-black tracking-wide">🛒 AGREGAR AL CARRITO</span>
-                      <div className="flex space-x-1">
-                        <div className="w-1 h-1 bg-white rounded-full animate-bounce"></div>
-                        <div className="w-1 h-1 bg-white rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                        <div className="w-1 h-1 bg-white rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-                      </div>
-                    </div>
+                    Añadir al carrito
                   </button>
 
-                {/* Botón WhatsApp - SÚPER ATRACTIVO (solo para productos que no sean de Mercería) */}
                 {product.section !== "Merceria" && (
                   <a
                     href={`https://wa.me/5493492279892?text=${generateWhatsAppMessage()}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group relative overflow-hidden bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:from-green-500 hover:via-green-600 hover:to-green-700 text-white py-4 px-6 rounded-2xl font-bold text-base transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg"
+                    className="w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-medium text-sm transition-colors"
                   >
-                    {/* Efecto de brillo animado */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                    
-                    {/* Sombra verde animada */}
-                    <div className="absolute inset-0 rounded-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-300 bg-green-500 blur-lg"></div>
-                    
-                    <div className="relative flex items-center justify-center gap-2">
-                      <img src="/whatsapp.png" className="w-6 h-6 animate-pulse" />
-                      <span className="text-lg font-black tracking-wide">💬 CONSULTAR POR WHATSAPP</span>
-                      <div className="flex space-x-1">
-                        <div className="w-1 h-1 bg-white rounded-full animate-bounce"></div>
-                        <div className="w-1 h-1 bg-white rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                        <div className="w-1 h-1 bg-white rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-                      </div>
-                    </div>
+                    <img src="/whatsapp.png" alt="" className="w-5 h-5" />
+                    Consultar por WhatsApp
                   </a>
                 )}
                 </div>

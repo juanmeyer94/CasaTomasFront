@@ -23,8 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 
-#.env
+# Env / secrets
 .env
-
-#secrets
+.env.*
+!.env.example
 secrets.json
+credentials.json
+.credentials.json
+*.credentials.json

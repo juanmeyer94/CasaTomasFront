@@ -294,22 +294,6 @@ const Footer: React.FC = () => {
 
             {/* Version 2.0*/}
             <p className="text-gray-300 text-sm">Version 2.0</p>
-            
-            <div className="text-center md:text-right">
-              <p className="text-gray-300 text-sm mb-1">Desarrollado con</p>
-              <div className="flex items-center justify-center md:justify-end space-x-2">
-                <Heart className="w-4 h-4 text-red-500" />
-                <span className="text-gray-300 text-sm">por</span>
-                <a
-                  href="https://www.linkedin.com/in/juan-meyer-9b34a5269"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-yellow-400 hover:text-yellow-300 transition-colors duration-300 font-semibold"
-                >
-                  Juan Meyer
-                </a>
-              </div>
-            </div>
           </div>
         </motion.div>
       </div>
