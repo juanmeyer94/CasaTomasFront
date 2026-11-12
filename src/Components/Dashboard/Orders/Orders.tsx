@@ -79,6 +79,18 @@ const Orders = () => {
 
   const getStatusColor = (status: string | undefined) => {
     switch (status) {
+      case 'pagado':
+        return (
+          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
+            Pagado
+          </span>
+        );
+      case 'pendiente_pago':
+        return (
+          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">
+            Pendiente pago
+          </span>
+        );
       case 'pendiente':
         return <img src="/pending.png" alt="pendiente" className="w-8 h-8"/>
       case 'En Progreso':
@@ -86,7 +98,7 @@ const Orders = () => {
       case 'Listo':
         return <img src="/ready.png" alt="listo" className="w-9 h-9"/>
       default:
-        return <span className="text-gray-400 text-sm">Sin estado</span>;
+        return <span className="text-gray-400 text-sm">{status || "Sin estado"}</span>;
     }
   };
 
@@ -186,6 +198,26 @@ const Orders = () => {
               >
                 Pendientes ({orders.filter(o => o.status === 'pendiente' && !o.deleted).length})
               </button>
+              <button
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                  selectedStatus === 'pagado' 
+                    ? 'bg-indigo-600 text-white shadow-md' 
+                    : 'bg-white text-gray-700 hover:bg-gray-50'
+                }`}
+                onClick={() => setSelectedStatus("pagado")}
+              >
+                Pagados ({orders.filter(o => o.status === 'pagado' && !o.deleted).length})
+              </button>
+              <button
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                  selectedStatus === 'pendiente_pago' 
+                    ? 'bg-indigo-600 text-white shadow-md' 
+                    : 'bg-white text-gray-700 hover:bg-gray-50'
+                }`}
+                onClick={() => setSelectedStatus("pendiente_pago")}
+              >
+                Pago pendiente ({orders.filter(o => o.status === 'pendiente_pago' && !o.deleted).length})
+              </button>
             </div>
           </div>
 
@@ -248,6 +280,12 @@ const Orders = () => {
                           {order.userName} {order.userLastName}
                         </div>
                         <div className="text-sm text-gray-500">{order.userEmail}</div>
+                        {order.paymentMethod === "mercadopago" && (
+                          <div className="text-xs text-sky-600 mt-0.5">
+                            Mercado Pago
+                            {order.payment?.paymentId ? ` · ${order.payment.paymentId}` : ""}
+                          </div>
+                        )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">

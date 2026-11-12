@@ -2,6 +2,7 @@ import { Navigate, useRoutes } from "react-router-dom";
 import AboutUs from "../Components/AboutUs/aboutUs";
 import ProductDetail from "../Components/Card/moreInfoCard";
 import BuyCart from "../Components/Cart/buyCart";
+import PaymentResult from "../Components/Cart/PaymentResult";
 import ContactPage from "../Components/Contact/Contact";
 import GeneralContainer from "../Components/Containers/generalContainer"
 import DashContainer from "../Components/Dashboard/dashboardContainer";
@@ -68,6 +69,30 @@ const routes = [
                     <UserContextProvider>
                         <LayoutWithNavBar>
                             <BuyCart />
+                        </LayoutWithNavBar>
+                    </UserContextProvider>
+            },
+            {
+                path: "/compra/exito", element:
+                    <UserContextProvider>
+                        <LayoutWithNavBar>
+                            <PaymentResult variant="success" />
+                        </LayoutWithNavBar>
+                    </UserContextProvider>
+            },
+            {
+                path: "/compra/pendiente", element:
+                    <UserContextProvider>
+                        <LayoutWithNavBar>
+                            <PaymentResult variant="pending" />
+                        </LayoutWithNavBar>
+                    </UserContextProvider>
+            },
+            {
+                path: "/compra/error", element:
+                    <UserContextProvider>
+                        <LayoutWithNavBar>
+                            <PaymentResult variant="error" />
                         </LayoutWithNavBar>
                     </UserContextProvider>
             },

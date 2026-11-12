@@ -381,6 +381,23 @@ const OrderModal: React.FC<{ order: Order; onClose: () => void }> = ({ order, on
           <p className="text-sm text-gray-600 mb-2">Fecha del pedido: {formatDate(order.createdAt)}</p>
           <h2 className="text-lg font-semibold">Cliente: {order.userName} {order.userLastName}</h2>
           <p>Email: {order.userEmail}</p>
+          <p>Estado: <strong>{order.status}</strong></p>
+          {order.paymentMethod && (
+            <p>Método: <strong>{order.paymentMethod}</strong></p>
+          )}
+          {order.payment?.paymentId && (
+            <div className="mt-2 text-sm bg-green-50 border border-green-200 rounded-lg p-3">
+              <p><strong>Pago Mercado Pago</strong></p>
+              <p>ID: {order.payment.paymentId}</p>
+              <p>Estado MP: {order.payment.status}</p>
+              {order.payment.transactionAmount != null && (
+                <p>Monto: ${order.payment.transactionAmount}</p>
+              )}
+              {order.payment.paidAt && (
+                <p>Pagado: {new Date(order.payment.paidAt).toLocaleString("es-AR")}</p>
+              )}
+            </div>
+          )}
           {order.cellphone && <p>Celular: {order.cellphone}</p>}
         </div>
         <div className="mb-4">

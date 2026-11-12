@@ -20,6 +20,35 @@ export const sendOrderToApi = async (orderData: NewOrder) => {
   }
 };
 
+export const createMercadoPagoCheckout = async (orderData: NewOrder) => {
+  const response = await axios.post("/payments/mercadopago/checkout", orderData);
+  return response.data as {
+    orderId: string;
+    orderNumber: number;
+    preferenceId: string;
+    init_point: string;
+    sandbox_init_point?: string;
+  };
+};
+
+export const getOrderPaymentStatus = async (orderId: string) => {
+  const response = await axios.get(`/payments/mercadopago/orders/${orderId}`);
+  return response.data as {
+    orderId: string;
+    orderNumber: number;
+    status: string;
+    paymentMethod?: string;
+    payment?: {
+      status?: string;
+      paymentId?: string;
+      transactionAmount?: number;
+      paidAt?: string;
+      paymentMethodId?: string;
+    } | null;
+    totalAmount: number;
+  };
+};
+
 export const sendContactMessage = async (message: Contact) => {
   try {
     const response = await axios.post("/sendContact", message);

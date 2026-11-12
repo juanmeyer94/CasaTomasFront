@@ -21,6 +21,18 @@ export interface OrderItem {
   commentary?: string;
 }
 
+export interface OrderPayment {
+  provider?: string;
+  preferenceId?: string;
+  paymentId?: string;
+  status?: string;
+  statusDetail?: string;
+  paymentType?: string;
+  paymentMethodId?: string;
+  transactionAmount?: number;
+  paidAt?: string;
+}
+
 export interface Order {
   _id: string;
   orderItems: OrderItem[];
@@ -30,6 +42,8 @@ export interface Order {
   cellphone?: string;
   totalAmount: number;
   status?: string;
+  paymentMethod?: string;
+  payment?: OrderPayment;
   deleted?: boolean;
   orderNumber?: number;
   createdAt: string;

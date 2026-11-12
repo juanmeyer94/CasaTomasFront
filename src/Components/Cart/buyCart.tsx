@@ -8,6 +8,7 @@ import type {
   NewOrder,
   OrderItemData,
 } from "../../Interfaces/types/OrderInterface/OrderInterface";
+import { createMercadoPagoCheckout } from "../../Services/userServices/userServices";
 import CartModal from "./cartModal";
 import { Helmet } from "react-helmet-async";
 import {
@@ -40,7 +41,7 @@ interface FormData {
 }
 
 const BuyCart = () => {
-  const { buyCart, sendOrder, removeCart } = useUserContext();
+  const { buyCart, sendOrder, removeCart, upgradeCart } = useUserContext();
   const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
@@ -71,8 +72,7 @@ const BuyCart = () => {
     };
   };
 
-  // Preparar datos del pedido
-  const orderData: NewOrder = {
+  const buildOrderData = (status: string): NewOrder => ({
     orderItems: buyCart.map(
       (product: { item: OrderItemData; quantities: number }) => ({
         type: "defaultType",
@@ -87,24 +87,21 @@ const BuyCart = () => {
     userName: formData.firstName,
     userLastName: formData.lastName,
     cellphone: formData.phone,
-    status: "pendiente",
+    status,
     deleted: false,
     totalAmount: buyCart.reduce(
-      (acc: number, product: { item: OrderItemData; quantities: number }) =>
-        acc + Number.parseFloat(product.item.price) * product.quantities,
+      (acc: number, product: BuyCarInterface) => acc + Number(product.totalPrice || 0),
       0
     ),
-  };
+  });
 
-  console.log(buyCart)
-
-  // Finalizar pedido
+  // Pedido sin pago online (presupuesto)
   const finishOrder = async () => {
     try {
       const { isConfirmed } = await Swal.fire({
-        title: "¿Estás seguro?",
-        text: "¡No podrás deshacer esta acción!",
-        icon: "warning",
+        title: "¿Pedir presupuesto?",
+        text: "Te contactaremos para cerrar la compra. No se cobra online.",
+        icon: "question",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
@@ -114,7 +111,7 @@ const BuyCart = () => {
 
       if (isConfirmed) {
         Swal.fire({
-          title: "Confirmando tu compra...",
+          title: "Confirmando tu pedido...",
           text: "Esto puede tardar un momento.",
           icon: "info",
           allowOutsideClick: false,
@@ -123,10 +120,10 @@ const BuyCart = () => {
           },
         });
 
-        const response = await sendOrder(orderData);
+        const response = await sendOrder(buildOrderData("pendiente"));
         Swal.close();
 
-       if (response.status >= 200 && response.status < 300) {
+        if (response.status >= 200 && response.status < 300) {
           Swal.fire(
             "¡Pedido confirmado!",
             "Tu pedido ha sido realizado con éxito. ¡Pronto nos comunicaremos para finalizar la compra!",
@@ -140,12 +137,6 @@ const BuyCart = () => {
             "error"
           );
         }
-      } else {
-        Swal.fire({
-          icon: "info",
-          title: "Operación cancelada",
-          text: "La confirmación de pedido ha sido cancelada.",
-        });
       }
     } catch (error) {
       Swal.close();
@@ -154,6 +145,55 @@ const BuyCart = () => {
         "No se pudo completar el pedido. Intenta nuevamente.",
         "error"
       );
+    }
+  };
+
+  // Pago con Mercado Pago (Checkout Pro)
+  const payWithMercadoPago = async () => {
+    try {
+      const { isConfirmed } = await Swal.fire({
+        title: "Pagar con Mercado Pago",
+        text: "Vas a ser redirigido a Mercado Pago para completar el pago.",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#009ee3",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ir a pagar",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (!isConfirmed) return;
+
+      Swal.fire({
+        title: "Preparando el pago...",
+        text: "Creando tu pedido en Mercado Pago",
+        icon: "info",
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading(),
+      });
+
+      const checkout = await createMercadoPagoCheckout(
+        buildOrderData("pendiente_pago")
+      );
+      Swal.close();
+
+      if (checkout?.init_point) {
+        upgradeCart([]);
+        window.location.href = checkout.init_point;
+        return;
+      }
+
+      Swal.fire(
+        "Error",
+        "No recibimos el link de pago. Intentá de nuevo o pedí presupuesto.",
+        "error"
+      );
+    } catch (error: any) {
+      Swal.close();
+      const message =
+        error?.response?.data?.message ||
+        "No se pudo iniciar Mercado Pago. Revisá la configuración o pedí presupuesto.";
+      Swal.fire("Error", message, "error");
     }
   };
 
@@ -948,6 +988,21 @@ const BuyCart = () => {
 
                   <div className="mt-6 space-y-3">
                     <button
+                      type="button"
+                      className={`w-full py-3 px-4 rounded-lg flex items-center justify-center gap-2 ${
+                        isBuyButtonEnabled
+                          ? "bg-[#009ee3] hover:bg-[#008bd1] text-white"
+                          : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                      }`}
+                      disabled={!isBuyButtonEnabled}
+                      onClick={payWithMercadoPago}
+                    >
+                      <CreditCard className="w-4 h-4" />
+                      Pagar con Mercado Pago
+                    </button>
+
+                    <button
+                      type="button"
                       className={`w-full py-3 px-4 rounded-lg flex items-center justify-center ${
                         isBuyButtonEnabled
                           ? "bg-sky-600 hover:bg-sky-700 text-white"
@@ -956,10 +1011,11 @@ const BuyCart = () => {
                       disabled={!isBuyButtonEnabled}
                       onClick={finishOrder}
                     >
-                      COMPRAR
+                      Pedir presupuesto
                     </button>
 
                     <button
+                      type="button"
                       className="w-full py-2.5 px-4 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition-colors flex items-center justify-center"
                       onClick={goToPreviousStep}
                     >
